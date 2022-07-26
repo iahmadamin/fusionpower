@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fusionpower/common/colors.dart';
-import 'package:fusionpower/features/auth/view/pages/login/login_page.dart';
+import 'package:fusionpower/constant/colors.dart';
+import 'package:fusionpower/features/auth/pages/login_page.dart';
 import 'package:fusionpower/widgets/c_button.dart';
 import 'package:get/get.dart';
-
-import 'onboard_content.dart';
 
 class OnboardPage extends StatefulWidget {
   const OnboardPage({Key? key}) : super(key: key);
@@ -53,7 +51,7 @@ class _OnboardPageState extends State<OnboardPage> {
                 });
               },
               itemBuilder: (context, index) {
-                return OnboardContent(
+                return _OnboardContent(
                   image: onboardData[index]['image']!,
                   title: onboardData[index]['title']!,
                   description: onboardData[index]['description']!,
@@ -100,6 +98,57 @@ class _OnboardPageState extends State<OnboardPage> {
           shape:
               _currentPage == index ? BoxShape.rectangle : BoxShape.rectangle,
           borderRadius: BorderRadius.circular(16)),
+    );
+  }
+}
+
+class _OnboardContent extends StatelessWidget {
+  const _OnboardContent(
+      {Key? key,
+      required this.image,
+      required this.title,
+      required this.description})
+      : super(key: key);
+
+  final String image, title, description;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 26),
+          child: Image.asset(
+            image,
+          ),
+        ),
+        const SizedBox(
+          height: 38,
+        ),
+        Text(
+          title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+              color: labelColorPrimary,
+              fontSize: 24,
+              fontWeight: FontWeight.w700),
+        ),
+        const SizedBox(
+          height: 14,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 22),
+          child: Text(
+            description,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+                color: labelColorSecondary,
+                fontSize: 16,
+                fontWeight: FontWeight.w400),
+          ),
+        ),
+      ],
     );
   }
 }

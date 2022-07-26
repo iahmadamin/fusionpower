@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fusionpower/common/colors.dart';
+import 'package:fusionpower/constant/colors.dart';
 
 class InputField extends StatefulWidget {
   InputField({

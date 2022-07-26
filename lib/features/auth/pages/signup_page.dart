@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fusionpower/common/colors.dart';
-import 'package:fusionpower/common/utils.dart';
-import 'package:fusionpower/features/auth/view/pages/login/login_page.dart';
+import 'package:fusionpower/constant/colors.dart';
+import 'package:fusionpower/constant/utils.dart';
+import 'package:fusionpower/features/auth/pages/login_page.dart';
 import 'package:fusionpower/widgets/c_button.dart';
 import 'package:fusionpower/widgets/input_field.dart';
 import 'package:get/get.dart';

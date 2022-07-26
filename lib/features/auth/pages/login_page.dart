@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fusionpower/common/colors.dart';
-import 'package:fusionpower/common/utils.dart';
-import 'package:fusionpower/features/auth/view/pages/signup/signup_page.dart';
+import 'package:fusionpower/constant/colors.dart';
+import 'package:fusionpower/constant/utils.dart';
+import 'package:fusionpower/features/auth/pages/signup_page.dart';
 import 'package:fusionpower/widgets/c_button.dart';
 import 'package:fusionpower/widgets/input_field.dart';
 import 'package:get/get.dart';
@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 16,
               ),
-              Text(
+              const Text(
                 "Fusion Power",
                 style: TextStyle(
                   fontSize: 24,
@@ -87,8 +87,8 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 16,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
                 child: Text(
                   "Enter your e-mail account and password to browse Elektra",
                   textAlign: TextAlign.center,
@@ -125,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
                   onTap: () {},
-                  child: Text(
+                  child: const Text(
                     "Forgot Password?",
                     style: TextStyle(
                       fontSize: 16,
@@ -137,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 24),
               CButton(label: "Login", onTap: () {}),
               const SizedBox(height: 24),
-              Text(
+              const Text(
                 'Or',
                 style: TextStyle(color: labelColorSecondary, fontSize: 16),
               ),

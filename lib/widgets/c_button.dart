@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fusionpower/common/colors.dart';
+import 'package:fusionpower/constant/colors.dart';
 
 class CButton extends StatelessWidget {
   const CButton({
