@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fusionpower/features/auth/pages/onboard_page.dart';
+import 'package:fusionpower/view/pages/Auth/onboard_page.dart';
 import 'package:get/get.dart';
 
 class SplashPage extends StatefulWidget {

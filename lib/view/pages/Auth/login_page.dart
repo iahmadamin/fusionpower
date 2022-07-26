@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/constant/utils.dart';
-import 'package:fusionpower/features/auth/pages/signup_page.dart';
-import 'package:fusionpower/widgets/c_button.dart';
-import 'package:fusionpower/widgets/input_field.dart';
+import 'package:fusionpower/view/pages/Auth/signup_page.dart';
+import 'package:fusionpower/view/widgets/c_button.dart';
+import 'package:fusionpower/view/widgets/input_field.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {

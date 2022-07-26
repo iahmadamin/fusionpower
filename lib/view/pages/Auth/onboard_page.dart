@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
-import 'package:fusionpower/features/auth/pages/login_page.dart';
-import 'package:fusionpower/widgets/c_button.dart';
+import 'package:fusionpower/view/pages/Auth/login_page.dart';
+import 'package:fusionpower/view/widgets/c_button.dart';
 import 'package:get/get.dart';
 
 class OnboardPage extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fusionpower/features/splash/splash_page.dart';
-import 'package:get/route_manager.dart';
+import 'package:fusionpower/view/pages/Home/home_page.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Poppins'),
-      home: const SplashPage(),
+      home: const HomePage(),
     );
   }
 }
