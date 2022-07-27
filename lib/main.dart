@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fusionpower/view/pages/Home/home_page.dart';
+import 'package:fusionpower/view/pages/Product/kit_page.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'Poppins'),
-      home: const HomePage(),
+      home: const KitPage(),
     );
   }
 }
