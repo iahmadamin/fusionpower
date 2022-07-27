@@ -7,21 +7,31 @@ class CButton extends StatelessWidget {
     required this.label,
     required this.onTap,
     this.filled = true,
+    this.height = 48,
+    this.borderRadius = 24,
+    this.color = Colors.black,
+    this.fontSize = 17,
+    this.width = double.infinity,
   }) : super(key: key);
 
   final String label;
   final VoidCallback onTap;
   final bool filled;
+  final double height, width;
+  final double borderRadius;
+  final Color color;
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 48,
+        height: height,
+        width: width,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(24),
-            color: filled ? Colors.black : backgroundColor,
+            borderRadius: BorderRadius.circular(borderRadius),
+            color: filled ? color : backgroundColor,
             border: filled
                 ? null
                 : Border.all(
@@ -31,7 +41,7 @@ class CButton extends StatelessWidget {
           child: Text(
             label,
             style: TextStyle(
-                fontSize: 17,
+                fontSize: fontSize,
                 color: filled ? Colors.white : primaryPurple,
                 fontWeight: FontWeight.w600),
           ),

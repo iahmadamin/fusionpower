@@ -3,6 +3,7 @@ import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/models/product_model.dart';
 import 'package:fusionpower/view/pages/Product/widgets/mini_product_tile.dart';
 import 'package:fusionpower/view/pages/Product/widgets/product_data_tile.dart';
+import 'package:get/get.dart';
 
 class ProductDetail extends StatelessWidget {
   const ProductDetail({
@@ -17,6 +18,28 @@ class ProductDetail extends StatelessWidget {
     return Scaffold(
       backgroundColor: backgroundColor,
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        backgroundColor: backgroundColor,
+        elevation: 0.0,
+        leading: GestureDetector(
+          onTap: () {
+            Get.back();
+          },
+          child: const Icon(
+            Icons.arrow_back_ios,
+            color: primaryPurple,
+          ),
+        ),
+        title: const Text(
+          "Product Details",
+          style: TextStyle(
+            color: labelColorPrimary,
+            fontWeight: FontWeight.w600,
+            fontSize: 17,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: SizedBox.expand(
         child: SingleChildScrollView(
           child: Column(children: [

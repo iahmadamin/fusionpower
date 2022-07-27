@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
+import 'package:fusionpower/view/pages/Auth/login_page.dart';
+import 'package:fusionpower/view/pages/Product/kit_page.dart';
 import 'package:fusionpower/view/widgets/mini_button.dart';
 import 'package:get/get.dart';
 
@@ -84,7 +86,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
             children: [
               _DrawerTile(
                 label: "Solar Power Kits",
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => const KitPage());
+                },
               ),
               Divider(
                 height: drawerDividerHeight,
@@ -92,7 +96,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
               ),
               _DrawerTile(
                 label: "Load Shedding Kits",
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => const KitPage(
+                        isSolar: false,
+                      ));
+                },
               ),
               Divider(
                 height: drawerDividerHeight,
@@ -141,6 +149,16 @@ class _HomeDrawerState extends State<HomeDrawer> {
               _DrawerTile(
                 label: "Contact",
                 onTap: () {},
+              ),
+              Divider(
+                height: drawerDividerHeight,
+                color: const Color(0xFFE7E7E7),
+              ),
+              _DrawerTile(
+                label: "Logout",
+                onTap: () {
+                  Get.offAll(() => const LoginPage());
+                },
               ),
             ],
           ),

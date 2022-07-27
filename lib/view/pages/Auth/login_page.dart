@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/constant/utils.dart';
 import 'package:fusionpower/view/pages/Auth/signup_page.dart';
+import 'package:fusionpower/view/pages/Home/home_page.dart';
 import 'package:fusionpower/view/widgets/c_button.dart';
 import 'package:fusionpower/view/widgets/input_field.dart';
 import 'package:get/get.dart';
@@ -135,7 +136,11 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 24),
-              CButton(label: "Login", onTap: () {}),
+              CButton(
+                  label: "Login",
+                  onTap: () {
+                    Get.offAll(() => const HomePage());
+                  }),
               const SizedBox(height: 24),
               const Text(
                 'Or',

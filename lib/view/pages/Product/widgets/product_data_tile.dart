@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
+import 'package:fusionpower/controllers/cart_controller.dart';
 import 'package:fusionpower/models/product_model.dart';
 import 'package:get/get.dart';
 
@@ -35,7 +36,13 @@ class ProductDataTile extends StatelessWidget {
                   letterSpacing: 0.38),
             ),
             GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  final CartController controller = Get.find();
+                  controller.addProduct(product);
+                  Get.snackbar(
+                      "Added to Cart!", "Product has been added to your cart.",
+                      backgroundColor: pastelGreen, colorText: Colors.white);
+                },
                 child: Container(
                   height: 22,
                   width: 78,
