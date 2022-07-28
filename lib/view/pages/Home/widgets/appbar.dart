@@ -26,6 +26,8 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           const SizedBox(width: 16),
           GestureDetector(
             onTap: () {
+              final CartController cartController = Get.find();
+              cartController.resetcurrentStep();
               Get.to(() => CartPage());
             },
             child: SizedBox(

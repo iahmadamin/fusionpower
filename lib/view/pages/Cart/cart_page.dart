@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/cart_controller.dart';
+import 'package:fusionpower/view/pages/Cart/components/cart.dart';
 import 'package:fusionpower/view/pages/Cart/widgets/stepper.dart';
 import 'package:get/get.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   CartPage({Key? key}) : super(key: key);
 
+  @override
+  State<CartPage> createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
   final List<Widget> cartPages = [
-    Scaffold(
-      backgroundColor: Colors.red,
-      body: Center(
-        child: Text('Page 1'),
-      ),
-    ),
+    Cart(),
     Scaffold(
       backgroundColor: Colors.green,
       body: Center(
@@ -27,6 +28,11 @@ class CartPage extends StatelessWidget {
       ),
     )
   ];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

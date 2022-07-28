@@ -5,6 +5,14 @@ class CartController extends GetxController {
   final List<Product> _cart = [];
   List<Product> get cart => _cart;
   var currentStep = 1;
+  int totalPrice = 0;
+  int subTotalPrice = 0;
+  int discount = 0;
+
+  void resetcurrentStep() {
+    currentStep = 1;
+    update();
+  }
 
   void incrementcurrentStep() {
     if (currentStep < 3) {
@@ -23,6 +31,7 @@ class CartController extends GetxController {
   void addProduct(Product product) {
     if (cart.length < 9) {
       cart.add(product);
+      calculateSubtotal();
       update();
     }
   }
@@ -30,7 +39,20 @@ class CartController extends GetxController {
   void removeItem(Product product) {
     if (cart.length > 1) {
       cart.remove(product);
+      calculateSubtotal();
       update();
     }
+  }
+
+  void calculateSubtotal() {
+    subTotalPrice = 0;
+    cart.forEach((element) {
+      subTotalPrice += element.price;
+    });
+    calculateTotal();
+  }
+
+  void calculateTotal() {
+    totalPrice = subTotalPrice - discount;
   }
 }
