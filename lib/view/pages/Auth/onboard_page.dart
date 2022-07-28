@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
-import 'package:fusionpower/view/pages/Auth/login_page.dart';
+import 'package:fusionpower/view/pages/Home/home_page.dart';
 import 'package:fusionpower/view/widgets/c_button.dart';
 import 'package:get/get.dart';
 
@@ -75,7 +75,7 @@ class _OnboardPageState extends State<OnboardPage> {
             child: CButton(
               label: "Getting Started",
               onTap: () {
-                Get.off(() => const LoginPage());
+                Get.off(() => const HomePage());
               },
             ),
           ),
