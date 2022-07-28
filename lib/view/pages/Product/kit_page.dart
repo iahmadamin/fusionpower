@@ -202,8 +202,8 @@ class ProductKitTile extends StatelessWidget {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
+                children: const [
+                  Text(
                     "Starting At",
                     style: TextStyle(
                       fontSize: 10,
@@ -212,7 +212,7 @@ class ProductKitTile extends StatelessWidget {
                       color: Color(0xFF898A8D),
                     ),
                   ),
-                  const Text(
+                  Text(
                     "19,000 PKR.",
                     style: TextStyle(
                       fontSize: 14,
@@ -228,8 +228,8 @@ class ProductKitTile extends StatelessWidget {
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
+                children: const [
+                  Text(
                     "Pay Monthly",
                     style: TextStyle(
                       fontSize: 10,
@@ -238,7 +238,7 @@ class ProductKitTile extends StatelessWidget {
                       color: Color(0xFF898A8D),
                     ),
                   ),
-                  const Text(
+                  Text(
                     "19,000 PKR.",
                     style: TextStyle(
                       fontSize: 14,
@@ -247,7 +247,7 @@ class ProductKitTile extends StatelessWidget {
                       color: greyDark,
                     ),
                   ),
-                  const Text(
+                  Text(
                     "60 Months @ 16% APR",
                     style: TextStyle(
                       fontSize: 10,

@@ -74,7 +74,7 @@ class UserInformationDialogContentState
             color: Color(0xFF898A8D),
           ),
         ),
-        const SizedBox(height: 26),
+        const SizedBox(height: 16),
         UInputField(
           controller: nameController,
           hint: "Full Name",
@@ -94,7 +94,7 @@ class UserInformationDialogContentState
           validator: (val) => Validators.defaultValidator(val),
         ),
         SizedBox(
-          height: 38,
+          height: 32,
           child: DropdownButton<String>(
             borderRadius: BorderRadius.circular(4),
             isExpanded: true,
@@ -149,7 +149,7 @@ class UserInformationDialogContentState
           validator: (val) => Validators.defaultValidator(val),
         ),
         SizedBox(
-          height: 38,
+          height: 32,
           child: DropdownButton<String>(
             borderRadius: BorderRadius.circular(4),
             isExpanded: true,
@@ -195,7 +195,7 @@ class UserInformationDialogContentState
           ),
         ),
         const SizedBox(
-          height: 16,
+          height: 12,
         ),
         GestureDetector(
             onTap: () {

@@ -32,10 +32,11 @@ class CartStepper extends StatelessWidget {
             ),
             Positioned(
               top: 18,
-              child: Container(
+              child: AnimatedContainer(
                 height: 4,
                 width: Get.width * (controller.currentStep / 3),
                 color: pastelGreen,
+                duration: const Duration(milliseconds: 300),
               ),
             ),
             Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [

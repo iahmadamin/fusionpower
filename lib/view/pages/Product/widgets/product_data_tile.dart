@@ -66,7 +66,7 @@ class ProductDataTile extends StatelessWidget {
         const SizedBox(
           height: 4,
         ),
-        Text(
+        const Text(
           "Bundle Test Product",
           style: TextStyle(
             fontSize: 12,
@@ -83,7 +83,7 @@ class ProductDataTile extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Starting At",
                   style: TextStyle(
                     fontSize: 10,
@@ -92,7 +92,7 @@ class ProductDataTile extends StatelessWidget {
                     color: Color(0xFF898A8D),
                   ),
                 ),
-                Text(
+                const Text(
                   "19,000 PKR.",
                   style: TextStyle(
                     fontSize: 14,
@@ -101,7 +101,7 @@ class ProductDataTile extends StatelessWidget {
                     color: greyDark,
                   ),
                 ),
-                Text(
+                const Text(
                   "Inc VAT.",
                   style: TextStyle(
                     fontSize: 10,
@@ -118,7 +118,7 @@ class ProductDataTile extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Pay Monthly",
                   style: TextStyle(
                     fontSize: 10,
@@ -127,7 +127,7 @@ class ProductDataTile extends StatelessWidget {
                     color: Color(0xFF898A8D),
                   ),
                 ),
-                Text(
+                const Text(
                   "19,000 PKR.",
                   style: TextStyle(
                     fontSize: 14,
@@ -136,7 +136,7 @@ class ProductDataTile extends StatelessWidget {
                     color: greyDark,
                   ),
                 ),
-                Text(
+                const Text(
                   "60 Months @ 16% APR",
                   style: TextStyle(
                     fontSize: 10,
@@ -174,7 +174,7 @@ class ProductDataTile extends StatelessWidget {
               ),
             )),
         const SizedBox(height: 24),
-        Text(
+        const Text(
           "Enter Your Highest Monthly bill",
           style: TextStyle(
             fontSize: 14,
@@ -183,7 +183,7 @@ class ProductDataTile extends StatelessWidget {
             color: greyDark,
           ),
         ),
-        Text(
+        const Text(
           "Inc VAT.",
           style: TextStyle(
             fontSize: 10,

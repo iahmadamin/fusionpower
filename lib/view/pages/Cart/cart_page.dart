@@ -1,51 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/cart_controller.dart';
+import 'package:fusionpower/view/pages/Cart/components/billing.dart';
 import 'package:fusionpower/view/pages/Cart/components/cart.dart';
+import 'package:fusionpower/view/pages/Cart/components/confirmation.dart';
 import 'package:fusionpower/view/pages/Cart/widgets/stepper.dart';
 import 'package:get/get.dart';
 
 class CartPage extends StatefulWidget {
-  CartPage({Key? key}) : super(key: key);
+  const CartPage({Key? key}) : super(key: key);
 
   @override
   State<CartPage> createState() => _CartPageState();
 }
 
 class _CartPageState extends State<CartPage> {
-  final List<Widget> cartPages = [
-    Cart(),
-    Scaffold(
-      backgroundColor: Colors.green,
-      body: Center(
-        child: Text('Page 2'),
-      ),
-    ),
-    Scaffold(
-      backgroundColor: Colors.blueAccent,
-      body: Center(
-        child: Text('Page 3'),
-      ),
-    )
-  ];
+  late final List<Widget> cartPages;
+  late final CartController controller;
+  late final PageController pageController;
 
   @override
   void initState() {
+    pageController = PageController();
+    controller = Get.find();
     super.initState();
+    cartPages = [
+      Cart(
+        pageController: pageController,
+      ),
+      Billing(pageController: pageController),
+      const Confirmation(),
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
-    final PageController pageController = PageController();
-
     return Scaffold(
       backgroundColor: backgroundColor,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: backgroundColor,
         elevation: 0.0,
         leading: GestureDetector(
           onTap: () {
-            Get.back();
+            if (controller.currentStep > 1) {
+              controller.decrementcurrentStep();
+              pageController.previousPage(
+                  duration: const Duration(milliseconds: 200),
+                  curve: Curves.easeIn);
+            } else {
+              Get.back();
+            }
           },
           child: const Icon(
             Icons.arrow_back_ios,
@@ -72,14 +77,7 @@ class _CartPageState extends State<CartPage> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: 3,
                     itemBuilder: (context, index) {
-                      return GestureDetector(
-                          onTap: () {
-                            controller.incrementcurrentStep();
-                            pageController.nextPage(
-                                duration: const Duration(milliseconds: 200),
-                                curve: Curves.easeIn);
-                          },
-                          child: cartPages[index]);
+                      return cartPages[index];
                     }));
           })
         ]),

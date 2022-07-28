@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
       body: GridView.count(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         crossAxisCount: 2,
-        childAspectRatio: 0.6,
+        childAspectRatio: 0.58,
         children: [
           for (var i = 0; i < 12; i++) const ProductMiniTile(),
         ],
@@ -54,7 +54,9 @@ class ProductMiniTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset('assets/images/p1.png'),
+          SizedBox(
+              width: Get.width * 0.4,
+              child: Image.asset('assets/images/p1.png')),
           const SizedBox(
             height: 12,
           ),
@@ -101,7 +103,7 @@ class ProductMiniTile extends StatelessWidget {
             },
             borderRadius: 22,
             fontSize: 12,
-            height: 40,
+            height: 36,
             width: 126,
             color: const Color(0xFF979797),
           )

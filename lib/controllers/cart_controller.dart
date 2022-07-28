@@ -37,7 +37,7 @@ class CartController extends GetxController {
   }
 
   void removeItem(Product product) {
-    if (cart.length > 1) {
+    if (cart.isNotEmpty) {
       cart.remove(product);
       calculateSubtotal();
       update();
@@ -46,9 +46,9 @@ class CartController extends GetxController {
 
   void calculateSubtotal() {
     subTotalPrice = 0;
-    cart.forEach((element) {
+    for (var element in cart) {
       subTotalPrice += element.price;
-    });
+    }
     calculateTotal();
   }
 

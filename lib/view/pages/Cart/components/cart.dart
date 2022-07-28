@@ -5,7 +5,9 @@ import 'package:fusionpower/view/widgets/c_button.dart';
 import 'package:get/get.dart';
 
 class Cart extends StatefulWidget {
-  const Cart({Key? key}) : super(key: key);
+  const Cart({Key? key, required this.pageController}) : super(key: key);
+
+  final PageController pageController;
 
   @override
   State<Cart> createState() => _CartState();
@@ -23,7 +25,7 @@ class _CartState extends State<Cart> {
             return SingleChildScrollView(
               child: Column(children: [
                 for (var i = 0; i < controller.cart.length; i++)
-                  _CartItem(
+                  CartItem(
                     name: controller.cart[i].title,
                     imgPath: controller.cart[i].imagePath,
                     price: controller.cart[i].price,
@@ -36,12 +38,12 @@ class _CartState extends State<Cart> {
                 ),
                 Row(
                   children: [
-                    Expanded(
+                    const Expanded(
                       child: TextField(
                         cursorColor: greyDark,
                         decoration: InputDecoration(
                           isDense: true,
-                          contentPadding: const EdgeInsets.symmetric(
+                          contentPadding: EdgeInsets.symmetric(
                               horizontal: 20, vertical: 12),
                           hintText: "Coupon Code",
                           hintStyle: TextStyle(
@@ -62,7 +64,7 @@ class _CartState extends State<Cart> {
                     CButton(
                       label: "Coupon Code",
                       onTap: () {},
-                      color: Color(0xFF898A8D),
+                      color: const Color(0xFF898A8D),
                       borderRadius: 12,
                       height: 46,
                       width: 120,
@@ -78,8 +80,8 @@ class _CartState extends State<Cart> {
                   child: Container(
                     height: 46,
                     decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xFFE7E7E7))),
-                    child: Center(
+                        border: Border.all(color: const Color(0xFFE7E7E7))),
+                    child: const Center(
                         child: Text(
                       "Update Cart",
                       style: TextStyle(
@@ -96,9 +98,9 @@ class _CartState extends State<Cart> {
                   height: 46,
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xFFE7E7E7))),
+                      border: Border.all(color: const Color(0xFFE7E7E7))),
                   child: Row(children: [
-                    Text(
+                    const Text(
                       "Subtotal",
                       style: TextStyle(
                           fontSize: 12,
@@ -108,7 +110,7 @@ class _CartState extends State<Cart> {
                     const Spacer(),
                     Text(
                       "${controller.subTotalPrice} PKR.",
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 14,
                           color: Color(0xFF434343),
                           fontWeight: FontWeight.w700),
@@ -122,9 +124,9 @@ class _CartState extends State<Cart> {
                   height: 62,
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xFFE7E7E7))),
+                      border: Border.all(color: const Color(0xFFE7E7E7))),
                   child: Row(children: [
-                    Text(
+                    const Text(
                       "Total",
                       style: TextStyle(
                           fontSize: 12,
@@ -134,7 +136,7 @@ class _CartState extends State<Cart> {
                     const Spacer(),
                     Text(
                       "${controller.totalPrice} PKR.",
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 16,
                           color: Color(0xFF434343),
                           fontWeight: FontWeight.w700),
@@ -146,7 +148,12 @@ class _CartState extends State<Cart> {
                 ),
                 CButton(
                   label: "Proceed to Checkout",
-                  onTap: () {},
+                  onTap: () {
+                    controller.incrementcurrentStep();
+                    widget.pageController.nextPage(
+                        duration: const Duration(milliseconds: 200),
+                        curve: Curves.easeIn);
+                  },
                   fontSize: 12,
                   borderRadius: 12,
                 ),
@@ -162,8 +169,8 @@ class _CartState extends State<Cart> {
   }
 }
 
-class _CartItem extends StatelessWidget {
-  const _CartItem({
+class CartItem extends StatelessWidget {
+  const CartItem({
     Key? key,
     required this.name,
     required this.price,
@@ -186,7 +193,7 @@ class _CartItem extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: onTap,
-            child: Text(
+            child: const Text(
               'X',
               style: TextStyle(fontWeight: FontWeight.w500),
             ),
@@ -199,7 +206,7 @@ class _CartItem extends StatelessWidget {
           const SizedBox(width: 8),
           Text(
             name,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Color(0xFF434343),
                 fontSize: 12,
                 letterSpacing: 0.38,
@@ -208,7 +215,7 @@ class _CartItem extends StatelessWidget {
           const Spacer(),
           Text(
             price.toString(),
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 14,
               letterSpacing: 0.38,
