@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/constant/utils.dart';
+import 'package:fusionpower/controllers/profile_controller.dart';
 import 'package:fusionpower/view/widgets/c_button.dart';
 import 'package:fusionpower/view/widgets/uinput_field.dart';
 import 'package:get/get.dart';
@@ -16,6 +17,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   late final TextEditingController nameController;
   late final TextEditingController emailController;
   late final TextEditingController addressController;
+  final _profileController = Get.find<ProfileController>();
 
   @override
   void initState() {
@@ -37,10 +39,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: backgroundColor,
-        title: Text(
+        title: const Text(
           "My Profile",
           style: TextStyle(
               color: Colors.black, fontSize: 17, fontWeight: FontWeight.w600),
@@ -48,7 +51,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         centerTitle: true,
         actions: [
           GestureDetector(
-            child: Icon(
+            child: const Icon(
               Icons.shopping_cart_outlined,
               size: 18,
               color: primaryPurple,
@@ -56,7 +59,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             onTap: () {},
           ),
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.chat_outlined,
               size: 18,
               color: primaryPurple,
@@ -74,15 +77,35 @@ class _EditProfilePageState extends State<EditProfilePage> {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                const CircleAvatar(
-                  radius: 56,
-                  backgroundImage: AssetImage('assets/images/user.png'),
-                ),
+                GetBuilder<ProfileController>(builder: (con) {
+                  return Container(
+                    height: 112,
+                    width: 112,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: con.imageFile != null
+                        ? ClipRRect(
+                            borderRadius: BorderRadius.circular(56),
+                            child: Image.file(
+                              con.imageFile!,
+                              fit: BoxFit.cover,
+                            ))
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(56),
+                            child: Image.asset(
+                              'assets/images/user.png',
+                              fit: BoxFit.cover,
+                            )),
+                  );
+                }),
                 Positioned(
                   right: 10,
                   bottom: 10,
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      imagePickerDialog();
+                    },
                     child: Container(
                       height: 36,
                       width: 36,
@@ -108,7 +131,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
           ),
           const SizedBox(height: 8),
-          Text(
+          const Text(
             "Wassi Ahsan",
             style: TextStyle(
               fontSize: 17,
@@ -153,6 +176,74 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 Get.back();
               })
         ]),
+      ),
+    );
+  }
+
+  Future<void> imagePickerDialog() {
+    return Get.defaultDialog(
+      title: "Choose Image or take a photo",
+      titleStyle: const TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        height: 1.5,
+      ),
+      titlePadding: const EdgeInsets.fromLTRB(
+        24,
+        32,
+        24,
+        16,
+      ),
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          GestureDetector(
+            onTap: () {
+              Get.back();
+              _profileController.getImageFromCamer();
+            },
+            child: Column(
+              children: const [
+                Icon(
+                  Icons.photo_camera_outlined,
+                  size: 36,
+                  color: primaryPurple,
+                ),
+                Text(
+                  "Camera",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: labelColorSecondary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.back();
+              _profileController.getImageFromGallery();
+            },
+            child: Column(
+              children: const [
+                Icon(
+                  Icons.image,
+                  size: 36,
+                  color: primaryPurple,
+                ),
+                Text(
+                  "Gallery",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: labelColorSecondary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

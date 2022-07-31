@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
+import 'package:fusionpower/controllers/profile_controller.dart';
 import 'package:fusionpower/view/pages/Profile/edit_profile.dart';
 import 'package:get/get.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    super.initState();
+    final profileController = Get.put(ProfileController());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +24,7 @@ class ProfilePage extends StatelessWidget {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             color: primaryPurple,
           ),
@@ -22,7 +34,7 @@ class ProfilePage extends StatelessWidget {
         ),
         elevation: 0,
         backgroundColor: backgroundColor,
-        title: Text(
+        title: const Text(
           "My Profile",
           style: TextStyle(
               color: Colors.black, fontSize: 17, fontWeight: FontWeight.w600),
@@ -30,7 +42,7 @@ class ProfilePage extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.edit,
               size: 18,
               color: greyDark,
@@ -42,14 +54,32 @@ class ProfilePage extends StatelessWidget {
         ],
       ),
       body: Column(children: [
-        CircleAvatar(
-          radius: 52,
-          backgroundImage: AssetImage('assets/images/user.png'),
-        ),
+        GetBuilder<ProfileController>(builder: (con) {
+          return Container(
+            height: 112,
+            width: 112,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+            ),
+            child: con.imageFile != null
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(56),
+                    child: Image.file(
+                      con.imageFile!,
+                      fit: BoxFit.cover,
+                    ))
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(56),
+                    child: Image.asset(
+                      'assets/images/user.png',
+                      fit: BoxFit.cover,
+                    )),
+          );
+        }),
         const SizedBox(height: 12),
-        Text(
+        const Text(
           "Wassi Ahsan",
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 17,
             fontWeight: FontWeight.w700,
             color: labelColorPrimary,
@@ -107,11 +137,11 @@ class _ProfileTile extends StatelessWidget {
             height: 40,
             width: 40,
             decoration: BoxDecoration(
-                color: Color(0xFFDEF5F7),
+                color: const Color(0xFFDEF5F7),
                 borderRadius: BorderRadius.circular(8)),
             child: Icon(
               icon,
-              color: Color(0xFF63CEDA),
+              color: const Color(0xFF63CEDA),
             ),
           ),
           const SizedBox(
@@ -119,14 +149,14 @@ class _ProfileTile extends StatelessWidget {
           ),
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w700,
               color: labelColorPrimary,
             ),
           ),
           const Spacer(),
-          Icon(
+          const Icon(
             Icons.arrow_forward_ios,
             size: 20,
           ),
