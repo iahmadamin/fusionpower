@@ -4,18 +4,20 @@ import 'package:fusionpower/constant/colors.dart';
 class UInputField extends StatelessWidget {
   /// InputFiled (TextFormField) with underline border
 
-  const UInputField(
-      {Key? key,
-      required this.controller,
-      required this.hint,
-      required this.textInputType,
-      required this.validator})
-      : super(key: key);
+  const UInputField({
+    Key? key,
+    required this.controller,
+    required this.hint,
+    required this.textInputType,
+    required this.validator,
+    this.fontSize = 12,
+  }) : super(key: key);
 
   final TextEditingController controller;
   final String hint;
   final TextInputType textInputType;
   final String? Function(String?) validator;
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +26,13 @@ class UInputField extends StatelessWidget {
       child: TextFormField(
         cursorColor: greyDark,
         controller: controller,
-        style: const TextStyle(
-            fontSize: 12, color: greyDark, fontWeight: FontWeight.w500),
+        style: TextStyle(
+            fontSize: fontSize, color: greyDark, fontWeight: FontWeight.w500),
         decoration: InputDecoration(
             hintText: hint,
-            hintStyle: const TextStyle(
-                color: Color(0xFFC7C7CC),
-                fontSize: 12,
+            hintStyle: TextStyle(
+                color: const Color(0xFFC7C7CC),
+                fontSize: fontSize,
                 fontWeight: FontWeight.w500),
             isDense: true,
             prefixIconConstraints:

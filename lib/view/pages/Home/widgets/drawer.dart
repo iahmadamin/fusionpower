@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/view/pages/Auth/login_page.dart';
+import 'package:fusionpower/view/pages/Home/search_page.dart';
 import 'package:fusionpower/view/pages/Product/kit_page.dart';
+import 'package:fusionpower/view/pages/Profile/profile_page.dart';
 import 'package:fusionpower/view/widgets/mini_button.dart';
 import 'package:get/get.dart';
 
@@ -36,49 +38,70 @@ class _HomeDrawerState extends State<HomeDrawer> {
       backgroundColor: Colors.white,
       width: Get.width * 0.6,
       child: ListView(children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(32, 32, 56, 42),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            SizedBox(
-              height: 26,
-              child: TextField(
-                cursorColor: greyDark,
-                controller: _searchController,
-                style: const TextStyle(fontSize: 10, color: greyDark),
-                decoration: const InputDecoration(
-                    hintText: "Search Products",
-                    hintStyle: TextStyle(
-                      color: Color(0xFFC7C7CC),
-                      fontSize: 10,
+        GestureDetector(
+          onTap: () {
+            Get.to(() => const ProfilePage());
+          },
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(32, 32, 56, 42),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: 14,
+                    backgroundImage: AssetImage(
+                      'assets/images/user.png',
                     ),
-                    isDense: true,
-                    prefixIconConstraints:
-                        BoxConstraints(minWidth: 32, maxHeight: 32),
-                    contentPadding: EdgeInsets.only(left: 12, bottom: 6),
-                    prefixIcon: Icon(Icons.search, color: Color(0xFFE7E7E7)),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFFE7E7E7)),
+                  ),
+                  const SizedBox(width: 12),
+                  Text(
+                    "Wassi Ahsan",
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
                     ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xFFE7E7E7)),
-                    )),
+                  )
+                ],
               ),
-            ),
-            const SizedBox(height: 16),
-            MiniButton(
-              onTap: () {},
-              label: "(021) 012 5336",
-              icon: Icons.call,
-            ),
-            const SizedBox(height: 8),
-            MiniButton(
-              onTap: () {},
-              label: "(021) 012 5336",
-              icon: Icons.call,
-              color: greenCrayola,
-            ),
-          ]),
+              const SizedBox(height: 26),
+              SizedBox(
+                height: 26,
+                child: TextField(
+                  readOnly: true,
+                  onTap: () {
+                    Get.to(() => const SearchPage());
+                  },
+                  cursorColor: greyDark,
+                  controller: _searchController,
+                  style: const TextStyle(fontSize: 10, color: greyDark),
+                  decoration: const InputDecoration(
+                      hintText: "Search Products",
+                      hintStyle: TextStyle(
+                        color: Color(0xFFC7C7CC),
+                        fontSize: 10,
+                      ),
+                      isDense: true,
+                      prefixIconConstraints:
+                          BoxConstraints(minWidth: 32, maxHeight: 32),
+                      contentPadding: EdgeInsets.only(left: 12, bottom: 6),
+                      prefixIcon: Icon(Icons.search, color: Color(0xFFE7E7E7)),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFFE7E7E7)),
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xFFE7E7E7)),
+                      )),
+                ),
+              ),
+              const SizedBox(height: 16),
+              MiniButton(
+                onTap: () {},
+                label: "(021) 012 5336",
+                icon: Icons.call,
+              ),
+            ]),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),

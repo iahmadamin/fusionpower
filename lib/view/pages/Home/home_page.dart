@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/cart_controller.dart';
+import 'package:fusionpower/controllers/serach_controller.dart';
 import 'package:fusionpower/sample_data.dart';
 import 'package:fusionpower/view/pages/Home/widgets/appbar.dart';
 import 'package:fusionpower/view/pages/Home/widgets/drawer.dart';
@@ -19,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     final controller = Get.put(CartController());
+    final searchController = Get.put(SearchController());
     super.initState();
   }
 
