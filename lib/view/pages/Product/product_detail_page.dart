@@ -42,13 +42,14 @@ class ProductDetail extends StatelessWidget {
       ),
       body: SizedBox.expand(
         child: SingleChildScrollView(
-          child: Column(children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 32,
                   vertical: 16,
                 ),
-                child: Image.asset(product.imagePath)),
+                child: Center(child: Image.asset(product.imagePath))),
             const SizedBox(
               height: 18,
             ),
@@ -114,9 +115,9 @@ class ProductDetail extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Your Solar System",
-                      style: const TextStyle(
+                      style: TextStyle(
                           color: greyDark,
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
@@ -125,7 +126,7 @@ class ProductDetail extends StatelessWidget {
                     const SizedBox(
                       height: 2,
                     ),
-                    Text(
+                    const Text(
                       "A high-level look at the system",
                       style: TextStyle(
                         fontSize: 12,
@@ -139,7 +140,7 @@ class ProductDetail extends StatelessWidget {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
+                      children: const [
                         MiniProductTile(),
                         MiniProductTile(),
                         MiniProductTile(),
@@ -155,10 +156,10 @@ class ProductDetail extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 color: productDataBGColor,
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   "You Can Have A Max Of 35 Panels This Inverter.",
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: greyDark,
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
@@ -174,10 +175,10 @@ class ProductDetail extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 color: productDataBGColor,
               ),
-              child: Column(children: [
+              child: Column(children: const [
                 Text(
                   "Also Includes Everything You Need",
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: greyDark,
                       fontSize: 12,
                       fontWeight: FontWeight.w700,
@@ -185,7 +186,7 @@ class ProductDetail extends StatelessWidget {
                 ),
                 Text(
                   "Brackets, Wiring, Switches And Fuses",
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: greyDark,
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
@@ -203,9 +204,9 @@ class ProductDetail extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Related Products",
-                      style: const TextStyle(
+                      style: TextStyle(
                           color: greyDark,
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
@@ -216,7 +217,7 @@ class ProductDetail extends StatelessWidget {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
+                      children: const [
                         MiniProductTile(border: false),
                         MiniProductTile(border: false),
                         MiniProductTile(border: false),
@@ -224,10 +225,180 @@ class ProductDetail extends StatelessWidget {
                     )
                   ]),
             ),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Your Solar System",
+                    style: TextStyle(
+                        color: greyDark,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.38),
+                  ),
+                  const SizedBox(
+                    height: 2,
+                  ),
+                  const Text(
+                    "A high-level look at the system",
+                    style: TextStyle(
+                      fontSize: 12,
+                      letterSpacing: 0.38,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF898A8D),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    "Areas Available:",
+                    style: TextStyle(
+                        color: greyDark,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.38),
+                  ),
+                  const SizedBox(height: 6),
+                  for (var location in product.availbleInAreas)
+                    _AreaTile(location: location),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    "Installation Contractor:",
+                    style: TextStyle(
+                        color: greyDark,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.38),
+                  ),
+                  const SizedBox(
+                    height: 2,
+                  ),
+                  const Text(
+                    "Qualified Electrician Solar Installer",
+                    style: TextStyle(
+                      fontSize: 11,
+                      letterSpacing: 0.38,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF898A8D),
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  for (var title in product.contractors)
+                    _ContractorTile(title: title),
+                  const SizedBox(height: 16),
+                  Text(
+                    "R ${product.price}",
+                    style: const TextStyle(
+                        color: greyDark,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.38),
+                  ),
+                  const Text(
+                    "Inc VAT",
+                    style: TextStyle(
+                      fontSize: 10,
+                      letterSpacing: 0.38,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF898A8D),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        height: 26,
+                        width: 98,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: const Color(0xFF434343))),
+                        child: const Center(
+                          child: Text(
+                            "Add Option",
+                            style: TextStyle(
+                              color: Color(0xFF434343),
+                              fontSize: 10,
+                              letterSpacing: 0.38,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      )),
+                ],
+              ),
+            ),
             const SizedBox(height: 32),
           ]),
         ),
       ),
+    );
+  }
+}
+
+class _AreaTile extends StatelessWidget {
+  const _AreaTile({
+    Key? key,
+    required this.location,
+  }) : super(key: key);
+
+  final String location;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 25,
+      child: Row(children: [
+        const Icon(
+          Icons.location_on,
+          size: 14,
+          color: greenCrayola,
+        ),
+        const SizedBox(width: 10),
+        Text(
+          location,
+          style: const TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFF898A8D)),
+        )
+      ]),
+    );
+  }
+}
+
+class _ContractorTile extends StatelessWidget {
+  const _ContractorTile({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 25,
+      child: Row(children: [
+        const Icon(
+          Icons.blur_circular,
+          size: 14,
+          color: greenCrayola,
+        ),
+        const SizedBox(width: 10),
+        Text(
+          title,
+          style: const TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w500,
+              color: Color(0xFF898A8D)),
+        )
+      ]),
     );
   }
 }
