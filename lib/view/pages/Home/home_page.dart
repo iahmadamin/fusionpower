@@ -1,10 +1,9 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/cart_controller.dart';
 import 'package:fusionpower/controllers/serach_controller.dart';
 import 'package:fusionpower/sample_data.dart';
-import 'package:fusionpower/view/pages/Home/widgets/appbar.dart';
-import 'package:fusionpower/view/pages/Home/widgets/drawer.dart';
 import 'package:fusionpower/view/pages/Product/product_detail_page.dart';
 import 'package:fusionpower/view/widgets/c_button.dart';
 import 'package:get/get.dart';
@@ -27,18 +26,295 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final product = productList[0];
+    final solarPowerKitCategories = ["All Solar Kits", "Hybrid", "Off-Grid"];
+    final loadSheddingKitCategories = [
+      "All Load Shedding Kits",
+      "Portable Power Kits"
+    ];
+    final invertersCategories = [
+      "Hybrid",
+      "Fusion",
+      "Off-Grid",
+      "Deye Hybrid Inverters",
+      "LuxPowerTek",
+      "Goodwe"
+    ];
+    final solarBatteryCategories = [
+      "Lithium-ion",
+      "Fusion",
+      "PylonTech",
+      "Dyness",
+      "Shoto",
+      "BYD",
+      "BlueNova",
+      "Portable Power Units"
+    ];
+    final solarPanels = [
+      "Monocrystalline",
+      "Polycrystallines",
+      "Canadian Solar",
+      "JA Solar",
+      "Solar Panel Peripherals",
+      "Jinko"
+    ];
+    final heatingCoolingCategories = [
+      "Solar Powered Conversion Kits",
+      "Solar Geysers",
+      "Heat Pumps",
+      "Energy Saving Elements",
+      "Solar Air Conditioners",
+    ];
+
+    final bannerImages = [
+      "assets/images/banner.png",
+      "assets/images/banner1.png"
+    ];
 
     return Scaffold(
-      backgroundColor: backgroundColor,
-      appBar: const HomeAppBar(),
-      drawer: const HomeDrawer(),
-      body: GridView.count(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        crossAxisCount: 2,
-        childAspectRatio: 0.58,
-        children: [
-          for (var i = 0; i < 12; i++) const ProductMiniTile(),
-        ],
+        backgroundColor: backgroundColor,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 180,
+                  width: Get.width,
+                  child: CarouselSlider(
+                    items: bannerImages.map((image) {
+                      return Container(
+                        child: Image.asset(image, fit: BoxFit.contain),
+                      );
+                    }).toList(),
+                    options: CarouselOptions(
+                      autoPlay: true,
+                      enlargeCenterPage: true,
+                      viewportFraction: 1,
+                      aspectRatio: 2.0,
+                      initialPage: 2,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Padding(
+                  padding: EdgeInsets.only(left: 16, bottom: 12),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Solar Power Kits",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 120,
+                  width: Get.width,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: solarPowerKitCategories
+                        .map((e) => _SubCategoryItem(
+                            label: e,
+                            imgPath: "assets/images/solar.png",
+                            onTap: () {}))
+                        .toList(),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Padding(
+                  padding: EdgeInsets.only(left: 16, bottom: 12),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Load Shedding Kits",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 120,
+                  width: Get.width,
+                  child: ListView(
+                    padding: const EdgeInsets.only(right: 16),
+                    scrollDirection: Axis.horizontal,
+                    children: loadSheddingKitCategories
+                        .map((e) => _SubCategoryItem(
+                            label: e,
+                            imgPath: "assets/images/solar.png",
+                            onTap: () {}))
+                        .toList(),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Padding(
+                  padding: EdgeInsets.only(left: 16, bottom: 12),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Inverters",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 120,
+                  width: Get.width,
+                  child: ListView(
+                    padding: const EdgeInsets.only(right: 16),
+                    scrollDirection: Axis.horizontal,
+                    children: invertersCategories
+                        .map((e) => _SubCategoryItem(
+                            label: e,
+                            imgPath: "assets/images/solar.png",
+                            onTap: () {}))
+                        .toList(),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Padding(
+                  padding: EdgeInsets.only(left: 16, bottom: 12),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Solar Batteries",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 120,
+                  width: Get.width,
+                  child: ListView(
+                    padding: const EdgeInsets.only(right: 16),
+                    scrollDirection: Axis.horizontal,
+                    children: solarBatteryCategories
+                        .map((e) => _SubCategoryItem(
+                            label: e,
+                            imgPath: "assets/images/solar.png",
+                            onTap: () {}))
+                        .toList(),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Padding(
+                  padding: EdgeInsets.only(left: 16, bottom: 12),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Solar Panels",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 120,
+                  width: Get.width,
+                  child: ListView(
+                    padding: const EdgeInsets.only(right: 16),
+                    scrollDirection: Axis.horizontal,
+                    children: solarPanels
+                        .map((e) => _SubCategoryItem(
+                            label: e,
+                            imgPath: "assets/images/solar.png",
+                            onTap: () {}))
+                        .toList(),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const Padding(
+                  padding: EdgeInsets.only(left: 16, bottom: 12),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Heating & Cooling",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 120,
+                  width: Get.width,
+                  child: ListView(
+                    padding: const EdgeInsets.only(right: 16),
+                    scrollDirection: Axis.horizontal,
+                    children: heatingCoolingCategories
+                        .map((e) => _SubCategoryItem(
+                            label: e,
+                            imgPath: "assets/images/solar.png",
+                            onTap: () {}))
+                        .toList(),
+                  ),
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+              ],
+            ),
+          ),
+        ));
+  }
+}
+
+class _SubCategoryItem extends StatelessWidget {
+  const _SubCategoryItem({
+    Key? key,
+    required this.label,
+    required this.imgPath,
+    required this.onTap,
+  }) : super(key: key);
+
+  final String label;
+  final String imgPath;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 120,
+        width: 100,
+        margin: const EdgeInsets.only(left: 16),
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.black),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          SizedBox(height: 50, child: Image.asset(imgPath)),
+          const SizedBox(height: 4),
+          SizedBox(
+              height: 45,
+              child: Center(
+                child: Text(
+                  label,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12),
+                ),
+              ))
+        ]),
       ),
     );
   }
