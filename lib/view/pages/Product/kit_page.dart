@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/sample_data.dart';
-import 'package:fusionpower/view/pages/Product/product_detail_page.dart';
+import 'package:fusionpower/view/pages/Product/kit_detail_page.dart';
 import 'package:fusionpower/view/widgets/c_button.dart';
 import 'package:get/get.dart';
 
@@ -135,9 +135,11 @@ class _KitPageState extends State<KitPage> {
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.38),
             ),
-            const ProductKitTile(),
-            const ProductKitTile(buttonColor: primaryPurple),
-            const ProductKitTile(buttonColor: primaryPurple),
+            const ProductKitTile(
+              imgPath: "assets/images/kit1.jpeg",
+            ),
+            const ProductKitTile(imgPath: "assets/images/kit1.jpeg"),
+            const ProductKitTile(imgPath: "assets/images/kit1.jpeg"),
             const SizedBox(
               height: 32,
             ),
@@ -152,9 +154,11 @@ class ProductKitTile extends StatelessWidget {
   const ProductKitTile({
     Key? key,
     this.buttonColor = Colors.black,
+    required this.imgPath,
   }) : super(key: key);
 
   final Color buttonColor;
+  final String imgPath;
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +171,7 @@ class ProductKitTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset('assets/images/p1.png'),
+          Image.asset(imgPath),
           const SizedBox(
             height: 18,
           ),
@@ -261,7 +265,7 @@ class ProductKitTile extends StatelessWidget {
           CButton(
             label: "View Solution",
             onTap: () {
-              Get.to(() => ProductDetail(product: productList[0]));
+              Get.to(() => KitDetail(product: productList[0]));
             },
             borderRadius: 12,
             fontSize: 12,

@@ -5,7 +5,8 @@ import 'package:fusionpower/view/pages/Home/home_page.dart';
 import 'package:fusionpower/view/pages/Profile/profile_page.dart';
 
 class RootPage extends StatefulWidget {
-  const RootPage({Key? key}) : super(key: key);
+  const RootPage({Key? key, this.initialIndex = 0}) : super(key: key);
+  final initialIndex;
 
   @override
   State<RootPage> createState() => _RootPageState();
@@ -35,6 +36,12 @@ class _RootPageState extends State<RootPage> {
       'page': ProfilePage(),
     },
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    selectedIndex = widget.initialIndex;
+  }
 
   @override
   Widget build(BuildContext context) {
