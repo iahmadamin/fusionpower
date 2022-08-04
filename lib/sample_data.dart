@@ -21,5 +21,5 @@ List<Product> productList = [
         "Booking Management",
         "Covers basic fault support",
       ],
-      price: 19000),
+      price: 1900),
 ];

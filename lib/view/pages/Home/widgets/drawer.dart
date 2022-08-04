@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/view/pages/Home/search_page.dart';
-import 'package:fusionpower/view/pages/Product/kit_page.dart';
 import 'package:fusionpower/view/pages/Profile/profile_page.dart';
 import 'package:fusionpower/view/widgets/mini_button.dart';
 import 'package:get/get.dart';
@@ -106,24 +105,24 @@ class _HomeDrawerState extends State<HomeDrawer> {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             children: [
-              _DrawerTile(
-                label: "Solar Power Kits",
-                onTap: () {
-                  Get.to(() => const KitPage());
-                },
-              ),
+              // _DrawerTile(
+              //   label: "Solar Power Kits",
+              //   onTap: () {
+              //     Get.to(() => const KitPage());
+              //   },
+              // ),
               Divider(
                 height: drawerDividerHeight,
                 color: const Color(0xFFE7E7E7),
               ),
-              _DrawerTile(
-                label: "Load Shedding Kits",
-                onTap: () {
-                  Get.to(() => const KitPage(
-                        isSolar: false,
-                      ));
-                },
-              ),
+              // _DrawerTile(
+              //   label: "Load Shedding Kits",
+              //   onTap: () {
+              //     Get.to(() => const KitPage(
+              //           isSolar: false,
+              //         ));
+              //   },
+              // ),
               Divider(
                 height: drawerDividerHeight,
                 color: const Color(0xFFE7E7E7),

@@ -2,8 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/cart_controller.dart';
+import 'package:fusionpower/controllers/kit_controller.dart';
 import 'package:fusionpower/controllers/serach_controller.dart';
 import 'package:fusionpower/sample_data.dart';
+import 'package:fusionpower/view/pages/Product/kit_page.dart';
 import 'package:fusionpower/view/pages/Product/product_detail_page.dart';
 import 'package:fusionpower/view/widgets/c_button.dart';
 import 'package:get/get.dart';
@@ -20,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     final controller = Get.put(CartController());
     final searchController = Get.put(SearchController());
+    final kitController = Get.put(KitController());
     super.initState();
   }
 
@@ -118,7 +121,11 @@ class _HomePageState extends State<HomePage> {
                         .map((e) => _SubCategoryItem(
                             label: e,
                             imgPath: "assets/images/solar.png",
-                            onTap: () {}))
+                            onTap: () {
+                              Get.to(() => KitPage(
+                                    kitCategory: e,
+                                  ));
+                            }))
                         .toList(),
                   ),
                 ),
@@ -147,7 +154,11 @@ class _HomePageState extends State<HomePage> {
                         .map((e) => _SubCategoryItem(
                             label: e,
                             imgPath: "assets/images/solar.png",
-                            onTap: () {}))
+                            onTap: () {
+                              Get.to(() => KitPage(
+                                    kitCategory: e,
+                                  ));
+                            }))
                         .toList(),
                   ),
                 ),

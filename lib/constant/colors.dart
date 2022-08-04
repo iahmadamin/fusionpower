@@ -14,4 +14,6 @@ const greenCrayola = Color(0xFF11AC87);
 const pastelGreen = Color(0xFF05AE1A);
 const productDataBGColor = Color(0xFFE8EFF7);
 
+const primaryBlue = Color(0xFF1E639E);
+
 const fillColorPrimary = Color(0xFFE4E4E6);

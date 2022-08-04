@@ -5,15 +5,24 @@ class MiniProductTile extends StatelessWidget {
   const MiniProductTile({
     Key? key,
     this.border = true,
+    required this.title,
+    required this.subtitle,
+    required this.imagePath,
+    required this.count,
+    required this.onIncrement,
+    required this.onDecrement,
   }) : super(key: key);
 
   final bool border;
+  final String title, subtitle, imagePath;
+  final int count;
+  final VoidCallback onIncrement, onDecrement;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 172,
-      width: 90,
+      width: 100,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
@@ -25,12 +34,36 @@ class MiniProductTile extends StatelessWidget {
       ),
       child:
           Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-        Image.asset('assets/images/solar.png'),
+        SizedBox(
+          width: 80,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Image.asset(imagePath),
+              Positioned(
+                  right: 0,
+                  top: 4,
+                  child: Container(
+                    height: 26,
+                    width: 42,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: primaryBlue,
+                    ),
+                    child: Center(
+                        child: Text(
+                      "x${count}",
+                      style: TextStyle(color: Colors.white),
+                    )),
+                  )),
+            ],
+          ),
+        ),
         const SizedBox(
           height: 6,
         ),
         Text(
-          "600 KWh",
+          title,
           style: TextStyle(
             fontSize: 12,
             letterSpacing: 0.38,
@@ -39,7 +72,7 @@ class MiniProductTile extends StatelessWidget {
           ),
         ),
         Text(
-          "Monthly Prod.",
+          subtitle,
           style: TextStyle(
             fontSize: 9,
             letterSpacing: 0.35,
@@ -54,7 +87,7 @@ class MiniProductTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             GestureDetector(
-              onTap: () {},
+              onTap: onIncrement,
               child: Container(
                 height: 24,
                 width: 24,
@@ -67,7 +100,7 @@ class MiniProductTile extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: onDecrement,
               child: Container(
                 height: 24,
                 width: 24,

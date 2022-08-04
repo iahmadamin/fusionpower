@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
-import 'package:fusionpower/constant/string_values.dart';
 import 'package:fusionpower/sample_data.dart';
 import 'package:fusionpower/view/pages/Product/product_detail_page.dart';
 import 'package:fusionpower/view/widgets/c_button.dart';
 import 'package:get/get.dart';
 
 class KitPage extends StatefulWidget {
-  const KitPage({
-    Key? key,
-    this.isSolar = true,
-  }) : super(key: key);
+  const KitPage({Key? key, required this.kitCategory}) : super(key: key);
 
-  final bool isSolar;
-
+  final String kitCategory;
   @override
   State<KitPage> createState() => _KitPageState();
 }
@@ -44,7 +39,7 @@ class _KitPageState extends State<KitPage> {
           ),
         ),
         title: Text(
-          widget.isSolar ? "Solar Power Kits" : "Load Shedding Kits",
+          widget.kitCategory,
           style: const TextStyle(
             color: labelColorPrimary,
             fontWeight: FontWeight.w600,
@@ -56,38 +51,40 @@ class _KitPageState extends State<KitPage> {
       body: SizedBox.expand(
         child: SingleChildScrollView(
           child: Column(children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 32,
-              ),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  widget.isSolar ? "Solar Power Kits" : "Load Shedding Kits",
-                  style: const TextStyle(
-                      color: greyDark,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.38),
-                ),
-              ),
-            ),
-            const SizedBox(height: 8),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 32,
-              ),
-              child: Text(
-                  widget.isSolar
-                      ? solarPowerKitDescription
-                      : loadSheddingKitDescription,
-                  style: const TextStyle(
-                      color: Color(0xFF898A8D),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 0.38)),
-            ),
-            const SizedBox(height: 22),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(
+            //     horizontal: 32,
+            //   ),
+            //   child: Align(
+            //     alignment: Alignment.centerLeft,
+            //     child: Text(
+            //       widget.kitCategory,
+            //       style: const TextStyle(
+            //           color: greyDark,
+            //           fontSize: 16,
+            //           fontWeight: FontWeight.w600,
+            //           letterSpacing: 0.38),
+            //     ),
+            //   ),
+            // ),
+            // const SizedBox(height: 8),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(
+            //     horizontal: 32,
+            //   ),
+            //   child: Text(
+            //       widget.isSolar
+            //           ? solarPowerKitDescription
+            //           : loadSheddingKitDescription,
+            //       style: const TextStyle(
+            //           color: Color(0xFF898A8D),
+            //           fontSize: 12,
+            //           fontWeight: FontWeight.w500,
+            //           letterSpacing: 0.38)),
+            // ),
+
+            // const SizedBox(height: 22),
+
             Container(
               height: 35,
               margin: const EdgeInsets.symmetric(horizontal: 38),
