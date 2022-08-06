@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 
 class MiniProductTile extends StatelessWidget {
-  const MiniProductTile({
+  MiniProductTile({
     Key? key,
     this.border = true,
     required this.title,
@@ -11,9 +11,11 @@ class MiniProductTile extends StatelessWidget {
     required this.count,
     required this.onIncrement,
     required this.onDecrement,
+    this.showChangeButton = false,
   }) : super(key: key);
 
   final bool border;
+  bool showChangeButton;
   final String title, subtitle, imagePath;
   final int count;
   final VoidCallback onIncrement, onDecrement;
@@ -21,7 +23,7 @@ class MiniProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 172,
+      height: 210,
       width: 100,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
       decoration: BoxDecoration(
@@ -36,6 +38,7 @@ class MiniProductTile extends StatelessWidget {
           Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         SizedBox(
           width: 80,
+          height: 70,
           child: Stack(
             alignment: Alignment.center,
             children: [
@@ -59,9 +62,32 @@ class MiniProductTile extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(
-          height: 6,
-        ),
+        if (showChangeButton)
+          GestureDetector(
+            onTap: () {},
+            child: Container(
+              width: 74,
+              height: 24,
+              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 2),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.black,
+              ),
+              child: Center(
+                  child: Text(
+                "Change",
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+              )),
+            ),
+          ),
+        if (!showChangeButton)
+          const SizedBox(
+            height: 24,
+          ),
         Text(
           title,
           style: const TextStyle(
@@ -89,8 +115,8 @@ class MiniProductTile extends StatelessWidget {
             GestureDetector(
               onTap: onIncrement,
               child: Container(
-                height: 32,
-                width: 32,
+                height: 36,
+                width: 36,
                 decoration: BoxDecoration(
                     color: const Color(0xFFF4F4F4),
                     borderRadius: BorderRadius.circular(6)),
@@ -105,8 +131,8 @@ class MiniProductTile extends StatelessWidget {
             GestureDetector(
               onTap: onDecrement,
               child: Container(
-                height: 32,
-                width: 32,
+                height: 36,
+                width: 36,
                 decoration: BoxDecoration(
                     color: const Color(0xFFF4F4F4),
                     borderRadius: BorderRadius.circular(6)),

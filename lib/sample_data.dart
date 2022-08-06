@@ -1,6 +1,12 @@
 import 'package:fusionpower/models/product_model.dart';
 
-const areas = ["Gauteng", "Cape Town", "George", "Polokwane", "Port Elizabeth"];
+const areas = [
+  "Gauteng",
+  "Cape Town(+ 100km Radius)",
+  "George(+ 100km Radius)",
+  "Polokwane(+ 50km Radius)",
+  "Port Elizabeth"
+];
 const contractors = [
   "The installation of the Kit only",
   "A COC electrician certificate",
