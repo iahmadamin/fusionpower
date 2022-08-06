@@ -10,6 +10,7 @@ class CButton extends StatelessWidget {
     this.height = 48,
     this.borderRadius = 24,
     this.color = Colors.black,
+    this.fontColor = Colors.white,
     this.fontSize = 17,
     this.width = double.infinity,
   }) : super(key: key);
@@ -19,7 +20,7 @@ class CButton extends StatelessWidget {
   final bool filled;
   final double height, width;
   final double borderRadius;
-  final Color color;
+  final Color color, fontColor;
   final double fontSize;
 
   @override
@@ -42,7 +43,7 @@ class CButton extends StatelessWidget {
             label,
             style: TextStyle(
                 fontSize: fontSize,
-                color: filled ? Colors.white : primaryPurple,
+                color: filled ? fontColor : primaryPurple,
                 fontWeight: FontWeight.w600),
           ),
         ),

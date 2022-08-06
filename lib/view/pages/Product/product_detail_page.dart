@@ -43,7 +43,6 @@ class ProductDetailPage extends StatelessWidget {
                 vertical: 16,
               ),
               child: Center(child: Image.asset(product.imagePath))),
-          Divider(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 26),
             child: Column(

@@ -36,7 +36,7 @@ class KitDetail extends StatelessWidget {
           ),
         ),
         title: const Text(
-          "Product Details",
+          "Kit Details",
           style: TextStyle(
             color: labelColorPrimary,
             fontWeight: FontWeight.w600,
@@ -61,57 +61,58 @@ class KitDetail extends StatelessWidget {
                     const SizedBox(
                       height: 18,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 26),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Product Description",
-                            style: TextStyle(
-                                color: greyDark,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 0.38),
-                          ),
-                          const SizedBox(
-                            height: 6,
-                          ),
-                          Text(
-                            product.description,
-                            style: const TextStyle(
-                                color: Color(0xFF898A8D),
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                letterSpacing: 0.38),
-                          ),
-                          const SizedBox(
-                            height: 18,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                "Product Data",
-                                style: TextStyle(
-                                    color: greyDark,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 0.38),
-                              ),
-                              GestureDetector(
-                                onTap: () {},
-                                child: const Icon(
-                                  Icons.add,
-                                  size: 20,
-                                  color: greyDark,
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(horizontal: 26),
+                    //   child: Column(
+                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                    //     children: [
+                    //       const Text(
+                    //         "Product Description",
+                    //         style: TextStyle(
+                    //             color: greyDark,
+                    //             fontSize: 14,
+                    //             fontWeight: FontWeight.w600,
+                    //             letterSpacing: 0.38),
+                    //       ),
+                    //       const SizedBox(
+                    //         height: 6,
+                    //       ),
+                    //       Text(
+                    //         product.description,
+                    //         style: const TextStyle(
+                    //             color: Color(0xFF898A8D),
+                    //             fontSize: 12,
+                    //             fontWeight: FontWeight.w500,
+                    //             letterSpacing: 0.38),
+                    //       ),
+                    //       const SizedBox(
+                    //         height: 18,
+                    //       ),
+                    //       Row(
+                    //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //         children: [
+                    //           const Text(
+                    //             "Product Data",
+                    //             style: TextStyle(
+                    //                 color: greyDark,
+                    //                 fontSize: 14,
+                    //                 fontWeight: FontWeight.w600,
+                    //                 letterSpacing: 0.38),
+                    //           ),
+                    //           GestureDetector(
+                    //             onTap: () {},
+                    //             child: const Icon(
+                    //               Icons.add,
+                    //               size: 20,
+                    //               color: greyDark,
+                    //             ),
+                    //           )
+                    //         ],
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+
                     Padding(
                       padding: const EdgeInsets.only(left: 16, top: 12),
                       child: Text(
@@ -119,19 +120,18 @@ class KitDetail extends StatelessWidget {
                         style: const TextStyle(
                             color: greyDark,
                             fontSize: 18,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w600,
                             letterSpacing: 0.38),
                       ),
                     ),
                     const Padding(
-                      padding: EdgeInsets.only(left: 16, top: 4),
+                      padding: EdgeInsets.only(left: 16),
                       child: Text(
                         "Bundle Test Product",
                         style: TextStyle(
                           fontSize: 12,
                           letterSpacing: 0.38,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF898A8D),
+                          color: Colors.black,
                         ),
                       ),
                     ),
@@ -141,14 +141,16 @@ class KitDetail extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8)),
                       margin: const EdgeInsets.symmetric(
                           vertical: 9, horizontal: 16),
-                      padding: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16, horizontal: 12),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
+                            children: const [
+                              Text(
                                 "Starting At",
                                 style: TextStyle(
                                   fontSize: 10,
@@ -157,17 +159,17 @@ class KitDetail extends StatelessWidget {
                                   color: Color(0xFF898A8D),
                                 ),
                               ),
-                              const Text(
-                                "19,000 PKR.",
+                              Text(
+                                "R19,000",
                                 style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   letterSpacing: 0.38,
                                   fontWeight: FontWeight.w600,
                                   color: greyDark,
                                 ),
                               ),
-                              const Text(
-                                "Inc VAT.",
+                              Text(
+                                "Inc VAT",
                                 style: TextStyle(
                                   fontSize: 10,
                                   letterSpacing: 0.38,
@@ -177,10 +179,13 @@ class KitDetail extends StatelessWidget {
                               ),
                             ],
                           ),
+                          const SizedBox(
+                            width: 32,
+                          ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
+                            children: const [
+                              Text(
                                 "Pay Monthly",
                                 style: TextStyle(
                                   fontSize: 10,
@@ -189,16 +194,16 @@ class KitDetail extends StatelessWidget {
                                   color: Color(0xFF898A8D),
                                 ),
                               ),
-                              const Text(
-                                "19,000 PKR.",
+                              Text(
+                                "R19,000",
                                 style: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   letterSpacing: 0.38,
                                   fontWeight: FontWeight.w600,
-                                  color: greyDark,
+                                  color: Color(0xFF009D90),
                                 ),
                               ),
-                              const Text(
+                              Text(
                                 "60 Months @ 16% APR",
                                 style: TextStyle(
                                   fontSize: 10,
@@ -209,110 +214,24 @@ class KitDetail extends StatelessWidget {
                               ),
                             ],
                           ),
+                          const Spacer(),
                           CButton(
+                            fontColor: primaryBlue,
+                            color: primaryBlue.withOpacity(0.1),
                             label: "Apply Today",
                             onTap: () {},
                             height: 26,
                             width: 80,
-                            filled: false,
+                            filled: true,
                             fontSize: 10,
                           ),
                         ],
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8)),
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 9, horizontal: 16),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 12),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Enter Your Highest Monthly bill",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    letterSpacing: 0.38,
-                                    fontWeight: FontWeight.w700,
-                                    color: greyDark,
-                                  ),
-                                ),
-                                const Text(
-                                  "Inc VAT.",
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    letterSpacing: 0.38,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xFF898A8D),
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                SizedBox(
-                                  height: 26,
-                                  width: 170,
-                                  child: TextField(
-                                    cursorColor: greyDark,
-                                    style: const TextStyle(
-                                        fontSize: 10, color: greyDark),
-                                    decoration: InputDecoration(
-                                        hintText: "Enter Bill",
-                                        hintStyle: const TextStyle(
-                                            color: Color(0xFF898A8D),
-                                            fontSize: 10,
-                                            fontStyle: FontStyle.italic),
-                                        isDense: true,
-                                        prefixIconConstraints:
-                                            const BoxConstraints(
-                                                minWidth: 32, maxHeight: 32),
-                                        contentPadding: const EdgeInsets.only(
-                                            left: 0, bottom: 6),
-                                        focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.black
-                                                  .withOpacity(0.25)),
-                                        ),
-                                        enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.black
-                                                  .withOpacity(0.25)),
-                                        )),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  height: 34,
-                                  width: 88,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(24),
-                                    color: Colors.black,
-                                  ),
-                                  child: const Center(
-                                    child: Text(
-                                      "Update",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        letterSpacing: 0.4,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                )),
-                          ]),
-                    ),
+
                     Container(
                       margin: const EdgeInsets.fromLTRB(12, 2, 12, 12),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 14, vertical: 18),
+                      padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         color: Colors.white,
@@ -320,6 +239,122 @@ class KitDetail extends StatelessWidget {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            const Text(
+                              "Size your System",
+                              style: TextStyle(
+                                fontSize: 16,
+                                letterSpacing: 0.38,
+                                fontWeight: FontWeight.w700,
+                                color: greyDark,
+                              ),
+                            ),
+                            const Text(
+                              "Enter your Highest Montly Bill (Min R1000)",
+                              style: TextStyle(
+                                fontSize: 10,
+                                letterSpacing: 0.38,
+                                color: Color(0xFF898A8D),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Container(
+                                height: 50,
+                                width: Get.width * 0.855,
+                                padding:
+                                    const EdgeInsets.only(right: 8, left: 24),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(32),
+                                    border: Border.all(
+                                        width: 2,
+                                        color: Colors.grey.withOpacity(0.5))),
+                                child: Row(
+                                  children: [
+                                    const Expanded(
+                                      child: TextField(
+                                        cursorColor: greyDark,
+                                        keyboardType: TextInputType.number,
+                                        style: TextStyle(
+                                            fontSize: 16, color: greyDark),
+                                        decoration: InputDecoration(
+                                            hintText: "Enter Bill",
+                                            hintStyle: TextStyle(
+                                                color: Color(0xFFadc2d4),
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                                fontStyle: FontStyle.italic),
+                                            // isDense: true,
+                                            // prefixIconConstraints:
+                                            //     BoxConstraints(
+                                            //         minWidth: 32,
+                                            //         maxHeight: 32),
+                                            // contentPadding:
+                                            //     EdgeInsets.only(
+                                            //         left: 0, bottom: 6),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide.none,
+                                            ),
+                                            enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide.none,
+                                            )),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 16,
+                                    ),
+                                    GestureDetector(
+                                        onTap: () {},
+                                        child: Container(
+                                          height: 38,
+                                          width: 100,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(32),
+                                            color: const Color(0xFFadc2d4),
+                                          ),
+                                          child: const Center(
+                                            child: Text(
+                                              "Update",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 12,
+                                                letterSpacing: 0.4,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                        )),
+                                  ],
+                                )),
+                            const SizedBox(height: 12),
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 14, vertical: 12),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: productDataBGColor,
+                              ),
+                              child: Column(children: const [
+                                Text(
+                                  "Let's Get Started",
+                                  style: TextStyle(
+                                      color: greyDark,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w700,
+                                      letterSpacing: 0.38),
+                                ),
+                                Text(
+                                  "Submit your bill to get the ball rolling",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      letterSpacing: 0.38),
+                                ),
+                              ]),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
                             const Text(
                               "Your Solar System",
                               style: TextStyle(
@@ -341,7 +376,7 @@ class KitDetail extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(
-                              height: 8,
+                              height: 12,
                             ),
                             GetBuilder<KitController>(builder: (controller) {
                               final solars = controller.solars;
@@ -365,6 +400,49 @@ class KitDetail extends StatelessWidget {
                                 ],
                               );
                             }),
+                            const SizedBox(height: 16),
+                            Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  border: Border.all(
+                                    color: const Color(0xFFC7C7CC),
+                                  )),
+                              child: Row(children: [
+                                SizedBox(
+                                  height: 42,
+                                  width: 42,
+                                  child: Image.asset(
+                                      "assets/images/Deye2-Hybrid-inverter-12kw-300x300 (1).jpg"),
+                                ),
+                                const SizedBox(width: 8),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Add option",
+                                      style: TextStyle(
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    Text(
+                                      "US3000 Cabinet (2 Batteries)",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    Text(
+                                      "R2,944.03",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ]),
+                            ),
                           ]),
                     ),
                     Container(
@@ -376,15 +454,32 @@ class KitDetail extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                         color: Colors.grey[200],
                       ),
-                      child: const Center(
-                        child: Text(
-                          "You Can Have A Max Of 35 Panels This Inverter.",
-                          style: TextStyle(
-                              color: greyDark,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 0.38),
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Text(
+                            "You can have a max of ",
+                            style: TextStyle(
+                                color: greyDark,
+                                fontSize: 12,
+                                letterSpacing: 0.38),
+                          ),
+                          Text(
+                            "35 Panels",
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: greyDark,
+                                fontSize: 12,
+                                letterSpacing: 0.38),
+                          ),
+                          Text(
+                            " with inverter.",
+                            style: TextStyle(
+                                color: greyDark,
+                                fontSize: 12,
+                                letterSpacing: 0.38),
+                          ),
+                        ],
                       ),
                     ),
                     Container(
@@ -415,6 +510,7 @@ class KitDetail extends StatelessWidget {
                         ),
                       ]),
                     ),
+
                     // Container(
                     //   margin: const EdgeInsets.fromLTRB(12, 2, 12, 12),
                     //   padding: const EdgeInsets.symmetric(
@@ -574,8 +670,8 @@ class KitDetail extends StatelessWidget {
                     decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          topRight: Radius.circular(12),
+                          topLeft: Radius.circular(6),
+                          topRight: Radius.circular(6),
                         ),
                         boxShadow: [
                           BoxShadow(
@@ -599,17 +695,16 @@ class KitDetail extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 10,
                                       letterSpacing: 0.38,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0xFF898A8D),
+                                      color: Colors.black,
                                     ),
                                   ),
                                   Text(
-                                    "${(price / 60).toStringAsFixed(0)} PKR.",
+                                    "R${(price / 60).toStringAsFixed(0)}",
                                     style: const TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 18,
                                       letterSpacing: 0.38,
                                       fontWeight: FontWeight.w600,
-                                      color: greyDark,
+                                      color: primaryBlue,
                                     ),
                                   ),
                                   const Text(
@@ -637,14 +732,13 @@ class KitDetail extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 10,
                                       letterSpacing: 0.38,
-                                      fontWeight: FontWeight.w600,
-                                      color: Color(0xFF898A8D),
+                                      color: Colors.black,
                                     ),
                                   ),
                                   Text(
-                                    "${price} PKR.",
+                                    "R${price}",
                                     style: const TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 18,
                                       letterSpacing: 0.38,
                                       fontWeight: FontWeight.w600,
                                       color: greyDark,
@@ -664,11 +758,15 @@ class KitDetail extends StatelessWidget {
                             )
                           ],
                         ),
-                        CButton(
-                            label: "Create Quote",
-                            onTap: () {
-                              Get.to(() => YourDetailsPage());
-                            })
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          child: CButton(
+                              label: "Create Quote",
+                              color: primaryBlue,
+                              onTap: () {
+                                Get.to(() => YourDetailsPage());
+                              }),
+                        )
                       ],
                     ),
                   );

@@ -25,10 +25,10 @@ class MiniProductTile extends StatelessWidget {
       width: 100,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(6),
         border: border
             ? Border.all(
-                color: Color(0xFFC7C7CC),
+                color: const Color(0xFFC7C7CC),
               )
             : null,
       ),
@@ -42,7 +42,7 @@ class MiniProductTile extends StatelessWidget {
               Image.asset(imagePath),
               Positioned(
                   right: 0,
-                  top: 4,
+                  top: 22,
                   child: Container(
                     height: 26,
                     width: 42,
@@ -53,7 +53,7 @@ class MiniProductTile extends StatelessWidget {
                     child: Center(
                         child: Text(
                       "x${count}",
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     )),
                   )),
             ],
@@ -64,7 +64,7 @@ class MiniProductTile extends StatelessWidget {
         ),
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 12,
             letterSpacing: 0.38,
             fontWeight: FontWeight.w700,
@@ -73,7 +73,7 @@ class MiniProductTile extends StatelessWidget {
         ),
         Text(
           subtitle,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 9,
             letterSpacing: 0.35,
             fontWeight: FontWeight.w500,
@@ -89,26 +89,32 @@ class MiniProductTile extends StatelessWidget {
             GestureDetector(
               onTap: onIncrement,
               child: Container(
-                height: 24,
-                width: 24,
-                color: Color(0xFF515151),
-                child: Center(
+                height: 32,
+                width: 32,
+                decoration: BoxDecoration(
+                    color: const Color(0xFFF4F4F4),
+                    borderRadius: BorderRadius.circular(6)),
+                child: const Center(
                     child: Icon(
                   Icons.add,
-                  color: Colors.white,
+                  size: 18,
+                  color: Colors.black,
                 )),
               ),
             ),
             GestureDetector(
               onTap: onDecrement,
               child: Container(
-                height: 24,
-                width: 24,
-                color: Color(0xFF515151),
-                child: Center(
+                height: 32,
+                width: 32,
+                decoration: BoxDecoration(
+                    color: const Color(0xFFF4F4F4),
+                    borderRadius: BorderRadius.circular(6)),
+                child: const Center(
                     child: Icon(
                   Icons.remove,
-                  color: Colors.white,
+                  size: 18,
+                  color: Colors.black,
                 )),
               ),
             ),
