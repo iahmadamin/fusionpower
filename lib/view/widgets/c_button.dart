@@ -12,6 +12,7 @@ class CButton extends StatelessWidget {
     this.color = Colors.black,
     this.fontColor = Colors.white,
     this.fontSize = 17,
+    this.borderSize = 1,
     this.width = double.infinity,
   }) : super(key: key);
 
@@ -21,7 +22,7 @@ class CButton extends StatelessWidget {
   final double height, width;
   final double borderRadius;
   final Color color, fontColor;
-  final double fontSize;
+  final double fontSize, borderSize;
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +37,15 @@ class CButton extends StatelessWidget {
             border: filled
                 ? null
                 : Border.all(
-                    color: primaryPurple,
+                    width: borderSize,
+                    color: color,
                   )),
         child: Center(
           child: Text(
             label,
             style: TextStyle(
                 fontSize: fontSize,
-                color: filled ? fontColor : primaryPurple,
+                color: fontColor,
                 fontWeight: FontWeight.w600),
           ),
         ),
