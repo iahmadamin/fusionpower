@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
-import 'package:fusionpower/view/pages/Product/widgets/product_selection_tile.dart';
+import 'package:fusionpower/view/pages/Kit/widgets/product_selection_tile.dart';
 import 'package:get/get.dart';
 
 class MiniProductTile extends StatelessWidget {

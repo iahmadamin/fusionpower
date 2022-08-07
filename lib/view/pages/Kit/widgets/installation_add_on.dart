@@ -109,9 +109,8 @@ class InstallationAddonWidget extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 14, vertical: 12),
                     child: Column(children: [
-                      const SizedBox(height: 12),
                       Text(
-                        "R ${product.price}",
+                        "R${product.price}",
                         style: const TextStyle(
                             color: greyDark,
                             fontSize: 24,
@@ -153,7 +152,7 @@ class InstallationAddonWidget extends StatelessWidget {
                 ]),
           ),
           const SizedBox(height: 14),
-          InstallationProcedureTile(),
+          const InstallationProcedureTile(),
         ],
       ),
     );
@@ -248,22 +247,23 @@ class _InstallationProcedureTileState extends State<InstallationProcedureTile> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              expanded = !expanded;
-            });
-          },
-          child: Container(
-            height: 42,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                color: Color(0xFFf8f8f8)),
+        Container(
+          height: 42,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24),
+              color: const Color(0xFFf8f8f8)),
+          child: GestureDetector(
+            onTap: () {
+              print("installation procedure");
+              setState(() {
+                expanded = !expanded;
+              });
+            },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Installation Procedure",
                   style: TextStyle(
                       color: Color.fromRGBO(0, 0, 0, 1),
@@ -273,7 +273,7 @@ class _InstallationProcedureTileState extends State<InstallationProcedureTile> {
                 AnimatedRotation(
                     turns: expanded ? 0.5 : 1,
                     duration: const Duration(milliseconds: 300),
-                    child: Icon(Icons.keyboard_arrow_down)),
+                    child: const Icon(Icons.keyboard_arrow_down)),
               ],
             ),
           ),
@@ -286,13 +286,13 @@ class _InstallationProcedureTileState extends State<InstallationProcedureTile> {
           child: expanded
               ? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                       text: 'The chosen sub-contractor ',
                       style: TextStyle(
                           color: Colors.red,
                           fontSize: 15,
                           fontWeight: FontWeight.w500),
-                      children: const <TextSpan>[
+                      children: <TextSpan>[
                         TextSpan(
                           text:
                               'will install the Solar Power kit, it includes:',
@@ -308,7 +308,7 @@ class _InstallationProcedureTileState extends State<InstallationProcedureTile> {
                   for (final procedure in procedures)
                     _ContractorTile(title: procedure),
                   const SizedBox(height: 12),
-                  Text(
+                  const Text(
                     'Please Note:',
                     style: TextStyle(
                         color: Colors.black,
@@ -316,21 +316,21 @@ class _InstallationProcedureTileState extends State<InstallationProcedureTile> {
                         fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 4),
-                  _ContractorTile(
+                  const _ContractorTile(
                     title:
                         "Only includes AC wiring to the main distribution board, any additional boards to be wired to will be custom quoted upon site inspection.",
                   ),
                   _ContractorTile(
                     textWidget: RichText(
-                      text: TextSpan(
+                      text: const TextSpan(
                         text:
                             'Any issues with the installation falls with the sub-contractor ',
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 14, color: Colors.red, height: 1.4),
-                        children: const <TextSpan>[
+                        children: <TextSpan>[
                           TextSpan(
                             text: 'and not Solar Advice',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 14, color: Colors.black, height: 1.4),
                           ),
                         ],
@@ -339,16 +339,16 @@ class _InstallationProcedureTileState extends State<InstallationProcedureTile> {
                   ),
                   _ContractorTile(
                     textWidget: RichText(
-                      text: TextSpan(
+                      text: const TextSpan(
                         text:
                             'Any damage or issues falls with the sub-contractor  ',
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 14, color: Colors.red, height: 1.4),
-                        children: const <TextSpan>[
+                        children: <TextSpan>[
                           TextSpan(
                             text:
                                 'and not Solar Advice, we (Solar Advice) simply assist with equipment and product support.',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 14, color: Colors.black, height: 1.4),
                           ),
                         ],
@@ -357,15 +357,15 @@ class _InstallationProcedureTileState extends State<InstallationProcedureTile> {
                   ),
                   _ContractorTile(
                     textWidget: RichText(
-                      text: TextSpan(
+                      text: const TextSpan(
                         text:
                             'For Cape Town installations under CoCT you can   ',
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 14, color: Colors.black, height: 1.4),
-                        children: const <TextSpan>[
+                        children: <TextSpan>[
                           TextSpan(
                             text: 'only install Hybrid Solar Power Kits.',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
@@ -375,14 +375,14 @@ class _InstallationProcedureTileState extends State<InstallationProcedureTile> {
                       ),
                     ),
                   ),
-                  _ContractorTile(
+                  const _ContractorTile(
                     title: "Subject to site inspection.",
                   ),
-                  _ContractorTile(
+                  const _ContractorTile(
                     title: "Excludes any pre-existing electrical issues",
                   ),
                 ])
-              : SizedBox(),
+              : Container(),
         ),
       ],
     );
