@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
+import 'package:fusionpower/view/pages/Product/widgets/product_selection_tile.dart';
+import 'package:get/get.dart';
 
 class MiniProductTile extends StatelessWidget {
   MiniProductTile({
@@ -64,7 +66,9 @@ class MiniProductTile extends StatelessWidget {
         ),
         if (showChangeButton)
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              productChangeSheet(context);
+            },
             child: Container(
               width: 74,
               height: 24,
@@ -73,7 +77,7 @@ class MiniProductTile extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 color: Colors.black,
               ),
-              child: Center(
+              child: const Center(
                   child: Text(
                 "Change",
                 style: TextStyle(
@@ -148,5 +152,57 @@ class MiniProductTile extends StatelessWidget {
         )
       ]),
     );
+  }
+
+  Future<T?> productChangeSheet<T>(BuildContext context) async {
+    return Get.bottomSheet(Container(
+      height: Get.height * 0.5,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 22),
+      color: Colors.white,
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const SizedBox(
+                width: 12,
+              ),
+              const Text(
+                "Change Selection",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Get.back();
+                },
+                child: const Icon(Icons.close, color: Colors.grey),
+              ),
+            ],
+          ),
+          const SizedBox(height: 18),
+          const ProductSelectionTile(
+            imgPath: "assets/images/Genki-300W-300x300.jpg",
+            price: 5234.05,
+            title: "Genki 300W",
+          ),
+          const SizedBox(height: 12),
+          const ProductSelectionTile(
+            imgPath: "assets/images/BYD-HVM-BMS-1-300x300.jpg",
+            price: 3425.05,
+            title: "BYD-HVM-BMS-1",
+          ),
+          const SizedBox(height: 12),
+          const ProductSelectionTile(
+            imgPath: "assets/images/Luxpower-OGV2-300x300.jpg",
+            price: 2944.05,
+            title: "Luxpower OGV2",
+          ),
+        ],
+      ),
+    ));
   }
 }

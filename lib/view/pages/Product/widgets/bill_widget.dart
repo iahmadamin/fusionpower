@@ -404,7 +404,7 @@ class BillWidget extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(6),
                     color: productDataBGColor,
                   ),
                   child: Column(children: const [

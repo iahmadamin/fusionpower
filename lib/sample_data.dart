@@ -35,20 +35,6 @@ List<Product> productList = [
       description:
           "Electrolux presents Jade Inverter air conditioner with high EER, Heavy compressor, Turbo cooling and many unique features.",
       title: "Hybrid Solar Power Kit",
-      availbleInAreas: [
-        "Gauteng",
-        "Cape Town",
-        "George",
-        "Polokwane",
-        "Port Elizabeth"
-      ],
-      contractors: [
-        "The installation of the Kit only",
-        "A COC electrician certificate",
-        "Workmanship Guarantee",
-        "Booking Management",
-        "Covers basic fault support",
-      ],
       price: 1900),
 ];
 
@@ -57,37 +43,25 @@ List<Product> inverters = [
     imagePath: "assets/images/Deye2-Hybrid-inverter-5kw-300x300.jpg",
     description: "description",
     title: "Hybrid Inverter",
-    availbleInAreas: areas,
-    contractors: contractors,
     kitType: KitType.product,
     price: 1343,
-    additionalInfo: additionalInfo,
   ),
   Product(
       imagePath: "assets/images/Fus-Hybrid-inverter-5kw-300x300.jpg",
       description: "description",
       title: "Fusion Hybrid Inverter",
-      availbleInAreas: areas,
-      contractors: contractors,
       kitType: KitType.product,
-      additionalInfo: additionalInfo,
       price: 1343),
   Product(
       imagePath: "assets/images/Deye2-Hybrid-inverter-5kw-300x300.jpg",
       description: "description",
       title: "Hybrid Inverter",
-      availbleInAreas: areas,
-      contractors: contractors,
       kitType: KitType.product,
-      additionalInfo: additionalInfo,
       price: 1343),
   Product(
       imagePath: "assets/images/Fus-Hybrid-inverter-5kw-300x300.jpg",
       description: "description",
       title: "Fusion Hybrid Inverter",
-      availbleInAreas: areas,
-      contractors: contractors,
       kitType: KitType.product,
-      additionalInfo: additionalInfo,
       price: 5324),
 ];

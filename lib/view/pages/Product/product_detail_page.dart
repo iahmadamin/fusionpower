@@ -112,7 +112,7 @@ class ProductDetailPage extends StatelessWidget {
           const SizedBox(
             height: 12,
           ),
-          if (product.additionalInfo != null)
+          if (additionalInfo != null)
             Column(
               children: [
                 for (final info in additionalInfo.entries)
