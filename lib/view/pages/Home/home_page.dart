@@ -3,6 +3,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
+import 'package:fusionpower/controllers/api_controller.dart';
 import 'package:fusionpower/controllers/cart_controller.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
 import 'package:fusionpower/controllers/serach_controller.dart';
@@ -26,11 +27,13 @@ class _HomePageState extends State<HomePage> {
     final controller = Get.put(CartController());
     final searchController = Get.put(SearchController());
     final kitController = Get.put(KitController());
+    final apiController = Get.put(ApiController());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final ApiController controller = Get.find();
     final product = productList[0];
     final solarPowerKitCategories = [
       {
