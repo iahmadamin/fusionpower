@@ -491,17 +491,17 @@ class ProductMiniTile extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          CButton(
-            label: "View Solution",
-            onTap: () {
-              Get.to(() => KitDetail(product: productList[0]));
-            },
-            borderRadius: 22,
-            fontSize: 12,
-            height: 36,
-            width: 126,
-            color: const Color(0xFF979797),
-          )
+          // CButton(
+          //   label: "View Solution",
+          //   onTap: () {
+          //     Get.to(() => KitDetail(product: productList[0]));
+          //   },
+          //   borderRadius: 22,
+          //   fontSize: 12,
+          //   height: 36,
+          //   width: 126,
+          //   color: const Color(0xFF979797),
+          // )
         ],
       ),
     );

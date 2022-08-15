@@ -1,6 +1,7 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
+import 'package:fusionpower/controllers/api_controller.dart';
 import 'package:fusionpower/models/product_model.dart';
 import 'package:fusionpower/sample_data.dart';
 
@@ -10,7 +11,7 @@ class InstallationAddonWidget extends StatelessWidget {
     required this.product,
   }) : super(key: key);
 
-  final Product product;
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {

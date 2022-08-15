@@ -45,7 +45,8 @@ class ProductModel {
       salePrice,
       weight;
   final int id;
-  final List<dynamic> categories, tags, images;
+  final List<dynamic> categories, tags, metaData, images;
+  final bool onSale;
 
   ProductModel({
     required this.stockStatus,
@@ -61,6 +62,8 @@ class ProductModel {
     required this.categories,
     required this.tags,
     required this.images,
+    required this.onSale,
+    required this.metaData,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
@@ -73,11 +76,13 @@ class ProductModel {
       price: json["price"],
       regularPrice: json["regular_price"],
       salePrice: json["sale_price"],
+      onSale: json["on_sale"],
       weight: json["weight"],
       id: json["id"],
       categories: json["categories"],
       tags: json["tags"],
       images: json["images"],
+      metaData: json["meta_data"],
     );
   }
 
@@ -95,10 +100,11 @@ class ProductModel {
         "categories": categories,
         "tags": tags,
         "images": images,
+        "meta_data": metaData,
       };
 
   @override
   String toString() {
-    return "\nProduct(id: $id, name: $name, price: $price)";
+    return "\n Categories: $categories";
   }
 }

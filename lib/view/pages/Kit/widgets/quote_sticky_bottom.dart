@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
+import 'package:fusionpower/controllers/api_controller.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
-import 'package:fusionpower/models/product_model.dart';
 import 'package:fusionpower/view/pages/Product/your_details_page.dart';
 import 'package:fusionpower/view/widgets/c_button.dart';
 import 'package:get/get.dart';
@@ -12,14 +12,15 @@ class QuoteStickyBottomWidget extends StatelessWidget {
     required this.product,
   }) : super(key: key);
 
-  final Product product;
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
         bottom: 0,
         child: GetBuilder<KitController>(builder: (controller) {
-          final price = product.price * controller.totalProductCounts;
+          final double price =
+              double.parse(product.price) * controller.totalProductCounts;
           return Container(
             height: 140,
             width: Get.width,

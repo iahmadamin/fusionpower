@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
+import 'package:fusionpower/controllers/api_controller.dart';
 import 'package:fusionpower/sample_data.dart';
 import 'package:fusionpower/view/pages/Kit/kit_detail_page.dart';
 import 'package:fusionpower/view/widgets/c_button.dart';
@@ -21,6 +22,13 @@ class _KitPageState extends State<KitPage> {
   ];
 
   String selectedSorting = 'Default Sorting';
+  late final ApiController _apiController;
+
+  @override
+  void initState() {
+    super.initState();
+    _apiController = Get.find();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,11 +143,25 @@ class _KitPageState extends State<KitPage> {
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.38),
             ),
-            const ProductKitTile(
-              imgPath: "assets/images/kit1.jpeg",
-            ),
-            const ProductKitTile(imgPath: "assets/images/kit1.jpeg"),
-            const ProductKitTile(imgPath: "assets/images/kit1.jpeg"),
+            Obx(() {
+              return _apiController.loading.value
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : ListView.builder(
+                      itemCount: _apiController.products.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        final product = _apiController.products[index];
+                        return ProductKitTile(product: product);
+                      });
+            }),
+            // const ProductKitTile(
+            //   imgPath: "assets/images/kit1.jpeg",
+            // ),
+            // const ProductKitTile(imgPath: "assets/images/kit1.jpeg"),
+            // const ProductKitTile(imgPath: "assets/images/kit1.jpeg"),
             const SizedBox(
               height: 32,
             ),
@@ -153,15 +175,16 @@ class _KitPageState extends State<KitPage> {
 class ProductKitTile extends StatelessWidget {
   const ProductKitTile({
     Key? key,
-    this.buttonColor = Colors.black,
-    required this.imgPath,
+    required this.product,
   }) : super(key: key);
 
-  final Color buttonColor;
-  final String imgPath;
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
+    final imgUrl = product.images.isEmpty
+        ? 'https://fusionpower.co.za/wp-content/uploads/2021/06/SA-LSK-Per-1024x1024-1.jpeg'
+        : product.images[0]["src"];
     return Container(
       margin: const EdgeInsets.only(top: 16),
       padding: const EdgeInsets.symmetric(
@@ -171,12 +194,13 @@ class ProductKitTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(imgPath),
+          // Image.asset(imgPath),
+          Image.network(imgUrl),
           const SizedBox(
             height: 18,
           ),
-          const Text(
-            "Hybrid Solar Power Kit",
+          Text(
+            product.name, // "Hybrid Solar Power Kit",
             style: TextStyle(
                 color: greyDark,
                 fontSize: 18,
@@ -265,11 +289,11 @@ class ProductKitTile extends StatelessWidget {
           CButton(
             label: "View Solution",
             onTap: () {
-              Get.to(() => KitDetail(product: productList[0]));
+              Get.to(() => KitDetail(product: product));
             },
             borderRadius: 12,
             fontSize: 12,
-            color: buttonColor,
+            color: Colors.black,
           )
         ],
       ),

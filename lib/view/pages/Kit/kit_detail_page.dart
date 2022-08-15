@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
-import 'package:fusionpower/models/product_model.dart';
+import 'package:fusionpower/controllers/api_controller.dart';
 import 'package:fusionpower/view/pages/Kit/widgets/bill_widget.dart';
 import 'package:fusionpower/view/pages/Kit/widgets/installation_add_on.dart';
 import 'package:fusionpower/view/pages/Kit/widgets/installation_process.dart';
@@ -16,7 +16,7 @@ class KitDetail extends StatelessWidget {
     required this.product,
   }) : super(key: key);
 
-  final Product product;
+  final ProductModel product;
   int firstSolar = 1;
   int secondSolar = 2;
   int thirdSolar = 1;
@@ -60,7 +60,10 @@ class KitDetail extends StatelessWidget {
                           horizontal: 32,
                           vertical: 16,
                         ),
-                        child: Center(child: Image.asset(product.imagePath))),
+                        child: Center(
+                            child: Image.network(product.images.isEmpty
+                                ? 'https://fusionpower.co.za/wp-content/uploads/2021/06/SA-LSK-Per-1024x1024-1.jpeg'
+                                : product.images[0]["src"]))),
                     const SizedBox(
                       height: 18,
                     ),
@@ -119,7 +122,7 @@ class KitDetail extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 16, top: 12),
                       child: Text(
-                        product.title,
+                        product.name,
                         style: const TextStyle(
                             color: greyDark,
                             fontSize: 18,
