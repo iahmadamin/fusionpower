@@ -1,5 +1,4 @@
 // ignore_for_file: unused_local_variable
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
@@ -8,10 +7,9 @@ import 'package:fusionpower/controllers/cart_controller.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
 import 'package:fusionpower/controllers/serach_controller.dart';
 import 'package:fusionpower/sample_data.dart';
-import 'package:fusionpower/view/pages/Kit/kit_detail_page.dart';
 import 'package:fusionpower/view/pages/Kit/kit_page.dart';
+import 'package:fusionpower/view/pages/Kit/webview_page.dart';
 import 'package:fusionpower/view/pages/Product/product_listing_page.dart';
-import 'package:fusionpower/view/widgets/c_button.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,24 +37,29 @@ class _HomePageState extends State<HomePage> {
       {
         "title": "All Solar Kits",
         "imgPath": "assets/icons/icons8-solar-cell-64 (1).png",
+        "url": "https://solaradvice.co.za/shop/solar-power/solar-power-kit",
       },
       {
         "title": "Hybrid",
         "imgPath": "assets/icons/icons8-solar-cell-64 (3).png",
+        "url": "https://solaradvice.co.za/shop/solar-power/solar-power-kit",
       },
       {
         "title": "Off-Grid",
         "imgPath": "assets/icons/icons8-solar-panel-48.png",
+        "url": "https://solaradvice.co.za/shop/solar-power/solar-power-kit",
       },
     ];
     final loadSheddingKitCategories = [
       {
         "title": "All Load Shedding Kits",
         "imgPath": "assets/icons/icons8-energy-window-50.png",
+        "url": "https://solaradvice.co.za/shop/solar-power/load-shedding-kits",
       },
       {
         "title": "Portable Power Kits",
         "imgPath": "assets/icons/icons8-electricity-50.png",
+        "url": "https://solaradvice.co.za/shop/solar-power/load-shedding-kits",
       },
     ];
 
@@ -204,9 +207,10 @@ class _HomePageState extends State<HomePage> {
                                   label: e['title'].toString(),
                                   imgPath: e['imgPath']!,
                                   onTap: () {
-                                    Get.to(() => KitPage(
-                                          kitCategory: e['title'].toString(),
-                                        ));
+                                    Get.to(() => WebViewPage(url: e["url"]!));
+                                    // Get.to(() => KitPage(
+                                    //       kitCategory: e['title'].toString(),
+                                    //     ));
                                   }))
                               .toList(),
                         ),
@@ -237,9 +241,11 @@ class _HomePageState extends State<HomePage> {
                                   label: e['title'].toString(),
                                   imgPath: e['imgPath']!,
                                   onTap: () {
-                                    Get.to(() => KitPage(
-                                          kitCategory: e['title'].toString(),
-                                        ));
+                                    Get.to(() => WebViewPage(url: e["url"]!));
+
+                                    // Get.to(() => KitPage(
+                                    //       kitCategory: e['title'].toString(),
+                                    //     ));
                                   }))
                               .toList(),
                         ),
