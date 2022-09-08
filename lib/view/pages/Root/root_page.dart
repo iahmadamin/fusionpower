@@ -6,7 +6,7 @@ import 'package:fusionpower/view/pages/Profile/profile_page.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({Key? key, this.initialIndex = 0}) : super(key: key);
-  final initialIndex;
+  final int initialIndex;
 
   @override
   State<RootPage> createState() => _RootPageState();
