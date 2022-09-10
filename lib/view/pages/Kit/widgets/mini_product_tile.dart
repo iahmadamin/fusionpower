@@ -18,8 +18,7 @@ class MiniProductTile extends StatelessWidget {
 
   final bool border;
   bool showChangeButton;
-  final String title, subtitle, imagePath;
-  final int count;
+  final String title, subtitle, imagePath, count;
   final VoidCallback onIncrement, onDecrement;
 
   @override

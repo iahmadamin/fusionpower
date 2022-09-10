@@ -7,8 +7,9 @@ import 'package:fusionpower/controllers/cart_controller.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
 import 'package:fusionpower/controllers/serach_controller.dart';
 import 'package:fusionpower/sample_data.dart';
-import 'package:fusionpower/view/pages/Kit/webview_page.dart';
 import 'package:get/get.dart';
+
+import '../Kit/kit_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -31,117 +32,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final ApiController controller = Get.find();
     final product = productList[0];
-    final solarPowerKitCategories = [
-      {
-        "title": "All Solar Kits",
-        "imgPath": "assets/icons/icons8-solar-cell-64 (1).png",
-        "url": "https://solaradvice.co.za/shop/solar-power/solar-power-kit",
-      },
-      {
-        "title": "Hybrid",
-        "imgPath": "assets/icons/icons8-solar-cell-64 (3).png",
-        "url": "https://solaradvice.co.za/shop/solar-power/solar-power-kit",
-      },
-      {
-        "title": "Off-Grid",
-        "imgPath": "assets/icons/icons8-solar-panel-48.png",
-        "url": "https://solaradvice.co.za/shop/solar-power/solar-power-kit",
-      },
-    ];
-    final loadSheddingKitCategories = [
-      {
-        "title": "All Load Shedding Kits",
-        "imgPath": "assets/icons/icons8-energy-window-50.png",
-        "url": "https://solaradvice.co.za/shop/solar-power/load-shedding-kits",
-      },
-      {
-        "title": "Portable Power Kits",
-        "imgPath": "assets/icons/icons8-electricity-50.png",
-        "url": "https://solaradvice.co.za/shop/solar-power/load-shedding-kits",
-      },
-    ];
-
-    final invertersCategories = [
-      {
-        "title": "Hybrid",
-        "imgPath": "assets/icons/icons8-heat-64.png",
-      },
-      {
-        "title": "Fusion",
-        "imgPath": "assets/icons/icons8-heating-room-50.png",
-      },
-      {
-        "title": "Hybrid",
-        "imgPath": "assets/icons/icons8-invert-colors-off-50.png",
-      },
-      {
-        "title": "Off-Grid",
-        "imgPath": "assets/icons/icons8-save-to-grid-50.png",
-      },
-      {
-        "title": "Deye Hybrid Inverters",
-        "imgPath": "assets/icons/icons8-save-to-grid-50.png",
-      },
-    ];
-    final solarBatteryCategories = [
-      {
-        "title": "BlueNova",
-        "imgPath": "assets/icons/icons8-solar-64 (1).png",
-      },
-      {
-        "title": "Dyness",
-        "imgPath": "assets/icons/icons8-solar-64 (2).png",
-      },
-      {
-        "title": "PylonTech",
-        "imgPath": "assets/icons/icons8-solar-energy-64.png",
-      },
-      {
-        "title": "Fusion",
-        "imgPath": "assets/icons/icons8-solar-panel-50.png",
-      },
-    ];
-    final solarPanels = [
-      {
-        "title": "JA Solar",
-        "imgPath": "assets/icons/icons8-sun-elevation-30.png",
-      },
-      {
-        "title": "Canadian Solar",
-        "imgPath": "assets/icons/icons8-sun-elevation-48.png",
-      },
-      {
-        "title": "Polycrystallines",
-        "imgPath": "assets/icons/icons8-windscreen-defrost-50.png",
-      },
-      {
-        "title": "Monocrystalline",
-        "imgPath": "assets/icons/icons8-solar-panels-30.png",
-      },
-    ];
-    final heatingCoolingCategories = [
-      {
-        "title": "Solar Air Conditioners",
-        "imgPath": "assets/icons/icons8-solar-panel-26.png",
-      },
-      {
-        "title": "Heat Pumps",
-        "imgPath": "assets/icons/icons8-solar-panel-48.png",
-      },
-      {
-        "title": "Solar Geysers",
-        "imgPath": "assets/icons/icons8-solar-panels-64.png",
-      },
-      {
-        "title": "Solar Powered Conversion Kits",
-        "imgPath": "assets/icons/icons8-solar-cell-64 (3).png",
-      },
-    ];
-
-    final bannerImages = [
-      "assets/images/banner.png",
-      "assets/images/banner1.png"
-    ];
 
     return Scaffold(
         //backgroundColor: backgroundColor,
@@ -205,10 +95,10 @@ class _HomePageState extends State<HomePage> {
                                   label: e['title'].toString(),
                                   imgPath: e['imgPath']!,
                                   onTap: () {
-                                    Get.to(() => WebViewPage(url: e["url"]!));
-                                    // Get.to(() => KitPage(
-                                    //       kitCategory: e['title'].toString(),
-                                    //     ));
+                                    //Get.to(() => WebViewPage(url: e["url"]!));
+                                    Get.to(() => KitPage(
+                                          kitCategory: e['title'].toString(),
+                                        ));
                                   }))
                               .toList(),
                         ),
@@ -239,11 +129,11 @@ class _HomePageState extends State<HomePage> {
                                   label: e['title'].toString(),
                                   imgPath: e['imgPath']!,
                                   onTap: () {
-                                    Get.to(() => WebViewPage(url: e["url"]!));
+                                    //Get.to(() => WebViewPage(url: e["url"]!));
 
-                                    // Get.to(() => KitPage(
-                                    //       kitCategory: e['title'].toString(),
-                                    //     ));
+                                    Get.to(() => KitPage(
+                                          kitCategory: e['title'].toString(),
+                                        ));
                                   }))
                               .toList(),
                         ),

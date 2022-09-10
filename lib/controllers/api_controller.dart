@@ -1,6 +1,9 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:fusionpower/models/woo_com_model.dart';
 import 'package:fusionpower/services/api_services.dart';
 import 'package:get/get.dart';
-import 'dart:convert';
 
 class ApiController extends GetxController {
   var products = <ProductModel>[].obs;
@@ -17,19 +20,57 @@ class ApiController extends GetxController {
   getProducts() async {
     loading(true);
     var response = await _provider.getProducts();
-    print("Status Code: ${response.status.code}");
+    log("Status Code: ${response.status.code}");
     if (!response.status.hasError && response.bodyString != null) {
       products.value = productModelFromJson(response.bodyString!);
-      //   products.add(ProductModel.fromJson(json.decode(response.bodyString!)));
-      print(products);
-      print(products.length);
     }
     loading(false);
   }
 }
 
-List<ProductModel> productModelFromJson(String str) => List<ProductModel>.from(
-    json.decode(str).map((x) => ProductModel.fromJson(x)));
+List<ProductModel> productModelFromJson(String str) =>
+    List<ProductModel>.from(json.decode(str).map((x) {
+      return ProductModel(
+        stockStatus: x["stock_status"],
+        name: x["name"],
+        permalink: x["permalink"],
+        description: x["description"],
+        shortDescription: x["short_description"],
+        price: x["price"],
+        regularPrice: x["regular_price"],
+        salePrice: x["sale_price"],
+        onSale: x["on_sale"],
+        weight: x["weight"],
+        id: x["id"],
+        categories: extractCategoreis(x["categories"]),
+        tags: x["tags"],
+        images: x["images"],
+        wooComComponents: extractWooComFromMetaData(x["meta_data"]),
+      );
+    }));
+
+List<String> extractCategoreis(mapedCategories) {
+  final List<String> categories = [];
+  for (var i = 0; i < mapedCategories.length; i++) {
+    categories.add(mapedCategories[i]['name']);
+  }
+  return categories;
+}
+
+List<WooCom> extractWooComFromMetaData(metadata) {
+  final List<WooCom> wooCom = [];
+  for (var i = 0; i < metadata.length; i++) {
+    if (metadata[i]['key'] == 'wooco_components') {
+      // wooCom.addAll(metadata[i]['value']);
+      final wooComComponents = metadata[i]['value'];
+      for (var j = 0; j < wooComComponents.length; j++) {
+        wooCom.add(WooCom.fromJson(wooComComponents[j]));
+      }
+      return wooCom;
+    }
+  }
+  return wooCom;
+}
 
 String productModelToJson(List<ProductModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
@@ -45,7 +86,9 @@ class ProductModel {
       salePrice,
       weight;
   final int id;
-  final List<dynamic> categories, tags, metaData, images;
+  final List<dynamic> tags, images;
+  final List<String> categories;
+  final List<WooCom> wooComComponents;
   final bool onSale;
 
   ProductModel({
@@ -63,28 +106,29 @@ class ProductModel {
     required this.tags,
     required this.images,
     required this.onSale,
-    required this.metaData,
+    required this.wooComComponents,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
-    return ProductModel(
-      stockStatus: json["stock_status"],
-      name: json["name"],
-      permalink: json["permalink"],
-      description: json["description"],
-      shortDescription: json["short_description"],
-      price: json["price"],
-      regularPrice: json["regular_price"],
-      salePrice: json["sale_price"],
-      onSale: json["on_sale"],
-      weight: json["weight"],
-      id: json["id"],
-      categories: json["categories"],
-      tags: json["tags"],
-      images: json["images"],
-      metaData: json["meta_data"],
-    );
-  }
+  // factory ProductModel.fromJson(Map<String, dynamic> json) {
+  //   return ProductModel(
+  //     stockStatus: json["stock_status"],
+  //     name: json["name"],
+  //     permalink: json["permalink"],
+  //     description: json["description"],
+  //     shortDescription: json["short_description"],
+  //     price: json["price"],
+  //     regularPrice: json["regular_price"],
+  //     salePrice: json["sale_price"],
+  //     onSale: json["on_sale"],
+  //     weight: json["weight"],
+  //     id: json["id"],
+  //     categories: json["categories"],
+  //     tags: json["tags"],
+  //     images: json["images"],
+  //     metaData: json["meta_data"],
+
+  //   );
+  // }
 
   Map<String, dynamic> toJson() => {
         "stock_status": stockStatus,
@@ -100,7 +144,6 @@ class ProductModel {
         "categories": categories,
         "tags": tags,
         "images": images,
-        "meta_data": metaData,
       };
 
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
+import 'package:fusionpower/models/woo_com_model.dart';
 import 'package:fusionpower/view/pages/Kit/widgets/mini_product_tile.dart';
 import 'package:fusionpower/view/pages/Kit/widgets/product_selection_tile.dart';
 import 'package:get/get.dart';
@@ -8,7 +9,10 @@ import 'package:get/get.dart';
 class YourSolarSystemWidget extends StatelessWidget {
   const YourSolarSystemWidget({
     Key? key,
+    required this.wooComComponents,
   }) : super(key: key);
+
+  final List<WooCom> wooComComponents;
 
   @override
   Widget build(BuildContext context) {
@@ -44,12 +48,33 @@ class YourSolarSystemWidget extends StatelessWidget {
         ),
         GetBuilder<KitController>(builder: (controller) {
           final products = controller.products;
+          if (wooComComponents.isNotEmpty) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                for (var i = 0; i < 3; i++)
+                  MiniProductTile(
+                    count: wooComComponents[i].qty,
+                    title: wooComComponents[i].name,
+                    subtitle: wooComComponents[i].desc,
+                    imagePath: products[i]['imgPath'],
+                    onIncrement: () {
+                      controller.incrementProductCount(i);
+                    },
+                    onDecrement: () {
+                      controller.decrementProductCount(i);
+                    },
+                    showChangeButton: i >= 1,
+                  )
+              ],
+            );
+          }
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               for (var i = 0; i < 3; i++)
                 MiniProductTile(
-                  count: products[i]['count'],
+                  count: products[i]['count'].toString(),
                   title: products[i]['title'],
                   subtitle: products[i]['subtitle'],
                   imagePath: products[i]['imgPath'],

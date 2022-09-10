@@ -89,7 +89,7 @@ class QuoteStickyBottomWidget extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "R${price}",
+                            "R${price.toStringAsFixed(2)}",
                             style: const TextStyle(
                               fontSize: 18,
                               letterSpacing: 0.38,

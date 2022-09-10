@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/api_controller.dart';
@@ -10,16 +12,32 @@ import 'package:fusionpower/view/pages/Kit/widgets/register_your_system.dart';
 import 'package:fusionpower/view/pages/Kit/widgets/your_solar_system.dart';
 import 'package:get/get.dart';
 
-class KitDetail extends StatelessWidget {
-  KitDetail({
+class KitDetail extends StatefulWidget {
+  const KitDetail({
     Key? key,
     required this.product,
   }) : super(key: key);
 
   final ProductModel product;
+
+  @override
+  State<KitDetail> createState() => _KitDetailState();
+}
+
+class _KitDetailState extends State<KitDetail> {
   int firstSolar = 1;
   int secondSolar = 2;
   int thirdSolar = 1;
+
+  late final ProductModel product;
+
+  @override
+  void initState() {
+    super.initState();
+    product = widget.product;
+    log("Categories: ${product.categories}");
+    log("Woo Coomerce Components: ${product.wooComComponents}");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +79,9 @@ class KitDetail extends StatelessWidget {
                           vertical: 16,
                         ),
                         child: Center(
-                            child: Image.network(product.images.isEmpty
+                            child: Image.network(widget.product.images.isEmpty
                                 ? 'https://fusionpower.co.za/wp-content/uploads/2021/06/SA-LSK-Per-1024x1024-1.jpeg'
-                                : product.images[0]["src"]))),
+                                : widget.product.images[0]["src"]))),
                     const SizedBox(
                       height: 18,
                     ),
@@ -122,7 +140,7 @@ class KitDetail extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 16, top: 12),
                       child: Text(
-                        product.name,
+                        widget.product.name,
                         style: const TextStyle(
                             color: greyDark,
                             fontSize: 18,
@@ -143,7 +161,9 @@ class KitDetail extends StatelessWidget {
                     ),
                     const KitPriceWidget(),
                     BillWidget(),
-                    const YourSolarSystemWidget(),
+                    YourSolarSystemWidget(
+                      wooComComponents: product.wooComComponents,
+                    ),
 
                     const InstalltionProcessWidget(),
                     // Container(
@@ -181,13 +201,13 @@ class KitDetail extends StatelessWidget {
 
                     // const SizedBox(height: 16),
 
-                    InstallationAddonWidget(product: product),
+                    InstallationAddonWidget(product: widget.product),
                     const SizedBox(height: 4),
                     const RegisterYourSystemwidget(),
                     const SizedBox(height: 180),
                   ]),
             ),
-            QuoteStickyBottomWidget(product: product),
+            QuoteStickyBottomWidget(product: widget.product),
           ],
         ),
       ),

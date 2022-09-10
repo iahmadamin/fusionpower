@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/api_controller.dart';
-import 'package:fusionpower/sample_data.dart';
 import 'package:fusionpower/view/pages/Kit/kit_detail_page.dart';
 import 'package:fusionpower/view/widgets/c_button.dart';
 import 'package:get/get.dart';
