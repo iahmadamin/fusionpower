@@ -33,7 +33,7 @@ class KitPriceWidget extends StatelessWidget {
               Text(
                 "R19,000",
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 17,
                   letterSpacing: 0.38,
                   fontWeight: FontWeight.w600,
                   color: greyDark,
@@ -51,7 +51,7 @@ class KitPriceWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(
-            width: 32,
+            width: 28,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,7 +68,7 @@ class KitPriceWidget extends StatelessWidget {
               Text(
                 "R19,000",
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: 17,
                   letterSpacing: 0.38,
                   fontWeight: FontWeight.w600,
                   color: Color(0xFF009D90),
@@ -92,9 +92,9 @@ class KitPriceWidget extends StatelessWidget {
             label: "Apply Today",
             onTap: () {},
             height: 28,
-            width: 86,
+            width: 90,
             filled: true,
-            fontSize: 10,
+            fontSize: 9,
           ),
         ],
       ),

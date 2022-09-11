@@ -109,20 +109,20 @@ class YourSolarSystemWidget extends StatelessWidget {
               Text(
                 "You can have a max of ",
                 style: TextStyle(
-                    color: greyDark, fontSize: 12, letterSpacing: 0.38),
+                    color: greyDark, fontSize: 11, letterSpacing: 0.38),
               ),
               Text(
                 "35 Panels",
                 style: TextStyle(
                     decoration: TextDecoration.underline,
                     color: greyDark,
-                    fontSize: 12,
+                    fontSize: 11,
                     letterSpacing: 0.38),
               ),
               Text(
                 " with inverter.",
                 style: TextStyle(
-                    color: greyDark, fontSize: 12, letterSpacing: 0.38),
+                    color: greyDark, fontSize: 11, letterSpacing: 0.38),
               ),
             ],
           ),
