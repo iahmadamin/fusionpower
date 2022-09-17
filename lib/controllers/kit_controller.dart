@@ -22,6 +22,7 @@ class KitController extends GetxController {
     },
   ];
   int totalProductCounts = 3;
+
   int bill = -1;
   bool showBillResult = false;
   double energyOffset = 0.5;

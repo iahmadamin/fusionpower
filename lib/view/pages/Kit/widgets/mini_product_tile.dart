@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
-import 'package:fusionpower/view/pages/Kit/widgets/product_selection_tile.dart';
+import 'package:fusionpower/controllers/api_controller.dart';
 import 'package:get/get.dart';
 
 class MiniProductTile extends StatelessWidget {
@@ -18,8 +18,10 @@ class MiniProductTile extends StatelessWidget {
 
   final bool border;
   bool showChangeButton;
-  final String title, subtitle, imagePath, count;
+  int count;
+  final String title, subtitle, imagePath;
   final VoidCallback onIncrement, onDecrement;
+  final ApiController apiController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class MiniProductTile extends StatelessWidget {
                     ),
                     child: Center(
                         child: Text(
-                      "x${count}",
+                      "x$count",
                       style: const TextStyle(color: Colors.white),
                     )),
                   )),
@@ -153,7 +155,9 @@ class MiniProductTile extends StatelessWidget {
     );
   }
 
-  Future<T?> productChangeSheet<T>(BuildContext context) async {
+  Future<T?> productChangeSheet<T>(
+    BuildContext context,
+  ) async {
     return Get.bottomSheet(Container(
       height: Get.height * 0.5,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 22),
@@ -183,23 +187,24 @@ class MiniProductTile extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 18),
-          const ProductSelectionTile(
-            imgPath: "assets/images/Genki-300W-300x300.jpg",
-            price: 5234.05,
-            title: "Genki 300W",
-          ),
-          const SizedBox(height: 12),
-          const ProductSelectionTile(
-            imgPath: "assets/images/BYD-HVM-BMS-1-300x300.jpg",
-            price: 3425.05,
-            title: "BYD-HVM-BMS-1",
-          ),
-          const SizedBox(height: 12),
-          const ProductSelectionTile(
-            imgPath: "assets/images/Luxpower-OGV2-300x300.jpg",
-            price: 2944.05,
-            title: "Luxpower OGV2",
-          ),
+
+          // const ProductSelectionTile(
+          //   imgPath: "assets/images/Genki-300W-300x300.jpg",
+          //   price: 5234.05,
+          //   title: "Genki 300W",
+          // ),
+          // const SizedBox(height: 12),
+          // const ProductSelectionTile(
+          //   imgPath: "assets/images/BYD-HVM-BMS-1-300x300.jpg",
+          //   price: 3425.05,
+          //   title: "BYD-HVM-BMS-1",
+          // ),
+          // const SizedBox(height: 12),
+          // const ProductSelectionTile(
+          //   imgPath: "assets/images/Luxpower-OGV2-300x300.jpg",
+          //   price: 2944.05,
+          //   title: "Luxpower OGV2",
+          // ),
         ],
       ),
     ));

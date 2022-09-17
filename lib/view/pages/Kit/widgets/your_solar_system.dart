@@ -6,7 +6,7 @@ import 'package:fusionpower/view/pages/Kit/widgets/mini_product_tile.dart';
 import 'package:fusionpower/view/pages/Kit/widgets/product_selection_tile.dart';
 import 'package:get/get.dart';
 
-class YourSolarSystemWidget extends StatelessWidget {
+class YourSolarSystemWidget extends StatefulWidget {
   const YourSolarSystemWidget({
     Key? key,
     required this.wooComComponents,
@@ -14,6 +14,11 @@ class YourSolarSystemWidget extends StatelessWidget {
 
   final List<WooCom> wooComComponents;
 
+  @override
+  State<YourSolarSystemWidget> createState() => _YourSolarSystemWidgetState();
+}
+
+class _YourSolarSystemWidgetState extends State<YourSolarSystemWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -48,21 +53,33 @@ class YourSolarSystemWidget extends StatelessWidget {
         ),
         GetBuilder<KitController>(builder: (controller) {
           final products = controller.products;
-          if (wooComComponents.isNotEmpty) {
+          if (widget.wooComComponents.isNotEmpty) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 for (var i = 0; i < 3; i++)
                   MiniProductTile(
-                    count: wooComComponents[i].qty,
-                    title: wooComComponents[i].name,
-                    subtitle: wooComComponents[i].desc,
+                    count: widget.wooComComponents[i].qty,
+                    title: widget.wooComComponents[i].name,
+                    subtitle: widget.wooComComponents[i].desc,
                     imagePath: products[i]['imgPath'],
                     onIncrement: () {
-                      controller.incrementProductCount(i);
+                      // controller.incrementProductCount(i);
+                      if (widget.wooComComponents[i].max >
+                          widget.wooComComponents[i].qty) {
+                        setState(() {
+                          widget.wooComComponents[i].qty++;
+                        });
+                      }
                     },
                     onDecrement: () {
-                      controller.decrementProductCount(i);
+                      //controller.decrementProductCount(i);
+                      if (widget.wooComComponents[i].min <
+                          widget.wooComComponents[i].qty) {
+                        setState(() {
+                          widget.wooComComponents[i].qty--;
+                        });
+                      }
                     },
                     showChangeButton: i >= 1,
                   )
@@ -74,7 +91,7 @@ class YourSolarSystemWidget extends StatelessWidget {
             children: [
               for (var i = 0; i < 3; i++)
                 MiniProductTile(
-                  count: products[i]['count'].toString(),
+                  count: products[i]['count'],
                   title: products[i]['title'],
                   subtitle: products[i]['subtitle'],
                   imagePath: products[i]['imgPath'],

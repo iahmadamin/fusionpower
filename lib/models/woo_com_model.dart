@@ -24,7 +24,6 @@ class WooCom {
     required this.optional,
     required this.price,
     required this.qty,
-    required this.customQty,
     required this.min,
     required this.max,
   });
@@ -41,11 +40,8 @@ class WooCom {
   String exclude;
   String wooComDefault;
   String optional;
-  String price;
-  String qty;
-  String customQty;
-  String min;
-  String max;
+  double price;
+  int min, max, qty;
 
   factory WooCom.fromJson(Map<String, dynamic> json) => WooCom(
         name: json["name"],
@@ -60,11 +56,10 @@ class WooCom {
         exclude: json["exclude"],
         wooComDefault: json["default"],
         optional: json["optional"],
-        price: json["price"],
-        qty: json["qty"],
-        customQty: json["custom_qty"],
-        min: json["min"],
-        max: json["max"],
+        price: json['price'] == "" ? 0.0 : double.parse(json["price"]),
+        qty: int.parse(json["qty"]),
+        min: int.parse(json["min"]),
+        max: int.parse(json["max"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -82,7 +77,6 @@ class WooCom {
         "optional": optional,
         "price": price,
         "qty": qty,
-        "custom_qty": customQty,
         "min": min,
         "max": max,
       };
