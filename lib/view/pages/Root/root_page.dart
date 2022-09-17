@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
-import 'package:fusionpower/view/pages/Cart/cart_page.dart';
+import 'package:fusionpower/controllers/kit_controller.dart';
 import 'package:fusionpower/view/pages/Home/home_page.dart';
 import 'package:fusionpower/view/pages/Profile/profile_page.dart';
+import 'package:get/get.dart';
 
 class RootPage extends StatefulWidget {
   const RootPage({Key? key, this.initialIndex = 0}) : super(key: key);
@@ -26,10 +27,15 @@ class _RootPageState extends State<RootPage> {
       'page': HomePage(),
     },
     {
-      'icon': Icons.shopping_cart,
-      'title': 'Cart',
-      'page': CartPage(),
+      'icon': Icons.wallet,
+      'title': 'Get Finance',
+      'page': HomePage(),
     },
+    // {
+    //   'icon': Icons.shopping_cart,
+    //   'title': 'Cart',
+    //   'page': CartPage(),
+    // },
     {
       'icon': Icons.person,
       'title': 'Account',
@@ -41,6 +47,7 @@ class _RootPageState extends State<RootPage> {
   void initState() {
     super.initState();
     selectedIndex = widget.initialIndex;
+    final KitController kitController = Get.put(KitController());
   }
 
   @override

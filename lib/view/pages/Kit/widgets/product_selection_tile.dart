@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:fusionpower/controllers/kit_controller.dart';
+import 'package:fusionpower/models/woo_com_model.dart';
 import 'package:get/get.dart';
 
 class ProductSelectionTile extends StatelessWidget {
-  const ProductSelectionTile({
+  ProductSelectionTile({
     Key? key,
-    required this.imgPath,
-    required this.title,
-    required this.price,
+    required this.component,
+    required this.index,
   }) : super(key: key);
 
-  final String imgPath;
-  final String title;
-  final double price;
+  final WooCom component;
+  final int index;
+  final KitController kitController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class ProductSelectionTile extends StatelessWidget {
         SizedBox(
           height: 68,
           width: 56,
-          child: Image.asset(imgPath),
+          child: Image.asset("assets/images/Fusion_battery-300x300.jpg"),
         ),
         const SizedBox(width: 8),
         Column(
@@ -42,7 +43,7 @@ class ProductSelectionTile extends StatelessWidget {
             SizedBox(
               width: Get.width * 0.45,
               child: Text(
-                title,
+                component.name,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   color: Colors.black,
@@ -51,7 +52,7 @@ class ProductSelectionTile extends StatelessWidget {
               ),
             ),
             Text(
-              "R${price}",
+              "R 1234",
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w600,
@@ -62,7 +63,10 @@ class ProductSelectionTile extends StatelessWidget {
         ),
         const Spacer(),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            kitController.updateSelectedWooComponents(index, component);
+            Get.back();
+          },
           child: Container(
               height: 32,
               width: 48,

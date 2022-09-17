@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/api_controller.dart';
+import 'package:fusionpower/controllers/kit_controller.dart';
+import 'package:fusionpower/models/woo_com_model.dart';
 import 'package:get/get.dart';
+
+import 'product_selection_tile.dart';
 
 class MiniProductTile extends StatelessWidget {
   MiniProductTile({
@@ -13,15 +17,17 @@ class MiniProductTile extends StatelessWidget {
     required this.count,
     required this.onIncrement,
     required this.onDecrement,
+    required this.index,
     this.showChangeButton = false,
   }) : super(key: key);
 
   final bool border;
   bool showChangeButton;
-  int count;
+  int count, index;
   final String title, subtitle, imagePath;
   final VoidCallback onIncrement, onDecrement;
   final ApiController apiController = Get.find();
+  final KitController kitController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +74,7 @@ class MiniProductTile extends StatelessWidget {
         if (showChangeButton)
           GestureDetector(
             onTap: () {
-              productChangeSheet(context);
+              productChangeSheet(context, index);
             },
             child: Container(
               width: 74,
@@ -157,55 +163,62 @@ class MiniProductTile extends StatelessWidget {
 
   Future<T?> productChangeSheet<T>(
     BuildContext context,
+    final int index,
   ) async {
+    final List<WooCom> wooComponents = kitController.unselectedWooComponents;
     return Get.bottomSheet(Container(
       height: Get.height * 0.5,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 22),
       color: Colors.white,
-      child: Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(
-                width: 12,
-              ),
-              const Text(
-                "Change Selection",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Get.back();
-                },
-                child: const Icon(Icons.close, color: Colors.grey),
-              ),
-            ],
-          ),
-          const SizedBox(height: 18),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(
+                  width: 12,
+                ),
+                const Text(
+                  "Change Selection",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: const Icon(Icons.close, color: Colors.grey),
+                ),
+              ],
+            ),
+            const SizedBox(height: 18),
 
-          // const ProductSelectionTile(
-          //   imgPath: "assets/images/Genki-300W-300x300.jpg",
-          //   price: 5234.05,
-          //   title: "Genki 300W",
-          // ),
-          // const SizedBox(height: 12),
-          // const ProductSelectionTile(
-          //   imgPath: "assets/images/BYD-HVM-BMS-1-300x300.jpg",
-          //   price: 3425.05,
-          //   title: "BYD-HVM-BMS-1",
-          // ),
-          // const SizedBox(height: 12),
-          // const ProductSelectionTile(
-          //   imgPath: "assets/images/Luxpower-OGV2-300x300.jpg",
-          //   price: 2944.05,
-          //   title: "Luxpower OGV2",
-          // ),
-        ],
+            for (var i = 0; i < wooComponents.length; i++)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: ProductSelectionTile(
+                  component: wooComponents[i],
+                  index: index,
+                ),
+              ),
+            // const SizedBox(height: 12),
+            // const ProductSelectionTile(
+            //   imgPath: "assets/images/BYD-HVM-BMS-1-300x300.jpg",
+            //   price: 3425.05,
+            //   title: "BYD-HVM-BMS-1",
+            // ),
+            // const SizedBox(height: 12),
+            // const ProductSelectionTile(
+            //   imgPath: "assets/images/Luxpower-OGV2-300x300.jpg",
+            //   price: 2944.05,
+            //   title: "Luxpower OGV2",
+            // ),
+          ],
+        ),
       ),
     ));
   }

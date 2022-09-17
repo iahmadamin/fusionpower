@@ -3,7 +3,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/api_controller.dart';
-import 'package:fusionpower/controllers/cart_controller.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
 import 'package:fusionpower/controllers/serach_controller.dart';
 import 'package:fusionpower/sample_data.dart';
@@ -21,7 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    final controller = Get.put(CartController());
+    //final controller = Get.put(CartController());
     final searchController = Get.put(SearchController());
     final kitController = Get.put(KitController());
     final apiController = Get.put(ApiController());
@@ -31,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final ApiController controller = Get.find();
-    final product = productList[0];
+    // final product = productList[0];
 
     return Scaffold(
         //backgroundColor: backgroundColor,

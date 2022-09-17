@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/api_controller.dart';
+import 'package:fusionpower/controllers/kit_controller.dart';
 import 'package:fusionpower/view/pages/Kit/kit_detail_page.dart';
 import 'package:fusionpower/view/widgets/c_button.dart';
 import 'package:get/get.dart';
@@ -288,7 +289,10 @@ class ProductKitTile extends StatelessWidget {
           CButton(
             label: "View Solution",
             onTap: () {
-              Get.to(() => KitDetail(product: product));
+              final KitController kitController = Get.find();
+              kitController.updateProduct(product);
+              kitController.updateWooComponents(product.wooComComponents);
+              Get.to(() => const KitDetail());
             },
             borderRadius: 12,
             fontSize: 12,

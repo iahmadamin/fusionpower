@@ -1,5 +1,3 @@
-import 'package:fusionpower/models/product_model.dart';
-
 const areas = [
   "Gauteng",
   "Cape Town(+ 100km Radius)",
@@ -28,43 +26,43 @@ const additionalInfo = {
   'Colors': 'Black, Purple, White',
 };
 
-List<Product> productList = [
-  Product(
-      imagePath: "assets/images/kit1.jpeg",
-      kitType: KitType.solarPower,
-      description:
-          "Electrolux presents Jade Inverter air conditioner with high EER, Heavy compressor, Turbo cooling and many unique features.",
-      title: "Hybrid Solar Power Kit",
-      price: 1900),
-];
+// List<Product> productList = [
+//   Product(
+//       imagePath: "assets/images/kit1.jpeg",
+//       kitType: KitType.solarPower,
+//       description:
+//           "Electrolux presents Jade Inverter air conditioner with high EER, Heavy compressor, Turbo cooling and many unique features.",
+//       title: "Hybrid Solar Power Kit",
+//       price: 1900),
+// ];
 
-List<Product> inverters = [
-  Product(
-    imagePath: "assets/images/Deye2-Hybrid-inverter-5kw-300x300.jpg",
-    description: "description",
-    title: "Hybrid Inverter",
-    kitType: KitType.product,
-    price: 1343,
-  ),
-  Product(
-      imagePath: "assets/images/Fus-Hybrid-inverter-5kw-300x300.jpg",
-      description: "description",
-      title: "Fusion Hybrid Inverter",
-      kitType: KitType.product,
-      price: 1343),
-  Product(
-      imagePath: "assets/images/Deye2-Hybrid-inverter-5kw-300x300.jpg",
-      description: "description",
-      title: "Hybrid Inverter",
-      kitType: KitType.product,
-      price: 1343),
-  Product(
-      imagePath: "assets/images/Fus-Hybrid-inverter-5kw-300x300.jpg",
-      description: "description",
-      title: "Fusion Hybrid Inverter",
-      kitType: KitType.product,
-      price: 5324),
-];
+// List<Product> inverters = [
+//   Product(
+//     imagePath: "assets/images/Deye2-Hybrid-inverter-5kw-300x300.jpg",
+//     description: "description",
+//     title: "Hybrid Inverter",
+//     kitType: KitType.product,
+//     price: 1343,
+//   ),
+//   Product(
+//       imagePath: "assets/images/Fus-Hybrid-inverter-5kw-300x300.jpg",
+//       description: "description",
+//       title: "Fusion Hybrid Inverter",
+//       kitType: KitType.product,
+//       price: 1343),
+//   Product(
+//       imagePath: "assets/images/Deye2-Hybrid-inverter-5kw-300x300.jpg",
+//       description: "description",
+//       title: "Hybrid Inverter",
+//       kitType: KitType.product,
+//       price: 1343),
+//   Product(
+//       imagePath: "assets/images/Fus-Hybrid-inverter-5kw-300x300.jpg",
+//       description: "description",
+//       title: "Fusion Hybrid Inverter",
+//       kitType: KitType.product,
+//       price: 5324),
+// ];
 
 final solarPowerKitCategories = [
   {
