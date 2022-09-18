@@ -1,8 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
-import 'package:fusionpower/models/woo_com_model.dart';
-import 'package:fusionpower/view/pages/Kit/widgets/mini_product_tile.dart';
+import 'package:fusionpower/view/pages/Kit/widgets/woo_component_tile.dart';
 import 'package:get/get.dart';
 
 class YourSolarSystemWidget extends StatefulWidget {
@@ -18,8 +19,9 @@ class _YourSolarSystemWidgetState extends State<YourSolarSystemWidget> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<KitController>(builder: (controller) {
-      final List<WooCom> wooComponents = controller.selectedWooComponents;
+      final wooComponents = controller.wooComponents;
 
+      log("Woo Components: ${wooComponents.length}");
       return Container(
         margin: const EdgeInsets.fromLTRB(12, 2, 12, 12),
         padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
@@ -51,54 +53,33 @@ class _YourSolarSystemWidgetState extends State<YourSolarSystemWidget> {
             height: 12,
           ),
           GetBuilder<KitController>(builder: (controller) {
-            final products = controller.products;
-            if (wooComponents.isNotEmpty) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  for (var i = 0; i < 3; i++)
-                    MiniProductTile(
-                      index: i,
-                      count: wooComponents[i].qty,
-                      title: wooComponents[i].name,
-                      subtitle: "wooComponents[i].desc",
-                      imagePath: products[i]['imgPath'],
-                      onIncrement: () {
-                        if (wooComponents[i].max > wooComponents[i].qty) {
-                          setState(() {
-                            wooComponents[i].qty++;
-                          });
-                        }
-                      },
-                      onDecrement: () {
-                        if (wooComponents[i].min < wooComponents[i].qty) {
-                          setState(() {
-                            wooComponents[i].qty--;
-                          });
-                        }
-                      },
-                      showChangeButton: i >= 1,
-                    )
-                ],
-              );
-            }
+            // final wooComponents = controller.wooComComponents;
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 for (var i = 0; i < 3; i++)
-                  MiniProductTile(
-                    index: i,
-                    count: products[i]['count'],
-                    title: products[i]['title'],
-                    subtitle: products[i]['subtitle'],
-                    imagePath: products[i]['imgPath'],
-                    onIncrement: () {
-                      controller.incrementProductCount(i);
-                    },
-                    onDecrement: () {
-                      controller.decrementProductCount(i);
-                    },
-                    showChangeButton: i >= 1,
+                  WooComponentTile(
+                    //index: i,
+                    wooCom: wooComponents[i],
+                    // count: wooComponents[i].qty,
+                    // title: wooComponents[i].name,
+                    // subtitle: "wooComponents[i].desc",
+                    // imagePath: products[i]['imgPath'],
+                    // onIncrement: () {
+                    //   if (wooComponents[i].max > wooComponents[i].qty) {
+                    //     setState(() {
+                    //       wooComponents[i].qty++;
+                    //     });
+                    //   }
+                    // },
+                    // onDecrement: () {
+                    //   if (wooComponents[i].min < wooComponents[i].qty) {
+                    //     setState(() {
+                    //       wooComponents[i].qty--;
+                    //     });
+                    //   }
+                    // },
+                    // showChangeButton: i >= 1,
                   )
               ],
             );

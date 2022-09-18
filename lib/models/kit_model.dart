@@ -34,8 +34,8 @@ class Kit {
     required this.wooComComponents,
   });
 
-  // factory ProductModel.fromJson(Map<String, dynamic> json) {
-  //   return ProductModel(
+  // factory Kit.fromJson(Map<String, dynamic> json) {
+  //   return Kit(
   //     stockStatus: json["stock_status"],
   //     name: json["name"],
   //     permalink: json["permalink"],

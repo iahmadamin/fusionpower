@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
+import 'package:fusionpower/controllers/api_controller.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
 import 'package:fusionpower/view/pages/Home/home_page.dart';
 import 'package:fusionpower/view/pages/Profile/profile_page.dart';
@@ -48,6 +49,7 @@ class _RootPageState extends State<RootPage> {
     super.initState();
     selectedIndex = widget.initialIndex;
     final KitController kitController = Get.put(KitController());
+    final apiController = Get.put(ApiController());
   }
 
   @override

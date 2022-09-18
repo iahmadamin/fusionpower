@@ -20,7 +20,7 @@ class WooCom {
     required this.min,
     required this.max,
     this.defaultProduct,
-    this.products,
+    required this.products,
   });
 
   WooCom copyWith({
@@ -57,7 +57,7 @@ class WooCom {
   String optional;
   int min, max, qty;
   String productIds;
-  List<Product>? products;
+  List<Product?> products;
   Product? defaultProduct;
 
   // factory WooCom.fromJson(Map<String, dynamic> json) => WooCom(

@@ -18,7 +18,8 @@
 // }
 
 class Product {
-  final String id, name, sku, price, regularPrice, salePrice, weight;
+  final int id;
+  final String name, sku, price, regularPrice, salePrice, weight;
   final Map<String, dynamic> dimensions;
   final List<dynamic> images;
 
@@ -33,4 +34,23 @@ class Product {
     required this.dimensions,
     required this.images,
   });
+
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      id: json['id'],
+      name: json['name'],
+      sku: json['sku'],
+      price: json['price'],
+      regularPrice: json['regular_price'],
+      salePrice: json['sale_price'],
+      weight: json['weight'],
+      dimensions: json['dimensions'],
+      images: json['images'],
+    );
+  }
+
+  @override
+  String toString() {
+    return "Product: $name, $id, $price";
+  }
 }

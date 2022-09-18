@@ -23,7 +23,6 @@ class _HomePageState extends State<HomePage> {
     //final controller = Get.put(CartController());
     final searchController = Get.put(SearchController());
     final kitController = Get.put(KitController());
-    final apiController = Get.put(ApiController());
     super.initState();
   }
 
@@ -38,7 +37,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: greyDark,
           elevation: 0,
           centerTitle: true,
-          title: Text(
+          title: const Text(
             "Fusion Power",
             style: TextStyle(fontFamily: 'Purple Purse'),
           ),
@@ -52,9 +51,7 @@ class _HomePageState extends State<HomePage> {
                 width: Get.width,
                 child: CarouselSlider(
                   items: bannerImages.map((image) {
-                    return Container(
-                      child: Image.asset(image, fit: BoxFit.contain),
-                    );
+                    return Image.asset(image, fit: BoxFit.contain);
                   }).toList(),
                   options: CarouselOptions(
                     autoPlay: true,
@@ -137,145 +134,6 @@ class _HomePageState extends State<HomePage> {
                               .toList(),
                         ),
                       ),
-                      // const SizedBox(height: 16),
-                      // const Padding(
-                      //   padding: EdgeInsets.only(left: 16, bottom: 12),
-                      //   child: Align(
-                      //     alignment: Alignment.centerLeft,
-                      //     child: Text(
-                      //       "Inverters",
-                      //       style: TextStyle(
-                      //         fontSize: 20,
-                      //         fontWeight: FontWeight.w600,
-                      //         color: Colors.black,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 120,
-                      //   width: Get.width,
-                      //   child: ListView(
-                      //     padding: const EdgeInsets.only(right: 16),
-                      //     scrollDirection: Axis.horizontal,
-                      //     children: invertersCategories
-                      //         .map((e) => _SubCategoryItem(
-                      //             label: e['title'].toString(),
-                      //             imgPath: e['imgPath']!,
-                      //             onTap: () {
-                      //               Get.to(() => ProductListingPage(
-                      //                     products: inverters,
-                      //                     productCategory: "Inverters",
-                      //                   ));
-                      //             }))
-                      //         .toList(),
-                      //   ),
-                      // ),
-                      // const SizedBox(height: 16),
-                      // const Padding(
-                      //   padding: EdgeInsets.only(left: 16, bottom: 12),
-                      //   child: Align(
-                      //     alignment: Alignment.centerLeft,
-                      //     child: Text(
-                      //       "Solar Batteries",
-                      //       style: TextStyle(
-                      //         fontSize: 20,
-                      //         fontWeight: FontWeight.w600,
-                      //         color: Colors.black,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 120,
-                      //   width: Get.width,
-                      //   child: ListView(
-                      //     padding: const EdgeInsets.only(right: 16),
-                      //     scrollDirection: Axis.horizontal,
-                      //     children: solarBatteryCategories
-                      //         .map((e) => _SubCategoryItem(
-                      //             label: e['title'].toString(),
-                      //             imgPath: e['imgPath']!,
-                      //             onTap: () {
-                      //               Get.to(() => ProductListingPage(
-                      //                     products: inverters,
-                      //                     productCategory: "Solar Batteries",
-                      //                   ));
-                      //             }))
-                      //         .toList(),
-                      //   ),
-                      // ),
-                      // const SizedBox(height: 16),
-                      // const Padding(
-                      //   padding: EdgeInsets.only(left: 16, bottom: 12),
-                      //   child: Align(
-                      //     alignment: Alignment.centerLeft,
-                      //     child: Text(
-                      //       "Solar Panels",
-                      //       style: TextStyle(
-                      //         fontSize: 20,
-                      //         fontWeight: FontWeight.w600,
-                      //         color: Colors.black,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 120,
-                      //   width: Get.width,
-                      //   child: ListView(
-                      //     padding: const EdgeInsets.only(right: 16),
-                      //     scrollDirection: Axis.horizontal,
-                      //     children: solarPanels
-                      //         .map((e) => _SubCategoryItem(
-                      //             label: e['title'].toString(),
-                      //             imgPath: e['imgPath']!,
-                      //             onTap: () {
-                      //               Get.to(() => ProductListingPage(
-                      //                     products: inverters,
-                      //                     productCategory: "Solar Panels",
-                      //                   ));
-                      //             }))
-                      //         .toList(),
-                      //   ),
-                      // ),
-                      // const SizedBox(height: 16),
-                      // const Padding(
-                      //   padding: EdgeInsets.only(left: 16, bottom: 12),
-                      //   child: Align(
-                      //     alignment: Alignment.centerLeft,
-                      //     child: Text(
-                      //       "Heating & Cooling",
-                      //       style: TextStyle(
-                      //         fontSize: 20,
-                      //         fontWeight: FontWeight.w600,
-                      //         color: Colors.black,
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 120,
-                      //   width: Get.width,
-                      //   child: ListView(
-                      //     padding: const EdgeInsets.only(right: 16),
-                      //     scrollDirection: Axis.horizontal,
-                      //     children: heatingCoolingCategories
-                      //         .map((e) => _SubCategoryItem(
-                      //             label: e['title'].toString(),
-                      //             imgPath: e['imgPath']!,
-                      //             onTap: () {
-                      //               Get.to(() => ProductListingPage(
-                      //                     products: inverters,
-                      //                     productCategory: "Heating & Cooling",
-                      //                   ));
-                      //             }))
-                      //         .toList(),
-                      //   ),
-                      // ),
-                      // const SizedBox(
-                      //   height: 32,
-                      // ),
                     ],
                   ),
                 ),

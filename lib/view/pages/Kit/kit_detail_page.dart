@@ -16,10 +16,7 @@ import 'package:get/get.dart';
 class KitDetail extends StatefulWidget {
   const KitDetail({
     Key? key,
-    //required this.product,
   }) : super(key: key);
-
-  //final ProductModel product;
 
   @override
   State<KitDetail> createState() => _KitDetailState();
@@ -30,14 +27,14 @@ class _KitDetailState extends State<KitDetail> {
   // int secondSolar = 2;
   // int thirdSolar = 1;
 
-  // late final ProductModel product;
+  // late final Kit product;
   // List<WooCom> selectedWooComponents = [];
   final KitController kitController = Get.find();
 
   @override
   void initState() {
     super.initState();
-    kitController.updateProductModel();
+    // kitController.updateProductModel();
     // product = widget.product;
     // log("Categories: ${product.categories}");
     // log("Woo Coomerce Components: ${product.wooComComponents}");
@@ -72,7 +69,7 @@ class _KitDetailState extends State<KitDetail> {
       ),
       body: GetBuilder<KitController>(
         builder: (controller) {
-          final ProductModel product = controller.product!;
+          final Kit product = controller.product!;
           for (var element in product.wooComComponents) {
             log("Default ProductId: ${element.defaultProductId}, ProductIds: ${element.productIds}");
           }

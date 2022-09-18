@@ -12,15 +12,14 @@ class QuoteStickyBottomWidget extends StatelessWidget {
     required this.product,
   }) : super(key: key);
 
-  final ProductModel product;
+  final Kit product;
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
         bottom: 0,
         child: GetBuilder<KitController>(builder: (controller) {
-          final double price =
-              double.parse(product.price) * controller.totalProductCounts;
+          final double price = double.parse(product.price) * 2;
           return Container(
             height: 140,
             width: Get.width,

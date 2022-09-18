@@ -64,7 +64,7 @@ class ProductSelectionTile extends StatelessWidget {
         const Spacer(),
         GestureDetector(
           onTap: () {
-            kitController.updateSelectedWooComponents(index, component);
+            // kitController.updateSelectedWooComponents(index, component);
             Get.back();
           },
           child: Container(

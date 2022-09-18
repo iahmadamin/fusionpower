@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/api_controller.dart';
@@ -57,116 +59,75 @@ class _KitPageState extends State<KitPage> {
         centerTitle: true,
       ),
       body: SizedBox.expand(
-        child: SingleChildScrollView(
-          child: Column(children: [
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(
-            //     horizontal: 32,
-            //   ),
-            //   child: Align(
-            //     alignment: Alignment.centerLeft,
-            //     child: Text(
-            //       widget.kitCategory,
-            //       style: const TextStyle(
-            //           color: greyDark,
-            //           fontSize: 16,
-            //           fontWeight: FontWeight.w600,
-            //           letterSpacing: 0.38),
-            //     ),
-            //   ),
-            // ),
-            // const SizedBox(height: 8),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(
-            //     horizontal: 32,
-            //   ),
-            //   child: Text(
-            //       widget.isSolar
-            //           ? solarPowerKitDescription
-            //           : loadSheddingKitDescription,
-            //       style: const TextStyle(
-            //           color: Color(0xFF898A8D),
-            //           fontSize: 12,
-            //           fontWeight: FontWeight.w500,
-            //           letterSpacing: 0.38)),
-            // ),
-
-            // const SizedBox(height: 22),
-
-            Container(
-              height: 35,
-              margin: const EdgeInsets.symmetric(horizontal: 38),
-              padding: const EdgeInsets.fromLTRB(22, 0, 15, 0),
-              decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: const Color(0xFFC7C7CC))),
-              child: DropdownButton<String>(
-                borderRadius: BorderRadius.circular(4),
-                isExpanded: true,
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF979797),
-                ),
-                underline: Container(),
-                elevation: 0,
-                value: selectedSorting,
-                icon: const Icon(
-                  Icons.keyboard_arrow_down,
-                  size: 24,
-                  color: Color(0xFF898A8D),
-                ),
-                items: sortingList.map((String item) {
-                  return DropdownMenuItem(
-                    value: item,
-                    child: Text(
-                      item,
+        child: GetBuilder<ApiController>(builder: (controller) {
+          return controller.loading
+              ? const Center(
+                  child: CircularProgressIndicator(color: primaryPurple))
+              : SingleChildScrollView(
+                  child: Column(children: [
+                    Container(
+                      height: 35,
+                      margin: const EdgeInsets.symmetric(horizontal: 38),
+                      padding: const EdgeInsets.fromLTRB(22, 0, 15, 0),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 1, color: const Color(0xFFC7C7CC))),
+                      child: DropdownButton<String>(
+                        borderRadius: BorderRadius.circular(4),
+                        isExpanded: true,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF979797),
+                        ),
+                        underline: Container(),
+                        elevation: 0,
+                        value: selectedSorting,
+                        icon: const Icon(
+                          Icons.keyboard_arrow_down,
+                          size: 24,
+                          color: Color(0xFF898A8D),
+                        ),
+                        items: sortingList.map((String item) {
+                          return DropdownMenuItem(
+                            value: item,
+                            child: Text(
+                              item,
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(
+                            () {
+                              selectedSorting = newValue!;
+                            },
+                          );
+                        },
+                      ),
                     ),
-                  );
-                }).toList(),
-                // After selecting the desired option,it will
-                // change button value to selected value
-                onChanged: (String? newValue) {
-                  setState(
-                    () {
-                      selectedSorting = newValue!;
-                    },
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              "Showing all 12 Results",
-              style: TextStyle(
-                  color: greyDark,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.38),
-            ),
-            Obx(() {
-              return _apiController.loading.value
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : ListView.builder(
-                      itemCount: _apiController.products.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final product = _apiController.products[index];
-                        return ProductKitTile(product: product);
-                      });
-            }),
-            // const ProductKitTile(
-            //   imgPath: "assets/images/kit1.jpeg",
-            // ),
-            // const ProductKitTile(imgPath: "assets/images/kit1.jpeg"),
-            // const ProductKitTile(imgPath: "assets/images/kit1.jpeg"),
-            const SizedBox(
-              height: 32,
-            ),
-          ]),
-        ),
+                    const SizedBox(height: 16),
+                    const Text(
+                      "Showing all 12 Results",
+                      style: TextStyle(
+                          color: greyDark,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.38),
+                    ),
+                    ListView.builder(
+                        itemCount: controller.kits.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final kit = _apiController.kits[index];
+                          return ProductKitTile(kit: kit);
+                        }),
+                    const SizedBox(
+                      height: 32,
+                    ),
+                  ]),
+                );
+        }),
       ),
     );
   }
@@ -175,16 +136,16 @@ class _KitPageState extends State<KitPage> {
 class ProductKitTile extends StatelessWidget {
   const ProductKitTile({
     Key? key,
-    required this.product,
+    required this.kit,
   }) : super(key: key);
 
-  final ProductModel product;
+  final Kit kit;
 
   @override
   Widget build(BuildContext context) {
-    final imgUrl = product.images.isEmpty
+    final imgUrl = kit.images.isEmpty
         ? 'https://fusionpower.co.za/wp-content/uploads/2021/06/SA-LSK-Per-1024x1024-1.jpeg'
-        : product.images[0]["src"];
+        : kit.images[0]["src"];
     return Container(
       margin: const EdgeInsets.only(top: 16),
       padding: const EdgeInsets.symmetric(
@@ -200,8 +161,8 @@ class ProductKitTile extends StatelessWidget {
             height: 18,
           ),
           Text(
-            product.name, // "Hybrid Solar Power Kit",
-            style: TextStyle(
+            kit.name, // "Hybrid Solar Power Kit",
+            style: const TextStyle(
                 color: greyDark,
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
@@ -290,8 +251,11 @@ class ProductKitTile extends StatelessWidget {
             label: "View Solution",
             onTap: () {
               final KitController kitController = Get.find();
-              kitController.updateProduct(product);
-              kitController.updateWooComponents(product.wooComComponents);
+              log("Product: $kit");
+              kitController.updateProduct(kit);
+
+              log("WooComComponents Length: ${kit.wooComComponents.length}");
+              kitController.updateWooComponents(kit.wooComComponents);
               Get.to(() => const KitDetail());
             },
             borderRadius: 12,
