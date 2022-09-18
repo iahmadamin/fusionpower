@@ -1,4 +1,4 @@
-import 'package:fusionpower/models/woo_com_model.dart';
+import 'woo_com_model.dart';
 
 class Kit {
   final String stockStatus,
@@ -15,8 +15,10 @@ class Kit {
   final List<String> categories;
   final List<WooCom> wooComComponents;
   final bool onSale;
+  double totalPrice;
 
   Kit({
+    this.totalPrice = 0.0,
     required this.stockStatus,
     required this.name,
     required this.permalink,
@@ -34,45 +36,43 @@ class Kit {
     required this.wooComComponents,
   });
 
-  // factory Kit.fromJson(Map<String, dynamic> json) {
-  //   return Kit(
-  //     stockStatus: json["stock_status"],
-  //     name: json["name"],
-  //     permalink: json["permalink"],
-  //     description: json["description"],
-  //     shortDescription: json["short_description"],
-  //     price: json["price"],
-  //     regularPrice: json["regular_price"],
-  //     salePrice: json["sale_price"],
-  //     onSale: json["on_sale"],
-  //     weight: json["weight"],
-  //     id: json["id"],
-  //     categories: json["categories"],
-  //     tags: json["tags"],
-  //     images: json["images"],
-  //     metaData: json["meta_data"],
-
-  //   );
-  // }
-
-  Map<String, dynamic> toJson() => {
-        "stock_status": stockStatus,
-        "name": name,
-        "permalink": permalink,
-        "description": description,
-        "short_description": shortDescription,
-        "price": price,
-        "regular_price": regularPrice,
-        "sale_price": salePrice,
-        "weight": weight,
-        "id": id,
-        "categories": categories,
-        "tags": tags,
-        "images": images,
-      };
+  Kit copyWith({
+    String? stockStatus,
+    String? name,
+    String? permalink,
+    String? description,
+    String? shortDescription,
+    String? price,
+    String? regularPrice,
+    String? salePrice,
+    String? weight,
+    int? id,
+    List<dynamic>? tags,
+    List<dynamic>? images,
+    List<String>? categories,
+    List<WooCom>? wooComComponents,
+    bool? onSale,
+  }) =>
+      Kit(
+        stockStatus: stockStatus ?? this.stockStatus,
+        name: name ?? this.name,
+        permalink: permalink ?? this.permalink,
+        description: description ?? this.description,
+        shortDescription: shortDescription ?? this.shortDescription,
+        price: price ?? this.price,
+        regularPrice: regularPrice ?? this.regularPrice,
+        salePrice: salePrice ?? this.salePrice,
+        weight: weight ?? this.weight,
+        id: id ?? this.id,
+        tags: tags ?? this.tags,
+        images: images ?? this.images,
+        categories: categories ?? this.categories,
+        wooComComponents: wooComComponents ?? this.wooComComponents,
+        onSale: onSale ?? this.onSale,
+      );
 
   @override
   String toString() {
-    return "\n Categories: $categories";
+    return "Product Id: $id";
   }
 }

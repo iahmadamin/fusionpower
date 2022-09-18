@@ -93,6 +93,6 @@ class WooCom {
 
   @override
   String toString() {
-    return "WooCom(name: $name, defaultId: $defaultProductId, productIds: $productIds, qty: $qty, min: $min, max: $max)\n";
+    return "WooCom(name: $name, defaultId: ${defaultProduct!.id}, qty: $qty, min: $min, max: $max)\n";
   }
 }

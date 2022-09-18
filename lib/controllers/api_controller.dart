@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:fusionpower/models/kit_model.dart';
 import 'package:fusionpower/models/product_model.dart';
 import 'package:fusionpower/models/woo_com_model.dart';
 import 'package:fusionpower/services/api_services.dart';
@@ -126,31 +127,26 @@ class ApiController extends GetxController {
         if (wooComComponents.length >= 3) {
           for (var j = 0; j < 3; j++) {
             final wooComJson = wooComComponents[j];
+
             Product? defaultProduct =
                 await getProduct(int.parse(wooComJson['default']));
 
-            // final productIds = wooComJson["kits"]
-            //     .split(",")
-            //     .map((e) => int.parse(e))
-            //     .toList();
-
-            // log("Product Ids: $productIds");
-
-            // final List<Product> kits =
-            //     await Future.wait(productIds.map((id) => getProduct(id)));
+            List<Product> products =
+                await getProductsForEachWooComponent(wooComJson["products"]);
 
             final wooCom = WooCom(
-                name: wooComJson["name"],
-                type: wooComJson["type"],
-                categories: wooComJson["categories"],
-                productIds: wooComJson["products"],
-                defaultProductId: int.parse(wooComJson["default"]),
-                optional: wooComJson["optional"],
-                qty: int.parse(wooComJson["qty"]),
-                min: int.parse(wooComJson["min"]),
-                max: int.parse(wooComJson["max"]),
-                defaultProduct: defaultProduct,
-                products: []);
+              name: wooComJson["name"],
+              type: wooComJson["type"],
+              categories: wooComJson["categories"],
+              productIds: wooComJson["products"],
+              defaultProductId: int.parse(wooComJson["default"]),
+              optional: wooComJson["optional"],
+              qty: int.parse(wooComJson["qty"]),
+              min: int.parse(wooComJson["min"]),
+              max: int.parse(wooComJson["max"]),
+              defaultProduct: defaultProduct,
+              products: products,
+            );
 
             wooComs.add(wooCom);
           }
@@ -160,6 +156,22 @@ class ApiController extends GetxController {
       }
     }
     return wooComs;
+  }
+
+  Future<List<Product>> getProductsForEachWooComponent(productIds) async {
+    List<Product> products = [];
+
+    List<String> ids = productIds.split(",").where((id) => id != "").toList();
+    log("ProductIds: $ids, type: ${ids.runtimeType}, length: ${ids.length}, empty: ${ids.isEmpty}");
+
+    if (ids.isEmpty) return products;
+
+    for (var id in ids) {
+      final product = await getProduct(int.parse(id));
+      log("Product: $product");
+      products.add(product!);
+    }
+    return products;
   }
 
   Future<Product?> getProduct(int id) async {
@@ -225,80 +237,5 @@ class ApiController extends GetxController {
       loading = val;
       update();
     }
-  }
-}
-
-class Kit {
-  final String stockStatus,
-      name,
-      permalink,
-      description,
-      shortDescription,
-      price,
-      regularPrice,
-      salePrice,
-      weight;
-  final int id;
-  final List<dynamic> tags, images;
-  final List<String> categories;
-  final List<WooCom> wooComComponents;
-  final bool onSale;
-
-  Kit({
-    required this.stockStatus,
-    required this.name,
-    required this.permalink,
-    required this.description,
-    required this.shortDescription,
-    required this.price,
-    required this.regularPrice,
-    required this.salePrice,
-    required this.weight,
-    required this.id,
-    required this.categories,
-    required this.tags,
-    required this.images,
-    required this.onSale,
-    required this.wooComComponents,
-  });
-
-  Kit copyWith({
-    String? stockStatus,
-    String? name,
-    String? permalink,
-    String? description,
-    String? shortDescription,
-    String? price,
-    String? regularPrice,
-    String? salePrice,
-    String? weight,
-    int? id,
-    List<dynamic>? tags,
-    List<dynamic>? images,
-    List<String>? categories,
-    List<WooCom>? wooComComponents,
-    bool? onSale,
-  }) =>
-      Kit(
-        stockStatus: stockStatus ?? this.stockStatus,
-        name: name ?? this.name,
-        permalink: permalink ?? this.permalink,
-        description: description ?? this.description,
-        shortDescription: shortDescription ?? this.shortDescription,
-        price: price ?? this.price,
-        regularPrice: regularPrice ?? this.regularPrice,
-        salePrice: salePrice ?? this.salePrice,
-        weight: weight ?? this.weight,
-        id: id ?? this.id,
-        tags: tags ?? this.tags,
-        images: images ?? this.images,
-        categories: categories ?? this.categories,
-        wooComComponents: wooComComponents ?? this.wooComComponents,
-        onSale: onSale ?? this.onSale,
-      );
-
-  @override
-  String toString() {
-    return "Product Id: $id";
   }
 }

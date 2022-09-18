@@ -1,26 +1,67 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls
 
-import 'package:fusionpower/controllers/api_controller.dart';
+import 'package:fusionpower/models/kit_model.dart';
+import 'package:fusionpower/models/product_model.dart';
 import 'package:fusionpower/models/woo_com_model.dart';
 import 'package:get/get.dart';
 
 class KitController extends GetxController {
-  List<WooCom> _wooCompoents = [];
-  Kit? _product;
-
-  List<WooCom> get wooComponents => _wooCompoents;
-  Kit? get product => _product;
+  List<WooCom> wooComponents = [];
+  Kit? product;
 
   void updateProduct(Kit product) {
-    _product = product;
+    this.product = product;
+    calculateTotalPrice();
+
     update();
   }
 
   void updateWooComponents(List<WooCom> components) {
     if (components.isNotEmpty) {
-      _wooCompoents = components;
+      wooComponents = components;
+      calculateTotalPrice();
+
       update();
     }
+  }
+
+  void updateWooComDefaultProduct(int wooComIndex, Product product) {
+    var tempProduct = wooComponents[wooComIndex].defaultProduct;
+    wooComponents[wooComIndex].defaultProduct = product;
+    wooComponents[wooComIndex].defaultProductId = product.id;
+    wooComponents[wooComIndex]
+        .products
+        .removeWhere((element) => element!.id == product.id);
+    wooComponents[wooComIndex].products.add(tempProduct);
+    calculateTotalPrice();
+
+    update();
+  }
+
+  void incrementDefaultProductQuantity(int wooComIndex) {
+    if (wooComponents[wooComIndex].qty < wooComponents[wooComIndex].max) {
+      wooComponents[wooComIndex].qty++;
+      calculateTotalPrice();
+
+      update();
+    }
+  }
+
+  void decrementDefaultProductQuantity(int wooComIndex) {
+    if (wooComponents[wooComIndex].qty > wooComponents[wooComIndex].min) {
+      wooComponents[wooComIndex].qty--;
+      calculateTotalPrice();
+      update();
+    }
+  }
+
+  void calculateTotalPrice() {
+    var totalPrice = 0.0;
+    wooComponents.forEach((product) {
+      double price = double.parse(product.defaultProduct!.price);
+      totalPrice += price * product.qty;
+    });
+    product!.totalPrice = totalPrice;
   }
 
   int bill = -1;

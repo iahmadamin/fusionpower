@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
-import 'package:fusionpower/controllers/api_controller.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
+import 'package:fusionpower/models/kit_model.dart';
 import 'package:fusionpower/view/pages/Kit/widgets/bill_widget.dart';
 import 'package:fusionpower/view/pages/Kit/widgets/installation_add_on.dart';
 import 'package:fusionpower/view/pages/Kit/widgets/installation_process.dart';
@@ -23,21 +23,11 @@ class KitDetail extends StatefulWidget {
 }
 
 class _KitDetailState extends State<KitDetail> {
-  // int firstSolar = 1;
-  // int secondSolar = 2;
-  // int thirdSolar = 1;
-
-  // late final Kit product;
-  // List<WooCom> selectedWooComponents = [];
   final KitController kitController = Get.find();
 
   @override
   void initState() {
     super.initState();
-    // kitController.updateProductModel();
-    // product = widget.product;
-    // log("Categories: ${product.categories}");
-    // log("Woo Coomerce Components: ${product.wooComComponents}");
   }
 
   @override
@@ -69,10 +59,9 @@ class _KitDetailState extends State<KitDetail> {
       ),
       body: GetBuilder<KitController>(
         builder: (controller) {
+          log("GetBuilder in KitDetail");
           final Kit product = controller.product!;
-          for (var element in product.wooComComponents) {
-            log("Default ProductId: ${element.defaultProductId}, ProductIds: ${element.productIds}");
-          }
+
           return SizedBox.expand(
             child: Stack(
               children: [
@@ -116,7 +105,7 @@ class _KitDetailState extends State<KitDetail> {
                         ),
                         const KitPriceWidget(),
                         BillWidget(),
-                        YourSolarSystemWidget(),
+                        const YourSolarSystemWidget(),
                         const InstalltionProcessWidget(),
                         InstallationAddonWidget(product: product),
                         const SizedBox(height: 4),

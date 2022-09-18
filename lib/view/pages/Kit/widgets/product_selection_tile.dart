@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
-import 'package:fusionpower/models/woo_com_model.dart';
+import 'package:fusionpower/models/product_model.dart';
 import 'package:get/get.dart';
 
 class ProductSelectionTile extends StatelessWidget {
   ProductSelectionTile({
     Key? key,
-    required this.component,
+    required this.product,
     required this.index,
   }) : super(key: key);
 
-  final WooCom component;
+  final Product product;
   final int index;
   final KitController kitController = Get.find();
 
@@ -43,16 +43,17 @@ class ProductSelectionTile extends StatelessWidget {
             SizedBox(
               width: Get.width * 0.45,
               child: Text(
-                component.name,
+                product.name,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                   color: Colors.black,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
             Text(
-              "R 1234",
+              "R${product.price}",
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w600,
@@ -64,7 +65,7 @@ class ProductSelectionTile extends StatelessWidget {
         const Spacer(),
         GestureDetector(
           onTap: () {
-            // kitController.updateSelectedWooComponents(index, component);
+            kitController.updateWooComDefaultProduct(index, product);
             Get.back();
           },
           child: Container(
