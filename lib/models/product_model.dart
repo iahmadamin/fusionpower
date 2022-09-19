@@ -20,7 +20,7 @@
 class Product {
   final int id;
   final String name, sku, price, regularPrice, salePrice, weight;
-  final Map<String, dynamic> dimensions;
+  Map<String, dynamic>? dimensions, attributes;
   final List<dynamic> images;
 
   Product({
@@ -33,6 +33,7 @@ class Product {
     required this.weight,
     required this.dimensions,
     required this.images,
+    this.attributes,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {

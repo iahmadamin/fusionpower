@@ -23,13 +23,12 @@ class ApiController extends GetxController {
     updateLoading(true);
 
     var productsResponse = await _provider.getProducts();
-    log("Status Code: ${productsResponse.status.code}");
+    log("Kit Status Code: ${productsResponse.status.code}");
     if (!productsResponse.status.hasError &&
         productsResponse.bodyString != null) {
       // kits.value = productModelFromJson(response.bodyString!);
 
       var productsJson = jsonDecode(productsResponse.bodyString!);
-      log("Length: ${productsJson.length}, type: ${productsJson.runtimeType}");
 
       // productsJson.forEach((product)
       for (var productJson in productsJson) {
@@ -52,10 +51,10 @@ class ApiController extends GetxController {
           images: productJson["images"],
           wooComComponents: wooComComponents,
         );
-        log("Product: $product");
         kits.add(product);
       }
     }
+    log("ApiController getKitData completed!");
     updateLoading(false);
   }
 
@@ -162,13 +161,11 @@ class ApiController extends GetxController {
     List<Product> products = [];
 
     List<String> ids = productIds.split(",").where((id) => id != "").toList();
-    log("ProductIds: $ids, type: ${ids.runtimeType}, length: ${ids.length}, empty: ${ids.isEmpty}");
 
     if (ids.isEmpty) return products;
 
     for (var id in ids) {
       final product = await getProduct(int.parse(id));
-      log("Product: $product");
       products.add(product!);
     }
     return products;
@@ -181,15 +178,27 @@ class ApiController extends GetxController {
 
       log("Product Status Code: ${productJson.status.code}");
       if (!productJson.status.hasError && productJson.bodyString != null) {
-        product = Product.fromJson(jsonDecode(productJson.bodyString!));
-        log("Default Product: $product");
+        final productJsonDecoded =
+            jsonDecode(productJson.bodyString!) as Map<String, dynamic>;
+        final productAttributes = productJsonDecoded["attributes"];
+        final attributes = extractProductAttributes(productAttributes);
+        product = Product.fromJson(productJsonDecoded);
+        product.attributes = attributes;
+
         return product;
       }
     } catch (e) {
       log("Exception in getProduct api controller: $e");
     }
-
     return null;
+  }
+
+  Map<String, dynamic> extractProductAttributes(List<dynamic> attributes) {
+    final Map<String, dynamic> productAttributes = {};
+    for (var i = 0; i < attributes.length; i++) {
+      productAttributes[attributes[i]["name"]] = attributes[i]["options"][0];
+    }
+    return productAttributes;
   }
 
   // Future<List<WooCom>> extractWooComFromMetaData(metadata) async {
