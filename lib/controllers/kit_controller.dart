@@ -67,6 +67,7 @@ class KitController extends GetxController {
   int bill = -1;
   bool showBillResult = false;
   double energyOffset = 0.5;
+  int billTokWh = 0;
 
   void updateEneryOffset(double value) {
     energyOffset = value;
@@ -75,7 +76,7 @@ class KitController extends GetxController {
 
   void updateBill(int bill) {
     this.bill = bill;
-
+    // billTokWh = (bill / 2.60).round();
     if (bill < 600) {
       showBillResult = false;
     }

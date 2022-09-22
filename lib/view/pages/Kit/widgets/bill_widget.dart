@@ -9,6 +9,7 @@ class BillWidget extends StatelessWidget {
   }) : super(key: key);
 
   final FocusNode focusNode = FocusNode();
+  final TextEditingController billController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +58,7 @@ class BillWidget extends StatelessWidget {
                           style: TextStyle(fontSize: 12, color: greyDark),
                         ),
                         Text(
-                          ("${(controller.bill * 0.8).toStringAsFixed(0)} kWh"),
+                          ("${controller.bill} kWh"),
                           style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -84,6 +85,7 @@ class BillWidget extends StatelessWidget {
                     children: [
                       Expanded(
                         child: TextField(
+                          //controller: billController,
                           focusNode: focusNode,
                           onChanged: (val) {
                             if (val.isEmpty) {
@@ -125,7 +127,7 @@ class BillWidget extends StatelessWidget {
                         width: 16,
                       ),
                       GestureDetector(
-                          onTap: controller.bill >= 600
+                          onTap: controller.bill >= 6000
                               ? () {
                                   controller.enableShowBillResult();
                                   focusNode.unfocus();
@@ -136,7 +138,7 @@ class BillWidget extends StatelessWidget {
                             width: 112,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(32),
-                              color: controller.bill >= 600
+                              color: controller.bill >= 6000
                                   ? primaryBlue
                                   : const Color(0xFFadc2d4),
                             ),
