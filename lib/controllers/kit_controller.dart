@@ -1,16 +1,20 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls
 
+import 'dart:developer';
+
 import 'package:fusionpower/models/kit_model.dart';
 import 'package:fusionpower/models/product_model.dart';
 import 'package:fusionpower/models/woo_com_model.dart';
 import 'package:get/get.dart';
 
+import 'helpers.dart';
+
 class KitController extends GetxController {
   List<WooCom> wooComponents = [];
-  Kit? product;
+  Kit? kit;
 
-  void updateProduct(Kit product) {
-    this.product = product;
+  void updateKit(Kit kit) {
+    this.kit = kit;
     calculateTotalPrice();
 
     update();
@@ -61,7 +65,7 @@ class KitController extends GetxController {
       double price = double.parse(product.defaultProduct!.price);
       totalPrice += price * product.qty;
     });
-    product!.totalPrice = totalPrice;
+    kit!.totalPrice = totalPrice;
   }
 
   int bill = -1;
@@ -74,17 +78,36 @@ class KitController extends GetxController {
     update();
   }
 
-  void updateBill(int bill) {
-    this.bill = bill;
-    // billTokWh = (bill / 2.60).round();
-    if (bill < 600) {
+  void updateBill(int b) {
+    bill = b;
+    billTokWh = (bill / 2.60).round();
+    if (bill < 6000) {
       showBillResult = false;
     }
+
+    try {
+      var panels = calculateNumberOfPannels(
+        batteryQty: wooComponents[2].qty,
+        batterySize: (wooComponents[2].defaultProduct! as Battery).storageSize,
+        sliderValue: energyOffset * 100,
+        billToKwh: billTokWh,
+        panelWatts: (wooComponents[0].defaultProduct! as Panel).watts,
+      );
+      log("Panels: $panels");
+    } catch (e) {
+      log("Exception in KitController updateBill (calculateNumberOfPannels): $e");
+    }
+
     update();
   }
 
   void enableShowBillResult() {
     showBillResult = true;
+    update();
+  }
+
+  void disableShowBillResult() {
+    showBillResult = false;
     update();
   }
 }

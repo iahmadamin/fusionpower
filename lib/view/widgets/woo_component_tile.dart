@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
@@ -33,8 +31,8 @@ class _WooComponentTileState extends State<WooComponentTile> {
 
   @override
   Widget build(BuildContext context) {
-    log("Default Product Attributes:");
-    log(widget.wooCom.defaultProduct!.attributes.toString());
+    // log("Default Product Attributes:");
+    // log(widget.wooCom.defaultProduct!.attributes.toString());
     return GetBuilder<KitController>(builder: (con) {
       return Container(
         height: 230,

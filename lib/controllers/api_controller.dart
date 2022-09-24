@@ -16,116 +16,62 @@ class ApiController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    await getProducts();
+    await getKits();
   }
 
-  getProducts() async {
+  getKits() async {
     updateLoading(true);
 
-    var productsResponse = await _provider.getProducts();
-    log("Kit Status Code: ${productsResponse.status.code}");
-    if (!productsResponse.status.hasError &&
-        productsResponse.bodyString != null) {
-      // kits.value = productModelFromJson(response.bodyString!);
+    var kitResponse = await _provider.getKits();
+    log("Kits Status Code: ${kitResponse.status.code}");
+    if (!kitResponse.status.hasError && kitResponse.bodyString != null) {
+      var kitsJson = jsonDecode(kitResponse.bodyString!);
 
-      var productsJson = jsonDecode(productsResponse.bodyString!);
-
-      // productsJson.forEach((product)
-      for (var productJson in productsJson) {
+      for (var kitJson in kitsJson) {
+        final isCompositeKit = kitJson["type"] == "composite";
+        if (!isCompositeKit) {
+          continue;
+        }
+        final KitType kitType = extractCategory(kitJson["categories"]);
+        log("Kit Type: ${kitType.toString()}");
+        final int wooComLimit = kitType == KitType.solar ? 3 : 2;
         final wooComComponents =
-            await extractWooComFromMetaData(productJson["meta_data"]);
-        final Kit product = Kit(
-          stockStatus: productJson["stock_status"],
-          name: productJson["name"],
-          permalink: productJson["permalink"],
-          description: productJson["description"],
-          shortDescription: productJson["short_description"],
-          price: productJson["price"],
-          regularPrice: productJson["regular_price"],
-          salePrice: productJson["sale_price"],
-          onSale: productJson["on_sale"],
-          weight: productJson["weight"],
-          id: productJson["id"],
-          categories: extractCategoreis(productJson["categories"]),
-          tags: productJson["tags"],
-          images: productJson["images"],
+            await extractWooComFromMetaData(kitJson["meta_data"], wooComLimit);
+        final Kit kit = Kit(
+          name: kitJson["name"],
+          id: kitJson["id"],
+          images: kitJson["images"],
           wooComComponents: wooComComponents,
+          kitType: kitType,
         );
-        kits.add(product);
+        kits.add(kit);
       }
     }
     log("ApiController getKitData completed!");
     updateLoading(false);
   }
 
-  // Future<Product> getProduct(int id) async {
-  //   loading(true);
-  //   Product? product;
-
-  //   try {
-  //     var response = await _provider.getProducts();
-  //     log("Status Code: ${response.status.code}");
-  //     if (!response.status.hasError && response.bodyString != null) {
-  //       final productJson =
-  //           jsonDecode(response.bodyString!) as Map<String, dynamic>;
-  //       product = Product(
-  //         id: productJson["id"],
-  //         name: productJson["name"],
-  //         sku: productJson["sku"],
-  //         price: productJson["price"],
-  //         regularPrice: productJson["regular_price"],
-  //         salePrice: productJson["sale_price"],
-  //         weight: productJson["weight"],
-  //         dimensions: productJson["dimensions"],
-  //         images: productJson["images"],
-  //       );
-  //     }
-  //   } catch (e) {
-  //     log("Exception in getProduct (ApiController): $e");
-  //   }
-
-  //   loading(false);
-  //   return product!;
-  // }
-
-  // List<Kit> productModelFromJson(String str) =>
-  //     List<Kit>.from(json.decode(str).map((x) {
-  //       return Kit(
-  //         stockStatus: x["stock_status"],
-  //         name: x["name"],
-  //         permalink: x["permalink"],
-  //         description: x["description"],
-  //         shortDescription: x["short_description"],
-  //         price: x["price"],
-  //         regularPrice: x["regular_price"],
-  //         salePrice: x["sale_price"],
-  //         onSale: x["on_sale"],
-  //         weight: x["weight"],
-  //         id: x["id"],
-  //         categories: extractCategoreis(x["categories"]),
-  //         tags: x["tags"],
-  //         images: x["images"],
-  //         wooComComponents: extractWooComFromMetaData(x["meta_data"]),
-  //       );
-  //     }));
-
-  List<String> extractCategoreis(mapedCategories) {
-    final List<String> categories = [];
-    for (var i = 0; i < mapedCategories.length; i++) {
-      categories.add(mapedCategories[i]['name']);
+  KitType extractCategory(mapedCategories) {
+    for (var categoryJson in mapedCategories) {
+      if (categoryJson["id"] == 624) {
+        return KitType.loadShedding;
+      } else if (categoryJson["id"] == 632) {
+        return KitType.solar;
+      }
     }
-    return categories;
+    return KitType.solar;
   }
 
-  Future<List<WooCom>> extractWooComFromMetaData(metadata) async {
+  Future<List<WooCom>> extractWooComFromMetaData(metadata, int limit) async {
     final List<WooCom> wooComs = [];
     for (var i = 0; i < metadata.length; i++) {
       if (metadata[i]['key'] == 'wooco_components') {
-        // wooCom.addAll(metadata[i]['value']);
         final wooComComponents = metadata[i]['value'];
-        if (wooComComponents.length >= 3) {
-          for (var j = 0; j < 3; j++) {
+        if (wooComComponents.length >= limit) {
+          for (var j = 0; j < limit; j++) {
             final wooComJson = wooComComponents[j];
+            // final productType = wooComJson['name'];
+            // log("Product Type(Name): $productType");
 
             Product? defaultProduct =
                 await getProduct(int.parse(wooComJson['default']));
@@ -172,20 +118,35 @@ class ApiController extends GetxController {
   }
 
   Future<Product?> getProduct(int id) async {
-    late final Product product;
     try {
-      final productJson = await _provider.getProductById(id);
+      final kitJson = await _provider.getProductById(id);
 
-      log("Product Status Code: ${productJson.status.code}");
-      if (!productJson.status.hasError && productJson.bodyString != null) {
+      log("Product Status Code: ${kitJson.status.code}");
+      if (!kitJson.status.hasError && kitJson.bodyString != null) {
         final productJsonDecoded =
-            jsonDecode(productJson.bodyString!) as Map<String, dynamic>;
+            jsonDecode(kitJson.bodyString!) as Map<String, dynamic>;
         final productAttributes = productJsonDecoded["attributes"];
         final attributes = extractProductAttributes(productAttributes);
-        product = Product.fromJson(productJsonDecoded);
-        product.attributes = attributes;
+        final productType = attributes['product-type'];
+        log("Product Type: $productType");
 
-        return product;
+        if (productType == 'Solar Panel') {
+          productJsonDecoded['watts'] =
+              int.parse((attributes['watts']).replaceAll('W', ''));
+          return Panel.fromJson(productJsonDecoded);
+        } else if (productType == 'Inverter') {
+          productJsonDecoded['max_pv'] = double.parse(
+              (attributes['maximum-pv-array-power']).replaceAll('W', ''));
+
+          return Inverter.fromJson(productJsonDecoded);
+        } else if (productType == 'Battery') {
+          productJsonDecoded['storage_size'] =
+              double.parse((attributes['storage-size']).replaceAll('kWh', ''));
+
+          return Battery.fromJson(productJsonDecoded);
+        }
+
+        return null;
       }
     } catch (e) {
       log("Exception in getProduct api controller: $e");
@@ -200,46 +161,6 @@ class ApiController extends GetxController {
     }
     return productAttributes;
   }
-
-  // Future<List<WooCom>> extractWooComFromMetaData(metadata) async {
-  //   final List<WooCom> wooComs = [];
-
-  //   for (var i = 0; i < metadata.length; i++) {
-  //     if (metadata[i]['key'] == 'wooco_components') {
-  //       // wooCom.addAll(metadata[i]['value']);
-  //       final wooComComponents = metadata[i]['value'];
-  //       for (var j = 0; j < wooComComponents.length; j++) {
-  //         final wooComJson = wooComComponents[j];
-
-  //         // final defaultProduct =
-  //         //     await getProduct(int.parse(wooComJson["default"]));
-  //         // final productIds = wooComJson["kits"]
-  //         //     .split(",")
-  //         //     .map((e) => int.parse(e))
-  //         //     .toList();
-
-  //         // final List<Product> kits =
-  //         //     await Future.wait(productIds.map((id) => getProduct(id)));
-
-  //         final wooCom = WooCom(
-  //           name: wooComJson["name"],
-  //           type: wooComJson["type"],
-  //           categories: wooComJson["categories"],
-  //           productIds: wooComJson["kits"],
-  //           defaultProductId: int.parse(wooComJson["default"]),
-  //           optional: wooComJson["optional"],
-  //           qty: int.parse(wooComJson["qty"]),
-  //           min: int.parse(wooComJson["min"]),
-  //           max: int.parse(wooComJson["max"]),
-  //         );
-
-  //         wooComs.add(wooCom);
-  //       }
-  //       return wooComs;
-  //     }
-  //   }
-  //   return wooComs;
-  // }
 
   void updateLoading(val) {
     if (loading != val) {

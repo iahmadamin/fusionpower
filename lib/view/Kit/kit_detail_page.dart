@@ -1,16 +1,14 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
 import 'package:fusionpower/models/kit_model.dart';
-import 'package:fusionpower/view/pages/Kit/widgets/bill_widget.dart';
-import 'package:fusionpower/view/pages/Kit/widgets/installation_add_on.dart';
-import 'package:fusionpower/view/pages/Kit/widgets/installation_process.dart';
-import 'package:fusionpower/view/pages/Kit/widgets/kit_price.dart';
-import 'package:fusionpower/view/pages/Kit/widgets/quote_sticky_bottom.dart';
-import 'package:fusionpower/view/pages/Kit/widgets/register_your_system.dart';
-import 'package:fusionpower/view/pages/Kit/widgets/your_solar_system.dart';
+import 'package:fusionpower/view/widgets/bill_widget.dart';
+import 'package:fusionpower/view/widgets/installation_add_on.dart';
+import 'package:fusionpower/view/widgets/installation_process.dart';
+import 'package:fusionpower/view/widgets/kit_price.dart';
+import 'package:fusionpower/view/widgets/quote_sticky_bottom.dart';
+import 'package:fusionpower/view/widgets/register_your_system.dart';
+import 'package:fusionpower/view/widgets/your_solar_system.dart';
 import 'package:get/get.dart';
 
 class KitDetail extends StatefulWidget {
@@ -59,8 +57,8 @@ class _KitDetailState extends State<KitDetail> {
       ),
       body: GetBuilder<KitController>(
         builder: (controller) {
-          log("GetBuilder in KitDetail");
-          final Kit product = controller.product!;
+          // log("GetBuilder in KitDetail");
+          final Kit kit = controller.kit!;
 
           return SizedBox.expand(
             child: Stack(
@@ -75,16 +73,16 @@ class _KitDetailState extends State<KitDetail> {
                               vertical: 16,
                             ),
                             child: Center(
-                                child: Image.network(product.images.isEmpty
+                                child: Image.network(kit.images.isEmpty
                                     ? 'https://fusionpower.co.za/wp-content/uploads/2021/06/SA-LSK-Per-1024x1024-1.jpeg'
-                                    : product.images[0]["src"]))),
+                                    : kit.images[0]["src"]))),
                         const SizedBox(
                           height: 18,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 16, top: 12),
                           child: Text(
-                            product.name,
+                            kit.name,
                             style: const TextStyle(
                                 color: greyDark,
                                 fontSize: 18,
@@ -107,13 +105,13 @@ class _KitDetailState extends State<KitDetail> {
                         BillWidget(),
                         const YourSolarSystemWidget(),
                         const InstalltionProcessWidget(),
-                        InstallationAddonWidget(product: product),
+                        InstallationAddonWidget(product: kit),
                         const SizedBox(height: 4),
                         const RegisterYourSystemwidget(),
                         const SizedBox(height: 180),
                       ]),
                 ),
-                QuoteStickyBottomWidget(product: product),
+                QuoteStickyBottomWidget(product: kit),
               ],
             ),
           );

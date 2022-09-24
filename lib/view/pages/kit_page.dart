@@ -1,36 +1,28 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/api_controller.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
 import 'package:fusionpower/models/kit_model.dart';
-import 'package:fusionpower/view/pages/Kit/kit_detail_page.dart';
+import 'package:fusionpower/view/pages/kit_detail_page.dart';
 import 'package:fusionpower/view/widgets/c_button.dart';
 import 'package:get/get.dart';
 
 class KitPage extends StatefulWidget {
-  const KitPage({Key? key, required this.kitCategory}) : super(key: key);
+  const KitPage({super.key});
 
-  final String kitCategory;
   @override
   State<KitPage> createState() => _KitPageState();
 }
 
 class _KitPageState extends State<KitPage> {
-  final List<String> sortingList = [
-    'Default Sorting',
-    'Sorting 1',
-    'Sorting 2',
-  ];
-
-  String selectedSorting = 'Default Sorting';
   late final ApiController _apiController;
+  late final KitController _kitController;
 
   @override
   void initState() {
     super.initState();
-    _apiController = Get.find();
+    _apiController = Get.put(ApiController());
+    _kitController = Get.put(KitController());
   }
 
   @override
@@ -38,104 +30,35 @@ class _KitPageState extends State<KitPage> {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
-        backgroundColor: backgroundColor,
-        elevation: 0.0,
-        leading: GestureDetector(
-          onTap: () {
-            Get.back();
-          },
-          child: const Icon(
-            Icons.arrow_back_ios,
-            color: primaryPurple,
-          ),
-        ),
-        title: Text(
-          widget.kitCategory,
-          style: const TextStyle(
-            color: labelColorPrimary,
-            fontWeight: FontWeight.w600,
-            fontSize: 17,
-          ),
-        ),
+        backgroundColor: greyDark,
+        elevation: 0,
         centerTitle: true,
+        title: const Text(
+          "Fusion Power",
+          style: TextStyle(fontFamily: 'Purple Purse'),
+        ),
       ),
       body: SizedBox.expand(
         child: GetBuilder<ApiController>(builder: (controller) {
           return controller.loading
               ? const Center(
                   child: CircularProgressIndicator(color: primaryPurple))
-              : SingleChildScrollView(
-                  child: Column(children: [
-                    Container(
-                      height: 35,
-                      margin: const EdgeInsets.symmetric(horizontal: 38),
-                      padding: const EdgeInsets.fromLTRB(22, 0, 15, 0),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 1, color: const Color(0xFFC7C7CC))),
-                      child: DropdownButton<String>(
-                        borderRadius: BorderRadius.circular(4),
-                        isExpanded: true,
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF979797),
-                        ),
-                        underline: Container(),
-                        elevation: 0,
-                        value: selectedSorting,
-                        icon: const Icon(
-                          Icons.keyboard_arrow_down,
-                          size: 24,
-                          color: Color(0xFF898A8D),
-                        ),
-                        items: sortingList.map((String item) {
-                          return DropdownMenuItem(
-                            value: item,
-                            child: Text(
-                              item,
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(
-                            () {
-                              selectedSorting = newValue!;
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      "Showing all 12 Results",
-                      style: TextStyle(
-                          color: greyDark,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 0.38),
-                    ),
-                    ListView.builder(
-                        itemCount: controller.kits.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          final kit = _apiController.kits[index];
-                          return ProductKitTile(kit: kit);
-                        }),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                  ]),
-                );
+              : ListView.builder(
+                  padding: const EdgeInsets.only(bottom: 32),
+                  itemCount: controller.kits.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    final kit = _apiController.kits[index];
+                    return KitTile(kit: kit);
+                  });
         }),
       ),
     );
   }
 }
 
-class ProductKitTile extends StatelessWidget {
-  const ProductKitTile({
+class KitTile extends StatelessWidget {
+  const KitTile({
     Key? key,
     required this.kit,
   }) : super(key: key);
@@ -172,9 +95,9 @@ class ProductKitTile extends StatelessWidget {
           const SizedBox(
             height: 4,
           ),
-          const Text(
-            "Bundle Test Product",
-            style: TextStyle(
+          Text(
+            kit.kitType.title,
+            style: const TextStyle(
               fontSize: 12,
               letterSpacing: 0.38,
               fontWeight: FontWeight.w600,
@@ -252,10 +175,9 @@ class ProductKitTile extends StatelessWidget {
             label: "View Solution",
             onTap: () {
               final KitController kitController = Get.find();
-              log("Product: $kit");
-              kitController.updateProduct(kit);
+              kitController.updateKit(kit);
 
-              log("WooComComponents Length: ${kit.wooComComponents.length}");
+              // log("WooComComponents Length: ${kit.wooComComponents.length}");
               kitController.updateWooComponents(kit.wooComComponents);
               Get.to(() => const KitDetail());
             },

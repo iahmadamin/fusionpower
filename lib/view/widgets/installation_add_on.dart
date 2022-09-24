@@ -110,7 +110,7 @@ class InstallationAddonWidget extends StatelessWidget {
                         horizontal: 14, vertical: 12),
                     child: Column(children: [
                       Text(
-                        "R${product.price}",
+                        "R{product.price}",
                         style: const TextStyle(
                             color: greyDark,
                             fontSize: 24,

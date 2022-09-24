@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
@@ -58,7 +60,7 @@ class BillWidget extends StatelessWidget {
                           style: TextStyle(fontSize: 12, color: greyDark),
                         ),
                         Text(
-                          ("${controller.bill} kWh"),
+                          ("${controller.billTokWh} kWh"),
                           style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -85,8 +87,8 @@ class BillWidget extends StatelessWidget {
                     children: [
                       Expanded(
                         child: TextField(
-                          //controller: billController,
                           focusNode: focusNode,
+                          cursorColor: greyDark,
                           onChanged: (val) {
                             if (val.isEmpty) {
                               controller.updateBill(0);
@@ -94,7 +96,6 @@ class BillWidget extends StatelessWidget {
                               controller.updateBill(int.parse(val));
                             }
                           },
-                          cursorColor: greyDark,
                           keyboardType: TextInputType.number,
                           style: const TextStyle(
                               fontSize: 16,
@@ -129,7 +130,9 @@ class BillWidget extends StatelessWidget {
                       GestureDetector(
                           onTap: controller.bill >= 6000
                               ? () {
+                                  log("Gesture Detector onTap called");
                                   controller.enableShowBillResult();
+
                                   focusNode.unfocus();
                                 }
                               : () {},
@@ -211,7 +214,7 @@ class BillWidget extends StatelessWidget {
                               divisions: 10,
                               thumbColor: Colors.white,
                               activeColor: const Color(0xFFf6ab54),
-                              inactiveColor: const Color(0xFFf1b61aa),
+                              inactiveColor: const Color(0xFF1b61aa),
                             ),
                           ),
                         ),

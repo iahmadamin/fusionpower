@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/models/kit_model.dart';
-import 'package:fusionpower/view/pages/Product/your_details_page.dart';
 import 'package:fusionpower/view/widgets/c_button.dart';
 import 'package:get/get.dart';
 
@@ -110,11 +109,7 @@ class QuoteStickyBottomWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: CButton(
-                    label: "Create Quote",
-                    color: primaryBlue,
-                    onTap: () {
-                      Get.to(() => YourDetailsPage());
-                    }),
+                    label: "Create Quote", color: primaryBlue, onTap: () {}),
               )
             ],
           ),
