@@ -26,6 +26,7 @@ class _KitDetailState extends State<KitDetail> {
   @override
   void initState() {
     super.initState();
+    kitController.disableShowBillResult();
   }
 
   @override
@@ -38,6 +39,8 @@ class _KitDetailState extends State<KitDetail> {
         elevation: 0.0,
         leading: GestureDetector(
           onTap: () {
+            kitController.disableShowBillResult();
+
             Get.back();
           },
           child: const Icon(
@@ -102,7 +105,7 @@ class _KitDetailState extends State<KitDetail> {
                           ),
                         ),
                         const KitPriceWidget(),
-                        BillWidget(),
+                        const BillWidget(),
                         const YourSolarSystemWidget(),
                         const InstalltionProcessWidget(),
                         InstallationAddonWidget(product: kit),

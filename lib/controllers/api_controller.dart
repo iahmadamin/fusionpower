@@ -135,6 +135,8 @@ class ApiController extends GetxController {
               int.parse((attributes['watts']).replaceAll('W', ''));
           return Panel.fromJson(productJsonDecoded);
         } else if (productType == 'Inverter') {
+          productJsonDecoded['kw_size'] =
+              int.parse((attributes['kW Size']).replaceAll('kW', ''));
           productJsonDecoded['max_pv'] = double.parse(
               (attributes['maximum-pv-array-power']).replaceAll('W', ''));
 

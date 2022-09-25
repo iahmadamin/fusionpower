@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:fusionpower/models/product_model.dart';
+
 /// Bill to Kwh
 // export const kitKwhState = selector({
 //     key: 'kitKwhState',
@@ -33,12 +35,12 @@ int billToKwh(int bill) {
 //     return Math.round(kwh / ((panelWatts * 5.5 * 30) / 1000) + panelsPerBatteryPerHour)
 // }
 
-int getNumOfPanels(kwh, panelWatts, batterySize) {
-  var batteryMinusDOD = int.parse(
-      (batterySize * 1000) * 0.80); // take battery size and reduce by 20%
-  var batteryDividedByHour =
+int _getNumOfPanels(double kwh, int panelWatts, double batterySize) {
+  double batteryMinusDOD =
+      (batterySize * 1000) * 0.80; // take battery size and reduce by 20%
+  int batteryDividedByHour =
       (batteryMinusDOD / 5.5).round(); // dividing battery capacity by 5.5 hours
-  var panelsPerBatteryPerHour = (batteryDividedByHour / panelWatts)
+  int panelsPerBatteryPerHour = (batteryDividedByHour / panelWatts)
       .round(); // working out the no. panels per hour
   return (kwh / ((panelWatts * 5.5 * 30) / 1000) + panelsPerBatteryPerHour)
       .round();
@@ -54,22 +56,65 @@ int getNumOfPanels(kwh, panelWatts, batterySize) {
 
 int calculateNumberOfPannels({
   required int batteryQty,
-  required num batterySize,
+  required double batterySize,
   required double sliderValue,
-  required num billToKwh,
+  required int billToKwh,
   required int panelWatts,
 }) {
-  var splitForPanels = (sliderValue / 100) * billToKwh;
-  return getNumOfPanels(splitForPanels, panelWatts, (batterySize * batteryQty));
+  double splitForPanels = (sliderValue / 100) * billToKwh;
+  return _getNumOfPanels(
+      splitForPanels, panelWatts, (batterySize * batteryQty));
+}
+
+/// ---------------- getNumOfBatteries ----------------
+// export function getNumBatteries(kwh, batterySize) {
+//     let totalSizeOfBank = ((kwh / 30) / batterySize) * batterySize
+//     return Math.round(totalSizeOfBank / batterySize)
+// }
+
+int _getNumBatteries(num kwh, double batterySize) {
+  double totalSizeOfBank = ((kwh / 30) / batterySize) * batterySize;
+  return (totalSizeOfBank / batterySize).round();
 }
 
 /// ---------------- calculateNumOfBatteries ----------------
-/// batteryQty
-/// splitForBatteries = ((100 - sliderValue) / 100) * billToKwh
-/// setBillSplitForBattery(splitForBatteries)
-/// return (splitForBatteries < parseInt(battery[0].min)) ?
-///                             getNumBatteries(parseInt(battery[0].min), batterySize) :
-///                             getNumBatteries(splitForBatteries, batterySize)
+// const calculateNumOfBatteries = () => {
+//     let battery = compositeProduct.filter((el) => el.name === 'Battery'), // Get the battery object to use for min qty
+//         splitForBatteries = ((100 - sliderValue) / 100) * billToKwh // get sliver value use logic to times by kwh (produced from bill amount)
+//         setBillSplitForBattery(splitForBatteries)
+//         // Below checks if the splitforbatterys is less than one then use the min, else add if it's more than 1
+//         return (splitForBatteries < parseInt(battery[0].min)) ? getNumBatteries(parseInt(battery[0].min), batterySize) : getNumBatteries(splitForBatteries, batterySize)
+// }
+
+int calculateNumberOfBatteries({
+  required int minBatteryQty,
+  required double sliderValue,
+  required int billToKwh,
+  required double batterySize,
+}) {
+  double splitForBatteries = ((100 - sliderValue) / 100) * billToKwh;
+  return (splitForBatteries < minBatteryQty
+      ? _getNumBatteries(minBatteryQty, batterySize)
+      : _getNumBatteries(splitForBatteries, batterySize));
+}
+
+/// ------------------------- Calculate Inverter Size -------------------------
+
+calculateInverterSize({
+  required List inverters,
+  required int totalWatts,
+}) {
+  inverters = inverters.map((e) => e as Inverter).toList();
+  inverters.sort((a, b) =>
+      ((a.maxPv - totalWatts).abs()).compareTo((b.maxPv - totalWatts).abs()));
+  final Inverter inverter = inverters.last;
+  final int numOfIverters =
+      (totalWatts > inverter.maxPv) ? (totalWatts / inverter.maxPv).round() : 1;
+  return {
+    'id': inverter.id,
+    'qty': numOfIverters,
+  };
+}
 
 double pmt(price) {
   //var result = PMT(6.5/1200 , 30*12 , 65000 , 0 , 0);
@@ -85,3 +130,6 @@ double pmt(price) {
   if (type == 1) pmtValue /= (1 + rate);
   return pmtValue;
 }
+
+/// watts to kWh
+int wattsTokWh(int watts) => ((watts * 30 * 5.5) / 1000).round();

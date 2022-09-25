@@ -87,19 +87,6 @@ abstract class Product {
   }
 }
 
-class PorductLS extends Product {
-  PorductLS({
-    required super.id,
-    required super.name,
-    required super.sku,
-    required super.price,
-    required super.regularPrice,
-    required super.salePrice,
-    required super.dimensions,
-    required super.images,
-  });
-}
-
 class Panel extends Product {
   final int watts;
 
@@ -131,9 +118,11 @@ class Panel extends Product {
 
 class Inverter extends Product {
   final double maxPv;
+  final int kwSize;
 
   Inverter(
-      {required this.maxPv,
+      {required this.kwSize,
+      required this.maxPv,
       required super.id,
       required super.name,
       required super.sku,
@@ -145,6 +134,7 @@ class Inverter extends Product {
 
   factory Inverter.fromJson(Map<String, dynamic> json) {
     return Inverter(
+      kwSize: json['kw_size'],
       maxPv: json['max_pv'],
       id: json['id'],
       name: json['name'],

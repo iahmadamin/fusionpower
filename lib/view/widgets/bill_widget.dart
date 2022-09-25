@@ -5,12 +5,18 @@ import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
 import 'package:get/get.dart';
 
-class BillWidget extends StatelessWidget {
-  BillWidget({
+class BillWidget extends StatefulWidget {
+  const BillWidget({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<BillWidget> createState() => _BillWidgetState();
+}
+
+class _BillWidgetState extends State<BillWidget> {
   final FocusNode focusNode = FocusNode();
+
   final TextEditingController billController = TextEditingController();
 
   @override
@@ -87,13 +93,19 @@ class BillWidget extends StatelessWidget {
                     children: [
                       Expanded(
                         child: TextField(
+                          onTap: () {
+                            controller.disableShowBillResult();
+                            billController.text = "";
+                            controller.updateValidBillAmount(false);
+                          },
                           focusNode: focusNode,
                           cursorColor: greyDark,
+                          controller: billController,
                           onChanged: (val) {
-                            if (val.isEmpty) {
-                              controller.updateBill(0);
+                            if (double.parse(val) >= 6000) {
+                              controller.updateValidBillAmount(true);
                             } else {
-                              controller.updateBill(int.parse(val));
+                              controller.updateValidBillAmount(false);
                             }
                           },
                           keyboardType: TextInputType.number,
@@ -128,11 +140,16 @@ class BillWidget extends StatelessWidget {
                         width: 16,
                       ),
                       GestureDetector(
-                          onTap: controller.bill >= 6000
+                          onTap: (billController.text.isNotEmpty &&
+                                  int.parse(billController.text
+                                          .toString()
+                                          .replaceAll(' ', '')) >=
+                                      6000)
                               ? () {
                                   log("Gesture Detector onTap called");
                                   controller.enableShowBillResult();
-
+                                  controller.updateBill(
+                                      double.parse(billController.text));
                                   focusNode.unfocus();
                                 }
                               : () {},
@@ -141,7 +158,11 @@ class BillWidget extends StatelessWidget {
                             width: 112,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(32),
-                              color: controller.bill >= 6000
+                              color: (billController.text.isNotEmpty &&
+                                      int.parse(billController.text
+                                              .toString()
+                                              .replaceAll(' ', '')) >=
+                                          6000)
                                   ? primaryBlue
                                   : const Color(0xFFadc2d4),
                             ),

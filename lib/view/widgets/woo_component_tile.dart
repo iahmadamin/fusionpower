@@ -1,10 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
+import 'package:fusionpower/models/kit_model.dart';
 import 'package:fusionpower/models/product_model.dart';
 import 'package:fusionpower/models/woo_com_model.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/helpers.dart';
 import 'product_selection_tile.dart';
 
 class WooComponentTile extends StatefulWidget {
@@ -12,11 +15,13 @@ class WooComponentTile extends StatefulWidget {
     Key? key,
     required this.wooCom,
     required this.index,
+    required this.kitType,
     this.border = true,
   }) : super(key: key);
 
   final WooCom wooCom;
   final bool border;
+  final KitType kitType;
   final int index;
 
   @override
@@ -31,9 +36,46 @@ class _WooComponentTileState extends State<WooComponentTile> {
 
   @override
   Widget build(BuildContext context) {
-    // log("Default Product Attributes:");
-    // log(widget.wooCom.defaultProduct!.attributes.toString());
     return GetBuilder<KitController>(builder: (con) {
+      late final product;
+      late final String title, subtitle;
+      if (widget.kitType == KitType.solar) {
+        switch (widget.index) {
+          case 0:
+            product = widget.wooCom.defaultProduct! as Panel;
+            title =
+                "${(wattsTokWh(product.watts * widget.wooCom.qty)).toStringAsFixed(0)}  kWh";
+            subtitle = "Monthly Prod.";
+            break;
+          case 1:
+            product = widget.wooCom.defaultProduct! as Inverter;
+            title =
+                "${(product.kwSize * widget.wooCom.qty).toStringAsFixed(0)} kW";
+            subtitle = "Max Power";
+            break;
+          case 2:
+            product = widget.wooCom.defaultProduct! as Battery;
+            title =
+                "${(product.storageSize * widget.wooCom.qty).toStringAsFixed(1)} kWh";
+            subtitle = "Storage";
+            break;
+        }
+      } else {
+        switch (widget.index) {
+          case 0:
+            product = widget.wooCom.defaultProduct! as Inverter;
+            title =
+                "${(product.kwSize * widget.wooCom.qty).toStringAsFixed(1)} kW";
+            subtitle = "Max Power";
+            break;
+          case 1:
+            product = widget.wooCom.defaultProduct! as Battery;
+            title =
+                "${(product.storageSize * widget.wooCom.qty).toStringAsFixed(1)} kWh";
+            subtitle = "Storage";
+            break;
+        }
+      }
       return Container(
         height: 230,
         width: 100,
@@ -54,8 +96,15 @@ class _WooComponentTileState extends State<WooComponentTile> {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                Image.network(con.wooComponents[widget.index].defaultProduct!
-                    .images[0]["src"]),
+                // Image.network(con.wooComponents[widget.index].defaultProduct!
+                //     .images[0]["src"]),
+                CachedNetworkImage(
+                  imageUrl: product.images[0]["src"],
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      CircularProgressIndicator(
+                          value: downloadProgress.progress),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
                 Positioned(
                     right: 0,
                     top: 22,
@@ -107,7 +156,8 @@ class _WooComponentTileState extends State<WooComponentTile> {
               height: 24,
             ),
           Text(
-            con.wooComponents[widget.index].name,
+            title,
+            textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 12,
               letterSpacing: 0.38,
@@ -116,7 +166,7 @@ class _WooComponentTileState extends State<WooComponentTile> {
             ),
           ),
           Text(
-            con.wooComponents[widget.index].defaultProduct!.name,
+            subtitle,
             textAlign: TextAlign.center,
             maxLines: 3,
             style: const TextStyle(

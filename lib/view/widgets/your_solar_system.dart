@@ -57,6 +57,7 @@ class _YourSolarSystemWidgetState extends State<YourSolarSystemWidget> {
                 WooComponentTile(
                   wooCom: controller.wooComponents[i],
                   index: i,
+                  kitType: controller.kit!.kitType,
                 )
             ],
           ),
