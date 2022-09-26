@@ -97,12 +97,13 @@ class _BillWidgetState extends State<BillWidget> {
                             controller.disableShowBillResult();
                             billController.text = "";
                             controller.updateValidBillAmount(false);
+                            controller.revertToDefaultQuantities();
                           },
                           focusNode: focusNode,
                           cursorColor: greyDark,
                           controller: billController,
                           onChanged: (val) {
-                            if (double.parse(val) >= 6000) {
+                            if (double.parse(val) >= 1000) {
                               controller.updateValidBillAmount(true);
                             } else {
                               controller.updateValidBillAmount(false);
@@ -144,7 +145,7 @@ class _BillWidgetState extends State<BillWidget> {
                                   int.parse(billController.text
                                           .toString()
                                           .replaceAll(' ', '')) >=
-                                      6000)
+                                      1000)
                               ? () {
                                   log("Gesture Detector onTap called");
                                   controller.enableShowBillResult();
@@ -162,7 +163,7 @@ class _BillWidgetState extends State<BillWidget> {
                                       int.parse(billController.text
                                               .toString()
                                               .replaceAll(' ', '')) >=
-                                          6000)
+                                          1000)
                                   ? primaryBlue
                                   : const Color(0xFFadc2d4),
                             ),
@@ -271,8 +272,8 @@ class _BillWidgetState extends State<BillWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "${(controller.energyOffset * 26).toStringAsFixed(0)} kWh",
-                                    style: TextStyle(
+                                    "${(controller.energyOffset * controller.billTokWh).toStringAsFixed(0)} kWh",
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.w800,
                                       fontSize: 16,
                                     ),
@@ -295,14 +296,14 @@ class _BillWidgetState extends State<BillWidget> {
                                 borderRadius: BorderRadius.circular(6),
                                 border: Border.all(
                                   width: 1.5,
-                                  color: const Color(0xFFf1b61aa),
+                                  color: const Color(0xFF1b61aa),
                                 )),
                             child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "${((1 - controller.energyOffset) * 26).toStringAsFixed(0)} kWh",
-                                    style: TextStyle(
+                                    "${((1 - controller.energyOffset) * controller.billTokWh).toStringAsFixed(0)} kWh",
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.w800,
                                       fontSize: 16,
                                     ),

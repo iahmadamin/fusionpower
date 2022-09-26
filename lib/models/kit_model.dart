@@ -23,9 +23,11 @@ class Kit {
   final List<WooCom> wooComComponents;
   final KitType kitType;
   double totalPrice;
+  double pricePerMonth;
 
   Kit({
     this.totalPrice = 0.0,
+    this.pricePerMonth = 0.0,
     required this.kitType,
     required this.name,
     required this.id,

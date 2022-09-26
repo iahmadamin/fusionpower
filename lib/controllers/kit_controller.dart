@@ -12,6 +12,7 @@ import 'helpers.dart';
 class KitController extends GetxController {
   List<WooCom> wooComponents = [];
   Kit? kit;
+  late List<WooCom> defaultProducts;
 
   void updateKit(Kit kit) {
     this.kit = kit;
@@ -20,11 +21,23 @@ class KitController extends GetxController {
     update();
   }
 
+  void setDefaultQuantities() {
+    defaultProducts = kit!.wooComComponents.map((e) => e).toList();
+  }
+
+  void revertToDefaultQuantities() {
+    kit!.wooComComponents.asMap().forEach((index, element) {
+      element = defaultProducts[index];
+    });
+    calculateTotalPrice();
+    update();
+  }
+
   void updateWooComponents(List<WooCom> components) {
     if (components.isNotEmpty) {
       wooComponents = components;
       calculateTotalPrice();
-
+      setDefaultQuantities();
       update();
     }
   }
@@ -42,8 +55,25 @@ class KitController extends GetxController {
         .products
         .removeWhere((element) => element!.id == product.id);
     wooComponents[wooComIndex].products.add(tempProduct);
-    calculateTotalPrice();
 
+    if (wooComIndex == 1) {
+      final inverterData = calculateInverterSize(
+          inverters: [product],
+          totalWatts: (wooComponents[0].defaultProduct! as Panel).watts *
+              wooComponents[0].qty);
+      setDefaultProductQuantity(1, inverterData['qty']);
+    } else if (wooComIndex == 2) {
+      var batteries = calculateNumberOfBatteries(
+        minBatteryQty: defaultProducts[2].min,
+        sliderValue: energyOffset * 100,
+        billToKwh: billTokWh,
+        batterySize:
+            (defaultProducts[2].defaultProduct! as Battery).storageSize,
+      );
+      setDefaultProductQuantity(2, batteries);
+    }
+
+    calculateTotalPrice();
     update();
   }
 
@@ -72,11 +102,12 @@ class KitController extends GetxController {
 
   void calculateTotalPrice() {
     var totalPrice = 0.0;
-    wooComponents.forEach((product) {
-      double price = double.parse(product.defaultProduct!.price);
-      totalPrice += price * product.qty;
+    wooComponents.forEach((wooCom) {
+      double price = double.parse(wooCom.defaultProduct!.price);
+      totalPrice += price * wooCom.qty;
     });
-    kit!.totalPrice = totalPrice;
+    kit!.totalPrice = totalPrice * 1.15;
+    kit!.pricePerMonth = pmt(totalPrice);
   }
 
   double bill = -1;
@@ -94,6 +125,12 @@ class KitController extends GetxController {
 
   void updateEneryOffset(double value) {
     energyOffset = value;
+    calculateNumberOfItems(
+      sliderValue: energyOffset * 100,
+      bQty: defaultProducts[2].qty,
+      minBQty: defaultProducts[2].min,
+      bStorageSize: (defaultProducts[2].defaultProduct! as Battery).storageSize,
+    );
     update();
   }
 
@@ -101,33 +138,54 @@ class KitController extends GetxController {
     if (b == bill) return;
     bill = b;
     billTokWh = (bill / 2.60).round();
+    calculateNumberOfItems(
+      sliderValue: energyOffset * 100,
+    );
+    update();
+  }
 
+  void calculateNumberOfItems({
+    required double sliderValue,
+    int? bQty,
+    int? minBQty,
+    double? bStorageSize,
+  }) {
     try {
-      int batteryQty = wooComponents[2].qty;
-      int minBatteryQty = wooComponents[2].min;
-      double batterySize =
+      int batteryQty = bQty ?? wooComponents[2].qty;
+      int minBatteryQty = minBQty ?? wooComponents[2].min;
+      double batterySize = bStorageSize ??
           (wooComponents[2].defaultProduct! as Battery).storageSize;
-      double sliderValue = energyOffset * 100;
-      int billToKwh = billTokWh;
       int panelWatts = (wooComponents[0].defaultProduct! as Panel).watts;
-
-      log("Battery Qty: $batteryQty");
-      log("Battery Size: $batterySize");
-      log("SliderValue: $sliderValue");
-      log("Bill To kWh: $billToKwh");
-      log("Panel Watts: $panelWatts");
 
       final defaultInverter = wooComponents[1].defaultProduct!;
       final inverters = wooComponents[1].products;
 
       final allInverters = [defaultInverter, ...inverters];
-      final totalWatts = panelWatts * wooComponents[0].qty;
+
+      var panels = calculateNumberOfPannels(
+        batteryQty: batteryQty,
+        batterySize: batterySize,
+        sliderValue: sliderValue,
+        billToKwh: billTokWh,
+        panelWatts: panelWatts,
+      );
+      // log("New Panel Qt: $panels");
+
+      var batteries = calculateNumberOfBatteries(
+          minBatteryQty: minBatteryQty,
+          sliderValue: sliderValue,
+          billToKwh: billTokWh,
+          batterySize: batterySize);
+
+      // log("New Battery Qty: $batteries");
+
+      final totalWatts = panelWatts * panels;
 
       final inverterData = calculateInverterSize(
           inverters: allInverters, totalWatts: totalWatts);
 
-      log("Inverter Id: ${inverterData['id']}");
-      log("Inverters Qty: ${inverterData['qty']}");
+      // log("Inverter Id: ${inverterData['id']}");
+      // log("Inverters Qty: ${inverterData['qty']}");
 
       if (inverterData['id'] != wooComponents[1].defaultProduct!.id) {
         final inverterToSetDefault = wooComponents[1]
@@ -136,30 +194,12 @@ class KitController extends GetxController {
         updateWooComDefaultProduct(1, inverterToSetDefault!);
       }
 
-      var batteries = calculateNumberOfBatteries(
-          minBatteryQty: minBatteryQty,
-          sliderValue: sliderValue,
-          billToKwh: billToKwh,
-          batterySize: batterySize);
-
-      log("Batteries: $batteries");
-      var panels = calculateNumberOfPannels(
-        batteryQty: batteryQty,
-        batterySize: batterySize,
-        sliderValue: sliderValue,
-        billToKwh: billTokWh,
-        panelWatts: panelWatts,
-      );
-      log("Panels: $panels");
-
       setDefaultProductQuantity(0, panels);
       setDefaultProductQuantity(1, inverterData['qty']);
       setDefaultProductQuantity(2, batteries);
     } catch (e) {
       log("Exception in KitController updateBill (calculateNumberOfPannels): $e");
     }
-
-    update();
   }
 
   void enableShowBillResult() {

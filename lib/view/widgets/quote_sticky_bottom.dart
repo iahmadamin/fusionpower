@@ -3,14 +3,15 @@ import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/models/kit_model.dart';
 import 'package:fusionpower/view/widgets/c_button.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class QuoteStickyBottomWidget extends StatelessWidget {
   const QuoteStickyBottomWidget({
     Key? key,
-    required this.product,
+    required this.kit,
   }) : super(key: key);
 
-  final Kit product;
+  final Kit kit;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class QuoteStickyBottomWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "R${(product.totalPrice / 60).toStringAsFixed(2)}",
+                          "R${NumberFormat('###,###,###.##').format(kit.pricePerMonth)}",
                           style: const TextStyle(
                             fontSize: 18,
                             letterSpacing: 0.38,
@@ -84,7 +85,7 @@ class QuoteStickyBottomWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "R${product.totalPrice.toStringAsFixed(2)}",
+                          "R${NumberFormat('###,###,###.##').format(kit.totalPrice)}",
                           style: const TextStyle(
                             fontSize: 18,
                             letterSpacing: 0.38,

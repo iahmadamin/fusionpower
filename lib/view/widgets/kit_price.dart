@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
+import 'package:fusionpower/controllers/kit_controller.dart';
 import 'package:fusionpower/view/widgets/c_button.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
-class KitPriceWidget extends StatelessWidget {
+class KitPriceWidget extends StatefulWidget {
   const KitPriceWidget({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<KitPriceWidget> createState() => _KitPriceWidgetState();
+}
+
+class _KitPriceWidgetState extends State<KitPriceWidget> {
+  final KitController kitController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +30,8 @@ class KitPriceWidget extends StatelessWidget {
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 "Starting At",
                 style: TextStyle(
                   fontSize: 10,
@@ -31,15 +41,15 @@ class KitPriceWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                "R19,000",
-                style: TextStyle(
+                "R${NumberFormat('###,###,###').format(kitController.kit!.pricePerMonth)}",
+                style: const TextStyle(
                   fontSize: 17,
                   letterSpacing: 0.38,
                   fontWeight: FontWeight.w600,
                   color: greyDark,
                 ),
               ),
-              Text(
+              const Text(
                 "Inc VAT",
                 style: TextStyle(
                   fontSize: 10,
@@ -55,8 +65,8 @@ class KitPriceWidget extends StatelessWidget {
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 "Pay Monthly",
                 style: TextStyle(
                   fontSize: 10,
@@ -66,15 +76,15 @@ class KitPriceWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                "R19,000",
-                style: TextStyle(
+                "R${NumberFormat('###,###,###').format(kitController.kit!.pricePerMonth)}",
+                style: const TextStyle(
                   fontSize: 17,
                   letterSpacing: 0.38,
                   fontWeight: FontWeight.w600,
                   color: Color(0xFF009D90),
                 ),
               ),
-              Text(
+              const Text(
                 "60 Months @ 16% APR",
                 style: TextStyle(
                   fontSize: 10,

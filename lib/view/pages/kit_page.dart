@@ -104,72 +104,73 @@ class KitTile extends StatelessWidget {
               color: Color(0xFF898A8D),
             ),
           ),
-          const SizedBox(
-            height: 12,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "Starting At",
-                    style: TextStyle(
-                      fontSize: 10,
-                      letterSpacing: 0.38,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF898A8D),
-                    ),
-                  ),
-                  Text(
-                    "19,000 PKR.",
-                    style: TextStyle(
-                      fontSize: 14,
-                      letterSpacing: 0.38,
-                      fontWeight: FontWeight.w600,
-                      color: greyDark,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                width: 38,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "Pay Monthly",
-                    style: TextStyle(
-                      fontSize: 10,
-                      letterSpacing: 0.38,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF898A8D),
-                    ),
-                  ),
-                  Text(
-                    "19,000 PKR.",
-                    style: TextStyle(
-                      fontSize: 14,
-                      letterSpacing: 0.38,
-                      fontWeight: FontWeight.w600,
-                      color: greyDark,
-                    ),
-                  ),
-                  Text(
-                    "60 Months @ 16% APR",
-                    style: TextStyle(
-                      fontSize: 10,
-                      letterSpacing: 0.38,
-                      fontWeight: FontWeight.w600,
-                      color: Color(0xFF898A8D),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
+          // const SizedBox(
+          //   height: 12,
+          // ),
+          // Row(
+          //   crossAxisAlignment: CrossAxisAlignment.start,
+          //   children: [
+          //     Column(
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: const [
+          //         Text(
+          //           "Starting At",
+          //           style: TextStyle(
+          //             fontSize: 10,
+          //             letterSpacing: 0.38,
+          //             fontWeight: FontWeight.w600,
+          //             color: Color(0xFF898A8D),
+          //           ),
+          //         ),
+          //         Text(
+          //           "19,000 PKR.",
+          //           style: TextStyle(
+          //             fontSize: 14,
+          //             letterSpacing: 0.38,
+          //             fontWeight: FontWeight.w600,
+          //             color: greyDark,
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //     const SizedBox(
+          //       width: 38,
+          //     ),
+          //     Column(
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: const [
+          //         Text(
+          //           "Pay Monthly",
+          //           style: TextStyle(
+          //             fontSize: 10,
+          //             letterSpacing: 0.38,
+          //             fontWeight: FontWeight.w600,
+          //             color: Color(0xFF898A8D),
+          //           ),
+          //         ),
+          //         Text(
+          //           "19,000 PKR.",
+          //           style: TextStyle(
+          //             fontSize: 14,
+          //             letterSpacing: 0.38,
+          //             fontWeight: FontWeight.w600,
+          //             color: greyDark,
+          //           ),
+          //         ),
+          //         Text(
+          //           "60 Months @ 16% APR",
+          //           style: TextStyle(
+          //             fontSize: 10,
+          //             letterSpacing: 0.38,
+          //             fontWeight: FontWeight.w600,
+          //             color: Color(0xFF898A8D),
+          //           ),
+          //         ),
+          //       ],
+          //     )
+          //   ],
+          // ),
+
           const SizedBox(height: 28),
           CButton(
             label: "View Solution",

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
 import 'package:fusionpower/models/product_model.dart';
@@ -27,7 +28,12 @@ class ProductSelectionTile extends StatelessWidget {
         SizedBox(
           height: 68,
           width: 56,
-          child: Image.asset("assets/images/Fusion_battery-300x300.jpg"),
+          child: CachedNetworkImage(
+            imageUrl: product.images[0]["src"],
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                CircularProgressIndicator(value: downloadProgress.progress),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+          ),
         ),
         const SizedBox(width: 8),
         Column(

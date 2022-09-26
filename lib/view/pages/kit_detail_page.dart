@@ -102,7 +102,7 @@ class _KitDetailState extends State<KitDetail> {
                           ),
                         ),
                         const KitPriceWidget(),
-                        if (kit.kitType == KitType.solar) BillWidget(),
+                        if (kit.kitType == KitType.solar) const BillWidget(),
                         const YourSolarSystemWidget(),
                         const InstalltionProcessWidget(),
                         InstallationAddonWidget(product: kit),
@@ -111,7 +111,7 @@ class _KitDetailState extends State<KitDetail> {
                         const SizedBox(height: 180),
                       ]),
                 ),
-                QuoteStickyBottomWidget(product: kit),
+                QuoteStickyBottomWidget(kit: kit),
               ],
             ),
           );
