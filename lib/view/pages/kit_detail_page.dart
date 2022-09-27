@@ -105,7 +105,7 @@ class _KitDetailState extends State<KitDetail> {
                         if (kit.kitType == KitType.solar) const BillWidget(),
                         const YourSolarSystemWidget(),
                         const InstalltionProcessWidget(),
-                        InstallationAddonWidget(product: kit),
+                        InstallationAddonWidget(kit: kit),
                         const SizedBox(height: 4),
                         const RegisterYourSystemwidget(),
                         const SizedBox(height: 180),

@@ -14,6 +14,53 @@ class KitController extends GetxController {
   Kit? kit;
   late List<WooCom> defaultProducts;
 
+  double bill = -1;
+  bool showBillResult = false;
+  double energyOffset = 0.8;
+  int billTokWh = 0;
+  bool validBillAmount = false;
+  bool registrationAddonSelected = false;
+  bool installationAddonSelected = false;
+  double registrationAddonCost = 5000 * 1.15;
+  double installationAddonCost = 0.0;
+
+  final Map<String, double> installerRates = {
+    'base': 7275.0,
+    'panel': 575.0,
+    'inverter': 2500.0,
+  };
+
+  calculateInstallationAddonCost() {
+    installationAddonCost =
+        (wooComponents[0].qty * 575) + (wooComponents[1].qty * 2500) + 7275;
+  }
+
+  void toggleInstallationAddon() {
+    if (installationAddonSelected) {
+      installationAddonSelected = false;
+      kit!.totalPrice -= installationAddonCost;
+      kit!.pricePerMonth = pmt(kit!.totalPrice);
+    } else {
+      installationAddonSelected = true;
+      kit!.totalPrice += installationAddonCost;
+      kit!.pricePerMonth = pmt(kit!.totalPrice);
+    }
+    update();
+  }
+
+  void toggleRegistrationAddon() {
+    if (registrationAddonSelected) {
+      registrationAddonSelected = false;
+      kit!.totalPrice -= registrationAddonCost;
+      kit!.pricePerMonth = pmt(kit!.totalPrice);
+    } else {
+      registrationAddonSelected = true;
+      kit!.totalPrice += registrationAddonCost;
+      kit!.pricePerMonth = pmt(kit!.totalPrice);
+    }
+    update();
+  }
+
   void updateKit(Kit kit) {
     this.kit = kit;
     calculateTotalPrice();
@@ -29,6 +76,14 @@ class KitController extends GetxController {
     kit!.wooComComponents.asMap().forEach((index, element) {
       element = defaultProducts[index];
     });
+    installationAddonSelected = false;
+    kit!.totalPrice -= installationAddonCost;
+    registrationAddonSelected = false;
+    kit!.totalPrice -= registrationAddonCost;
+    kit!.pricePerMonth = pmt(kit!.totalPrice);
+
+    calculateInstallationAddonCost();
+
     calculateTotalPrice();
     update();
   }
@@ -36,6 +91,8 @@ class KitController extends GetxController {
   void updateWooComponents(List<WooCom> components) {
     if (components.isNotEmpty) {
       wooComponents = components;
+      calculateInstallationAddonCost();
+
       calculateTotalPrice();
       setDefaultQuantities();
       update();
@@ -73,6 +130,7 @@ class KitController extends GetxController {
       setDefaultProductQuantity(2, batteries);
     }
 
+    calculateInstallationAddonCost();
     calculateTotalPrice();
     update();
   }
@@ -80,6 +138,8 @@ class KitController extends GetxController {
   void incrementDefaultProductQuantity(int wooComIndex) {
     if (wooComponents[wooComIndex].qty < wooComponents[wooComIndex].max) {
       wooComponents[wooComIndex].qty++;
+
+      calculateInstallationAddonCost();
       calculateTotalPrice();
 
       update();
@@ -89,6 +149,8 @@ class KitController extends GetxController {
   void decrementDefaultProductQuantity(int wooComIndex) {
     if (wooComponents[wooComIndex].qty > wooComponents[wooComIndex].min) {
       wooComponents[wooComIndex].qty--;
+      calculateInstallationAddonCost();
+
       calculateTotalPrice();
       update();
     }
@@ -96,6 +158,8 @@ class KitController extends GetxController {
 
   void setDefaultProductQuantity(int wooComIndex, int quantity) {
     wooComponents[wooComIndex].qty = quantity;
+    calculateInstallationAddonCost();
+
     calculateTotalPrice();
     update();
   }
@@ -106,15 +170,10 @@ class KitController extends GetxController {
       double price = double.parse(wooCom.defaultProduct!.price);
       totalPrice += price * wooCom.qty;
     });
+
     kit!.totalPrice = totalPrice * 1.15;
     kit!.pricePerMonth = pmt(totalPrice);
   }
-
-  double bill = -1;
-  bool showBillResult = false;
-  double energyOffset = 0.8;
-  int billTokWh = 0;
-  bool validBillAmount = false;
 
   void updateValidBillAmount(bool val) {
     if (validBillAmount != val) {
@@ -213,6 +272,37 @@ class KitController extends GetxController {
     if (showBillResult) {
       showBillResult = false;
       update();
+    }
+  }
+
+  void submitQuoteData() {
+    final List<Map<String, dynamic>> cartProducts = [];
+    wooComponents.forEach((el) {
+      if (el.qty > 0) {
+        cartProducts.add({
+          "product_type": el.name,
+          "product_id": el.defaultProduct!.id,
+          "quantity": el.qty
+        });
+      }
+    });
+    if (installationAddonSelected) {
+      cartProducts.add({
+        "addon": 'Installation Cost',
+        "price": installationAddonCost / 1.15
+      });
+    }
+    if (registrationAddonSelected) {
+      cartProducts.add(
+          {"addon": 'Registration Fee', "price": registrationAddonCost / 1.15});
+    }
+
+    for (var product in cartProducts) {
+      // for (var value in product.values) {
+      //   log(value.toString());
+      // }
+      // log("");
+      log(product.toString());
     }
   }
 }

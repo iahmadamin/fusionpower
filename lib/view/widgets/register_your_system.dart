@@ -1,6 +1,9 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
+import 'package:get/get.dart';
+
+import '../../controllers/kit_controller.dart';
 
 class RegisterYourSystemwidget extends StatelessWidget {
   const RegisterYourSystemwidget({
@@ -93,9 +96,9 @@ class RegisterYourSystemwidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               child: Column(children: [
-                Text(
+                const Text(
                   "R5,750",
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: greyDark,
                       fontSize: 24,
                       fontWeight: FontWeight.w600,
@@ -110,26 +113,40 @@ class RegisterYourSystemwidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 12),
-                GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      height: 36,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(24),
-                          border: Border.all(
-                              width: 2, color: const Color(0xFF434343))),
-                      child: const Center(
-                        child: Text(
-                          "Add Option",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            letterSpacing: 0.38,
-                            fontWeight: FontWeight.w600,
+                GetBuilder<KitController>(builder: (controller) {
+                  return GestureDetector(
+                      onTap: () {
+                        controller.toggleRegistrationAddon();
+                      },
+                      child: Container(
+                        height: 36,
+                        decoration: BoxDecoration(
+                            color: controller.registrationAddonSelected
+                                ? primaryBlue
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(24),
+                            border: Border.all(
+                                width: controller.registrationAddonSelected
+                                    ? 0
+                                    : 2,
+                                color: const Color(0xFF434343))),
+                        child: Center(
+                          child: Text(
+                            controller.registrationAddonSelected
+                                ? "Remove Option"
+                                : "Add Option",
+                            style: TextStyle(
+                              color: controller.registrationAddonSelected
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 14,
+                              letterSpacing: 0.38,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
-                      ),
-                    )),
+                      ));
+                }),
                 const SizedBox(height: 8),
               ]),
             ),

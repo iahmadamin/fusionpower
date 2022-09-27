@@ -72,21 +72,21 @@ class _YourSolarSystemWidgetState extends State<YourSolarSystemWidget> {
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     "You can have a max of ",
                     style: TextStyle(
                         color: greyDark, fontSize: 11, letterSpacing: 0.38),
                   ),
                   Text(
-                    "35 Panels",
-                    style: TextStyle(
+                    "${controller.wooComponents[0].max} Panels",
+                    style: const TextStyle(
                         decoration: TextDecoration.underline,
                         color: greyDark,
                         fontSize: 11,
                         letterSpacing: 0.38),
                   ),
-                  Text(
+                  const Text(
                     " with inverter.",
                     style: TextStyle(
                         color: greyDark, fontSize: 11, letterSpacing: 0.38),

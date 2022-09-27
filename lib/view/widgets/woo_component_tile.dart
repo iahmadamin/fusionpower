@@ -17,10 +17,11 @@ class WooComponentTile extends StatefulWidget {
     required this.index,
     required this.kitType,
     this.border = true,
+    this.static = false,
   }) : super(key: key);
 
   final WooCom wooCom;
-  final bool border;
+  final bool border, static;
   final KitType kitType;
   final int index;
 
@@ -77,7 +78,7 @@ class _WooComponentTileState extends State<WooComponentTile> {
         }
       }
       return Container(
-        height: 230,
+        height: widget.static ? 160 : 230,
         width: 100,
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
         decoration: BoxDecoration(
@@ -91,13 +92,11 @@ class _WooComponentTileState extends State<WooComponentTile> {
         child:
             Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           SizedBox(
-            width: 80,
-            height: 70,
+            width: widget.static ? 84 : 80,
+            height: widget.static ? 90 : 70,
             child: Stack(
               alignment: Alignment.center,
               children: [
-                // Image.network(con.wooComponents[widget.index].defaultProduct!
-                //     .images[0]["src"]),
                 CachedNetworkImage(
                   imageUrl: product.images[0]["src"],
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
@@ -124,7 +123,8 @@ class _WooComponentTileState extends State<WooComponentTile> {
               ],
             ),
           ),
-          if (con.wooComponents[widget.index].productIds.isNotEmpty)
+          if (con.wooComponents[widget.index].productIds.isNotEmpty &&
+              !widget.static)
             GestureDetector(
               onTap: () {
                 productChangeSheet(
@@ -151,7 +151,8 @@ class _WooComponentTileState extends State<WooComponentTile> {
                 )),
               ),
             ),
-          if (con.wooComponents[widget.index].productIds.isEmpty)
+          if (con.wooComponents[widget.index].productIds.isEmpty &&
+              !widget.static)
             const SizedBox(
               height: 24,
             ),
@@ -180,47 +181,48 @@ class _WooComponentTileState extends State<WooComponentTile> {
           const SizedBox(
             height: 6,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  con.incrementDefaultProductQuantity(widget.index);
-                },
-                child: Container(
-                  height: 36,
-                  width: 36,
-                  decoration: BoxDecoration(
-                      color: const Color(0xFFF4F4F4),
-                      borderRadius: BorderRadius.circular(6)),
-                  child: const Center(
-                      child: Icon(
-                    Icons.add,
-                    size: 18,
-                    color: Colors.black,
-                  )),
+          if (!widget.static)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    con.incrementDefaultProductQuantity(widget.index);
+                  },
+                  child: Container(
+                    height: 36,
+                    width: 36,
+                    decoration: BoxDecoration(
+                        color: const Color(0xFFF4F4F4),
+                        borderRadius: BorderRadius.circular(6)),
+                    child: const Center(
+                        child: Icon(
+                      Icons.add,
+                      size: 18,
+                      color: Colors.black,
+                    )),
+                  ),
                 ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  con.decrementDefaultProductQuantity(widget.index);
-                },
-                child: Container(
-                  height: 36,
-                  width: 36,
-                  decoration: BoxDecoration(
-                      color: const Color(0xFFF4F4F4),
-                      borderRadius: BorderRadius.circular(6)),
-                  child: const Center(
-                      child: Icon(
-                    Icons.remove,
-                    size: 18,
-                    color: Colors.black,
-                  )),
+                GestureDetector(
+                  onTap: () {
+                    con.decrementDefaultProductQuantity(widget.index);
+                  },
+                  child: Container(
+                    height: 36,
+                    width: 36,
+                    decoration: BoxDecoration(
+                        color: const Color(0xFFF4F4F4),
+                        borderRadius: BorderRadius.circular(6)),
+                    child: const Center(
+                        child: Icon(
+                      Icons.remove,
+                      size: 18,
+                      color: Colors.black,
+                    )),
+                  ),
                 ),
-              ),
-            ],
-          )
+              ],
+            )
         ]),
       );
     });

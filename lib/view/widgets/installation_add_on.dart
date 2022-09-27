@@ -1,19 +1,23 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
+import 'package:fusionpower/controllers/kit_controller.dart';
 import 'package:fusionpower/models/kit_model.dart';
 import 'package:fusionpower/sample_data.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class InstallationAddonWidget extends StatelessWidget {
   const InstallationAddonWidget({
     Key? key,
-    required this.product,
+    required this.kit,
   }) : super(key: key);
 
-  final Kit product;
+  final Kit kit;
 
   @override
   Widget build(BuildContext context) {
+    final KitController kitController = Get.find();
     return Container(
       margin: const EdgeInsets.fromLTRB(12, 2, 12, 12),
       padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
@@ -110,7 +114,7 @@ class InstallationAddonWidget extends StatelessWidget {
                         horizontal: 14, vertical: 12),
                     child: Column(children: [
                       Text(
-                        "R{product.price}",
+                        "R${NumberFormat('###,###,###.##').format(kitController.installationAddonCost)}",
                         style: const TextStyle(
                             color: greyDark,
                             fontSize: 24,
@@ -126,26 +130,41 @@ class InstallationAddonWidget extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            height: 36,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(24),
-                                border: Border.all(
-                                    width: 2, color: const Color(0xFF434343))),
-                            child: const Center(
-                              child: Text(
-                                "Add Option",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  letterSpacing: 0.38,
-                                  fontWeight: FontWeight.w600,
+                      GetBuilder<KitController>(builder: (controller) {
+                        return GestureDetector(
+                            onTap: () {
+                              controller.toggleInstallationAddon();
+                            },
+                            child: Container(
+                              height: 36,
+                              decoration: BoxDecoration(
+                                  color: controller.installationAddonSelected
+                                      ? primaryBlue
+                                      : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(24),
+                                  border: Border.all(
+                                      width:
+                                          controller.installationAddonSelected
+                                              ? 0
+                                              : 2,
+                                      color: const Color(0xFF434343))),
+                              child: Center(
+                                child: Text(
+                                  controller.installationAddonSelected
+                                      ? "Remove Option"
+                                      : "Add Option",
+                                  style: TextStyle(
+                                    color: controller.installationAddonSelected
+                                        ? Colors.white
+                                        : Colors.black,
+                                    fontSize: 14,
+                                    letterSpacing: 0.38,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
-                            ),
-                          )),
+                            ));
+                      }),
                       const SizedBox(height: 8),
                     ]),
                   ),
@@ -347,7 +366,7 @@ class _InstallationProcedureTileState extends State<InstallationProcedureTile> {
                         children: <TextSpan>[
                           TextSpan(
                             text:
-                                'and not Solar Advice, we (Solar Advice) simply assist with equipment and product support.',
+                                'and not Solar Advice, we (Solar Advice) simply assist with equipment and kit support.',
                             style: TextStyle(
                                 fontSize: 14, color: Colors.black, height: 1.4),
                           ),
