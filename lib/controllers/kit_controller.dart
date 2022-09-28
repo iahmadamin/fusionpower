@@ -274,35 +274,4 @@ class KitController extends GetxController {
       update();
     }
   }
-
-  void submitQuoteData() {
-    final List<Map<String, dynamic>> cartProducts = [];
-    wooComponents.forEach((el) {
-      if (el.qty > 0) {
-        cartProducts.add({
-          "product_type": el.name,
-          "product_id": el.defaultProduct!.id,
-          "quantity": el.qty
-        });
-      }
-    });
-    if (installationAddonSelected) {
-      cartProducts.add({
-        "addon": 'Installation Cost',
-        "price": installationAddonCost / 1.15
-      });
-    }
-    if (registrationAddonSelected) {
-      cartProducts.add(
-          {"addon": 'Registration Fee', "price": registrationAddonCost / 1.15});
-    }
-
-    for (var product in cartProducts) {
-      // for (var value in product.values) {
-      //   log(value.toString());
-      // }
-      // log("");
-      log(product.toString());
-    }
-  }
 }

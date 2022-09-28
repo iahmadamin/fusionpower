@@ -11,7 +11,7 @@ class ApiController extends GetxController {
   List<Kit> kits = [];
   var loading = false;
 
-  final ProductProvier _provider = ProductProvier();
+  final APIService _apiService = APIService();
 
   @override
   void onInit() async {
@@ -19,10 +19,25 @@ class ApiController extends GetxController {
     await getKits();
   }
 
+  submitQuote(Map<String, dynamic> data) async {
+    log("submitQuote called");
+    updateLoading(true);
+    late dynamic response;
+    try {
+      response = await _apiService.submitQuote(data);
+    } catch (e) {
+      log("Error in ApiController(submitQuote): ${e.toString()}");
+    }
+    updateLoading(false);
+    log("Response: ${response.statusCode}");
+    log("Submit Quote Response: ${response.body}");
+    return response;
+  }
+
   getKits() async {
     updateLoading(true);
 
-    var kitResponse = await _provider.getKits();
+    var kitResponse = await _apiService.getKits();
     log("Kits Status Code: ${kitResponse.status.code}");
     if (!kitResponse.status.hasError && kitResponse.bodyString != null) {
       var kitsJson = jsonDecode(kitResponse.bodyString!);
@@ -119,7 +134,7 @@ class ApiController extends GetxController {
 
   Future<Product?> getProduct(int id) async {
     try {
-      final kitJson = await _provider.getProductById(id);
+      final kitJson = await _apiService.getProductById(id);
 
       log("Product Status Code: ${kitJson.status.code}");
       if (!kitJson.status.hasError && kitJson.bodyString != null) {
