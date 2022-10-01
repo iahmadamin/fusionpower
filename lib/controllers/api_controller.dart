@@ -20,18 +20,27 @@ class ApiController extends GetxController {
   }
 
   submitQuote(Map<String, dynamic> data) async {
-    log("submitQuote called");
+    log("submitQuote called (api_controller.dart)");
+
     updateLoading(true);
-    late dynamic response;
     try {
-      response = await _apiService.submitQuote(data);
+      var response = await _apiService.emptyCart();
+      log("emptyCart response status code: ${response.statusCode}");
+      log("emptyCart response: ${response.body}");
+    } catch (e) {
+      log("emptyCart error: $e");
+    }
+    // late dynamic response;
+    try {
+      var response = await _apiService.submitQuote(data);
+      log("Submit Quote Response Status Code: ${response.statusCode}");
+      log("Submit Quote Response: ${response.body}");
     } catch (e) {
       log("Error in ApiController(submitQuote): ${e.toString()}");
     }
     updateLoading(false);
-    log("Response: ${response.statusCode}");
-    log("Submit Quote Response: ${response.body}");
-    return response;
+
+    // return response;
   }
 
   getKits() async {

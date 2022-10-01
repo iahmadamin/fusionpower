@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/constant/utils.dart';
@@ -25,41 +23,40 @@ class YourDetailsPage extends StatefulWidget {
 }
 
 class _YourDetailsPageState extends State<YourDetailsPage> {
-  late final TextEditingController nameController;
-  late final TextEditingController emailController;
-  late final TextEditingController phoneController;
-  late final TextEditingController addressController;
-  late final TextEditingController postalController;
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController postalController = TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final ApiController apiController = Get.find<ApiController>();
 
   final List<String> roofTypeList = [
-    "Select Option",
     "Flat Roof",
     "Tiled Roof",
     "IBR",
     "Corrugated",
     "Other"
   ];
-  String selectedRoofType = "Select Option";
+  String selectedRoofType = "Tiled Roof";
 
   final List<String> cityList = [
-    'Select City',
     'Johannesburg',
     'Preoria',
     'Cape Town',
   ];
-  String selectedCity = 'Select City';
+  String selectedCity = 'Cape Town';
 
   @override
   void initState() {
     super.initState();
-    nameController = TextEditingController();
-    emailController = TextEditingController();
-    phoneController = TextEditingController();
-    addressController = TextEditingController();
-    postalController = TextEditingController();
+
+    nameController.text = "Neil";
+    emailController.text = "neil@solaradvice.co.za";
+    phoneController.text = "+27822022220";
+    addressController.text = "14 Pentz Lane";
+    postalController.text = "7441";
   }
 
   @override
@@ -342,18 +339,24 @@ class _YourDetailsPageState extends State<YourDetailsPage> {
                     const SizedBox(
                       height: 12,
                     ),
-                    CButton(
-                        label: "Submit",
-                        width: 180,
-                        borderSize: 2,
-                        filled: false,
-                        fontColor: Colors.black,
-                        color: Colors.black,
-                        onTap: () {
-                          if (formKey.currentState!.validate()) {
-                            submitQuoteData();
-                          }
-                        }),
+                    GetBuilder<ApiController>(builder: (controller) {
+                      return controller.loading
+                          ? const Center(
+                              child: CircularProgressIndicator(),
+                            )
+                          : CButton(
+                              label: "Submit",
+                              width: 180,
+                              borderSize: 2,
+                              filled: false,
+                              fontColor: Colors.black,
+                              color: Colors.black,
+                              onTap: () {
+                                if (formKey.currentState!.validate()) {
+                                  submitQuoteData();
+                                }
+                              });
+                    }),
                     const SizedBox(
                       height: 8,
                     ),
@@ -368,6 +371,16 @@ class _YourDetailsPageState extends State<YourDetailsPage> {
   }
 
   void submitQuoteData() {
+    int shipping = 0;
+    if (selectedCity == "Johannesburg" || selectedCity == "Pretoria") {
+      shipping = 0;
+    } else {
+      shipping +=
+          widget.kit.wooComComponents[0].qty * 200; // 200 per Solar Panel
+      shipping += widget.kit.wooComComponents[1].qty * 350; // 350 per Inverter
+      shipping += widget.kit.wooComComponents[2].qty * 400; // 400 per Battery
+    }
+
     final List<Map<String, dynamic>> cartProducts = [];
     for (var el in widget.kit.wooComComponents) {
       if (el.qty > 0) {
@@ -392,24 +405,20 @@ class _YourDetailsPageState extends State<YourDetailsPage> {
     }
 
     final userData = {
-      "type": 'User Details',
-      "full_name": nameController.text,
+      "name": nameController.text,
       "email": emailController.text,
       "phone": phoneController.text,
+      "roof": selectedRoofType,
       "address": addressController.text,
       "city": selectedCity,
-      "postal_code": postalController.text,
-      "roof_type": selectedRoofType
+      "postcode": postalController.text,
     };
 
     final data = {
       'cart_data': cartProducts,
       'user_data': userData,
+      'shipping': shipping,
     };
-
-    for (var product in cartProducts) {
-      log(product.toString());
-    }
 
     apiController.submitQuote(data);
   }
