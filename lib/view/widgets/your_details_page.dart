@@ -51,12 +51,6 @@ class _YourDetailsPageState extends State<YourDetailsPage> {
   @override
   void initState() {
     super.initState();
-
-    nameController.text = "Neil";
-    emailController.text = "neil@solaradvice.co.za";
-    phoneController.text = "+27822022220";
-    addressController.text = "14 Pentz Lane";
-    postalController.text = "7441";
   }
 
   @override
@@ -112,16 +106,19 @@ class _YourDetailsPageState extends State<YourDetailsPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       for (var i = 0;
                           i < widget.kit.wooComComponents.length;
                           i++)
-                        WooComponentTile(
-                          wooCom: widget.kit.wooComComponents[i],
-                          index: i,
-                          kitType: widget.kit.kitType,
-                          static: true,
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: WooComponentTile(
+                            wooCom: widget.kit.wooComComponents[i],
+                            index: i,
+                            kitType: widget.kit.kitType,
+                            static: true,
+                          ),
                         )
                     ],
                   ),
@@ -201,7 +198,6 @@ class _YourDetailsPageState extends State<YourDetailsPage> {
                       textInputType: TextInputType.phone,
                       validator: (val) => Validators.phoneValidator(val),
                     ),
-                    const SizedBox(height: 4),
                     const Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
@@ -260,7 +256,7 @@ class _YourDetailsPageState extends State<YourDetailsPage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 12,
+                      height: 24,
                     ),
                     RInputField(
                       controller: addressController,
@@ -327,7 +323,7 @@ class _YourDetailsPageState extends State<YourDetailsPage> {
                       ),
                     ),
                     const SizedBox(
-                      height: 12,
+                      height: 24,
                     ),
                     RInputField(
                       controller: postalController,
@@ -373,12 +369,15 @@ class _YourDetailsPageState extends State<YourDetailsPage> {
   void submitQuoteData() {
     int shipping = 0;
     if (selectedCity == "Johannesburg" || selectedCity == "Pretoria") {
-      shipping = 0;
-    } else {
+      shipping = 550;
+    } else if (widget.kit.kitType == KitType.solar) {
       shipping +=
           widget.kit.wooComComponents[0].qty * 200; // 200 per Solar Panel
       shipping += widget.kit.wooComComponents[1].qty * 350; // 350 per Inverter
       shipping += widget.kit.wooComComponents[2].qty * 400; // 400 per Battery
+    } else if (widget.kit.kitType == KitType.loadShedding) {
+      shipping += widget.kit.wooComComponents[0].qty * 350; // 350 per Inverter
+      shipping += widget.kit.wooComComponents[1].qty * 400; // 400 per Battery
     }
 
     final List<Map<String, dynamic>> cartProducts = [];

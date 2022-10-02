@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:fusionpower/models/kit_model.dart';
 import 'package:fusionpower/models/product_model.dart';
 import 'package:fusionpower/models/woo_com_model.dart';
 import 'package:fusionpower/services/api_services.dart';
+import 'package:fusionpower/view/pages/kit_page.dart';
 import 'package:get/get.dart';
 
 class ApiController extends GetxController {
@@ -24,17 +26,27 @@ class ApiController extends GetxController {
 
     updateLoading(true);
     try {
-      var response = await _apiService.emptyCart();
-      log("emptyCart response status code: ${response.statusCode}");
-      log("emptyCart response: ${response.body}");
-    } catch (e) {
-      log("emptyCart error: $e");
-    }
-    // late dynamic response;
-    try {
-      var response = await _apiService.submitQuote(data);
-      log("Submit Quote Response Status Code: ${response.statusCode}");
-      log("Submit Quote Response: ${response.body}");
+      var emptyCartResponse = await _apiService.emptyCart();
+      log("emptyCart response status code: ${emptyCartResponse.statusCode}");
+      log("emptyCart response: ${emptyCartResponse.body}");
+
+      var submitQuoteResponse = await _apiService.submitQuote(data);
+      log("Submit Quote Response Status Code: ${submitQuoteResponse.statusCode}");
+      log("Submit Quote Response: ${submitQuoteResponse.body}");
+
+      if (submitQuoteResponse.statusCode == 200 &&
+          emptyCartResponse.statusCode == 200) {
+        log("Quote submitted successfully");
+        Get.offAll(() => const KitPage());
+        Get.snackbar(
+          "Message",
+          "Quote Submitted Successfully!",
+          snackPosition: SnackPosition.BOTTOM,
+          padding: const EdgeInsets.all(16),
+        );
+      } else {
+        log("Quote submission failed");
+      }
     } catch (e) {
       log("Error in ApiController(submitQuote): ${e.toString()}");
     }
