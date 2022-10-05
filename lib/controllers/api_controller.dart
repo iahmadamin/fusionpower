@@ -6,7 +6,7 @@ import 'package:fusionpower/models/kit_model.dart';
 import 'package:fusionpower/models/product_model.dart';
 import 'package:fusionpower/models/woo_com_model.dart';
 import 'package:fusionpower/services/api_services.dart';
-import 'package:fusionpower/view/pages/kit_page.dart';
+import 'package:fusionpower/view/pages/quote_submitted_page.dart';
 import 'package:get/get.dart';
 
 class ApiController extends GetxController {
@@ -37,7 +37,7 @@ class ApiController extends GetxController {
       if (submitQuoteResponse.statusCode == 200 &&
           emptyCartResponse.statusCode == 200) {
         log("Quote submitted successfully");
-        Get.offAll(() => const KitPage());
+        Get.offAll(() => const QuoteSubmittedPage());
         Get.snackbar(
           "Message",
           "Quote Submitted Successfully!",

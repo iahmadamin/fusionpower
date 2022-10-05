@@ -70,6 +70,7 @@ class KitController extends GetxController {
 
   void setDefaultQuantities() {
     defaultProducts = kit!.wooComComponents.map((e) => e).toList();
+    log("DefaultProducts: $defaultProducts");
   }
 
   void revertToDefaultQuantities() {
@@ -120,13 +121,15 @@ class KitController extends GetxController {
               wooComponents[0].qty);
       setDefaultProductQuantity(1, inverterData['qty']);
     } else if (wooComIndex == 2) {
-      var batteries = calculateNumberOfBatteries(
-        minBatteryQty: defaultProducts[2].min,
-        sliderValue: energyOffset * 100,
-        billToKwh: billTokWh,
-        batterySize:
-            (defaultProducts[2].defaultProduct! as Battery).storageSize,
-      );
+      var batteries = billTokWh == 0
+          ? 1
+          : calculateNumberOfBatteries(
+              minBatteryQty: defaultProducts[2].min,
+              sliderValue: energyOffset * 100,
+              billToKwh: billTokWh,
+              batterySize:
+                  (defaultProducts[2].defaultProduct! as Battery).storageSize,
+            );
       setDefaultProductQuantity(2, batteries);
     }
 

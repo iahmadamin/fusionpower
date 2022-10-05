@@ -45,6 +45,7 @@ int calculateNumberOfPannels({
 /// ---------------- getNumOfBatteries ----------------
 int _getNumBatteries(num kwh, double batterySize) {
   double totalSizeOfBank = ((kwh / 30) / batterySize) * batterySize;
+  log("totalSizeOfBank: $totalSizeOfBank");
   return (totalSizeOfBank / batterySize).round();
 }
 
@@ -55,10 +56,15 @@ int calculateNumberOfBatteries({
   required int billToKwh,
   required double batterySize,
 }) {
+  log("calculateNumberOfBatteries (kit_controller.dart)");
+  log("minBatteryQty: $minBatteryQty");
+  log("sliderValue: $sliderValue");
+  log("billToKwh: $billToKwh");
   double splitForBatteries = ((100 - sliderValue) / 100) * billToKwh;
-  return (splitForBatteries < minBatteryQty
+  log("splitForBatteries: $splitForBatteries");
+  return splitForBatteries < minBatteryQty
       ? _getNumBatteries(minBatteryQty, batterySize)
-      : _getNumBatteries(splitForBatteries, batterySize));
+      : _getNumBatteries(splitForBatteries, batterySize);
 }
 
 /// ------------------------- Calculate Inverter Size -------------------------
