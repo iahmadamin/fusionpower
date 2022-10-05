@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
+import 'package:fusionpower/view/pages/kit_page.dart';
 import 'package:fusionpower/view/widgets/c_button.dart';
+import 'package:get/get.dart';
 
 class QuoteSubmittedPage extends StatelessWidget {
   const QuoteSubmittedPage({Key? key}) : super(key: key);
@@ -8,6 +10,21 @@ class QuoteSubmittedPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.offAll(() => const KitPage());
+          },
+          icon: const Icon(Icons.close),
+        ),
+        backgroundColor: greyDark,
+        elevation: 0,
+        centerTitle: true,
+        title: const Text(
+          "Quote Submitted Successfully",
+          style: TextStyle(fontFamily: 'Purple Purse'),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
