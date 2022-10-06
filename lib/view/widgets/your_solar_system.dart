@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fusionpower/constant/colors.dart';
 import 'package:fusionpower/controllers/kit_controller.dart';
 import 'package:fusionpower/models/kit_model.dart';
+import 'package:fusionpower/models/product_model.dart';
 import 'package:fusionpower/view/widgets/woo_component_tile.dart';
 import 'package:get/get.dart';
 
@@ -79,7 +80,7 @@ class _YourSolarSystemWidgetState extends State<YourSolarSystemWidget> {
                         color: greyDark, fontSize: 11, letterSpacing: 0.38),
                   ),
                   Text(
-                    "${controller.wooComponents[0].max} Panels",
+                    "${(((controller.wooComponents[1].defaultProduct as Inverter).maxPv / (controller.wooComponents[0].defaultProduct as Panel).watts) * controller.wooComponents[1].qty).ceil()} Panels",
                     style: const TextStyle(
                         decoration: TextDecoration.underline,
                         color: greyDark,
